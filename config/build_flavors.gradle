@@ -1,0 +1,48 @@
+
+//机型适配
+def v1_1 = 1; def v1_2 = 2;
+
+//大功能变动
+def v2_1 = 1;
+
+//流水号：小功能，bug修复
+def v3_1 = 1;
+
+android{
+    //signingConfigs: 自定义release签名列表
+    signingConfigs {
+        virgo {
+            storeFile file('../signKey/virgo2021.jks')
+            keyAlias 'key0'
+            keyPassword 'zsl142857'
+            storePassword 'zsl142857'
+        }
+    }
+
+    //多渠道打包:适配机型、android 不同版本
+    //需在main同级目录创建对应名称的文件夹，内部同路径同名文件会覆盖
+    flavorDimensions "local"
+    productFlavors {
+        //1, 通用
+        virgo_common {
+            flavorDimensions "local"
+            versionName "${v1_1}.${v2_1}.${v3_1}"
+            signingConfig signingConfigs.virgo //选择对应的签名文件
+            buildConfigField 'int', 'FLAVOR', '111' //自定义版本参数，通过 BuildConfig.flavorType 调用
+            buildConfigField 'String', 'SERVER_IP', '"192.168.2.110"'//服务器ip
+            buildConfigField 'String', 'SERVER_PORT', '"9999"' //服务器pory
+//        ndk {
+//            abiFilters "arm64-v8a", "armeabi-v7a", "armeabi"
+//        }
+        }
+
+        virgo_special {
+            flavorDimensions "local"
+            versionName "${v1_2}.${v2_1}.${v3_1}"
+            signingConfig signingConfigs.virgo
+            buildConfigField 'int', 'FLAVOR', '211'
+            buildConfigField 'String', 'SERVER_IP', '"192.168.0.1"'
+            buildConfigField 'String', 'SERVER_PORT', '"9999"'
+        }
+    }
+}

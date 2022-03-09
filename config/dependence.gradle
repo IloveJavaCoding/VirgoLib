@@ -1,0 +1,30 @@
+//编译、第三方库统一版本管理
+//1. 版本号
+def multidexVersion = "1.0.3"
+def glideVersion = "4.9.0" //"3.7.0"
+def gsonVersion = "2.8.6"
+def greendaoVersion = "3.3.0"
+def eventBusVersion = "2.4.0"
+
+
+//2. 外部调用接口
+project.ext{
+    //编译版本
+    android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion: 19,
+            targetSdkVersion: 30
+    ]
+
+    //第三方库
+    dependencies = [
+            "multidex"            : "com.android.support:multidex:${multidexVersion}",
+            "glide"               : "com.github.bumptech.glide:glide:${glideVersion}",
+            "gson"                : "com.google.code.gson:gson:${gsonVersion}",
+
+            "eventbus"            : "de.greenrobot:eventbus:${eventBusVersion}",
+            "greendao"            : "org.greenrobot:greendao:${greendaoVersion}",
+            "greendao-generator"  : "org.greenrobot:greendao-generator:${greendaoVersion}",
+    ]
+}
