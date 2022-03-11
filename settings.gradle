@@ -1,2 +1,4 @@
+include ':virgosdk'
+include ':virgocom'
 include ':app'
 rootProject.name = "VirgoLib"

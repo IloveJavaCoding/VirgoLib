@@ -12,9 +12,9 @@ import android.widget.ImageView;
 
 import com.nepalese.virgolib.R;
 import com.nepalese.virgolib.helper.CommonHelper;
-import com.nepalese.virgolib.helper.GlideHelper;
+import com.nepalese.virgosdk.Util.GlideUtil;
 import com.nepalese.virgosdk.Util.SystemUtil;
-import com.nepalese.virgosdk.Util.WinowUtil;
+import com.nepalese.virgosdk.Util.UIUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -134,14 +134,14 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, ": 正常进入!");
 
         //隐藏顶部状态栏
-        WinowUtil.setStatusHide(this);
+        UIUtil.setStatusHide(this);
 
         ImageView imageView = findViewById(R.id.imgMainBg);
 
         if(CommonHelper.isLandscape(this)){
-            GlideHelper.loadImage(R.raw.img_bg_land, imageView);
+            GlideUtil.loadImage(R.raw.img_bg_land, imageView);
         }else{
-            GlideHelper.loadImage(R.raw.img_bg_portrait, imageView);
+            GlideUtil.loadImage(R.raw.img_bg_portrait, imageView);
         }
 
         jump2Home();

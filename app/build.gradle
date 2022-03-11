@@ -16,7 +16,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode 1
 //        versionName "1.1.1"
-//        multiDexEnabled true //开启分包
+        multiDexEnabled true //开启分包
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -75,19 +75,20 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation project(path: ':virgosdk')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //引用本地jar/aar 位于 libs
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
-    implementation files('libs/VirgoSDK_1.1.2.jar')
+//    implementation files('libs/VirgoSDK_1.1.2.jar')
 //    implementation files('libs/VirgoComponent_1.1.2.jar')
 
     //额外第三方库
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
+//    implementation 'com.github.bumptech.glide:glide:4.9.0'
+//    implementation 'com.google.code.gson:gson:2.8.6'
 
     //LeakCanary2.0 自动安装，不再依赖于 support Library，也不再依赖于 AndroidX，在发布版本中不会有任何引用 LeakCanary 的代码；
     debugImplementation('com.squareup.leakcanary:leakcanary-android:2.0')

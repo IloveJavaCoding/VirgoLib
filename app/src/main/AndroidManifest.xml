@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nepalese.virgolib">
+    <!-- 打开窗口使用 TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层 -->
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"
@@ -9,6 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib">
+        <activity android:name=".mainbody.activity.fileopt.FileOperationActivity"></activity>
+        <activity android:name=".mainbody.activity.download.DownloadActivity" />
+        <activity android:name=".mainbody.activity.database.DatabaseActivity" />
+        <activity android:name=".mainbody.activity.network.NetworkActivity" />
+        <activity android:name=".mainbody.activity.imageopt.ImageOperationActivity" />
+        <activity android:name=".mainbody.activity.selfcom.SelfComponentActivity" />
+        <activity android:name=".mainbody.activity.thirdlib.ThirdLibActivity" />
+        <activity android:name=".mainbody.activity.oricom.OriComponentActivity" />
         <activity android:name=".mainbody.activity.HomeActivity" />
         <activity android:name=".mainbody.activity.MainActivity">
             <intent-filter>
@@ -16,33 +25,53 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- 监听自启广播 -->
+        <receiver android:name=".mainbody.receivers.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.REBOOT" />
+                <!-- just for htc -->
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver> <!-- 监听usb口、sd卡槽插入、拔出： android:scheme="file" 仅监听存储设备 -->
+        <receiver android:name=".mainbody.receivers.MountReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_REMOVED" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+
+                <data android:scheme="file" />
+            </intent-filter>
+        </receiver> <!-- 电量变化及电源连接状态广播 -->
+        <receiver android:name=".mainbody.receivers.BatteryReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
     </application>
-    <!--    文件读写权限，按版本区分（进入申请） -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 仅需注册 -->
+    <!-- 网络访问 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <!-- 位置信息：（使用时申请） -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 相机：（使用时申请） -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 录音：（使用时申请） -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!-- 打开窗口使用 TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 禁用键盘锁 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 接收自启广播, Android 10+ 自启需 SYSTEM_ALERT_WINDOW 权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <!-- 仅需注册 -->
-    <!-- 网络访问 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!-- 禁用键盘锁 -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <!-- 接收自启广播, Android 10+ 自启需 SYSTEM_ALERT_WINDOW 权限-->
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>

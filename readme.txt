@@ -58,3 +58,30 @@ mainactivity:
 3. app 图标：
     a: app -> new -> image asset -> path 选择图片（jpg, png, jpeg）
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+后台
+1. broadcast receiver:
+    a: 自启广播：android.intent.action.BOOT_COMPLETED
+    b: usb 插入拔出广播：该广播先于自启广播，且自启时自带外部存储会会触发
+        android.intent.action.MEDIA_MOUNTED
+        android.intent.action.MEDIA_UNMOUNTED
+    c: 电源、电量变化广播：
+        Intent.ACTION_BATTERY_CHANGE
+        Intent.ACTION_BATTERY_LOW
+        Intent.ACTION_BATTERY_OKAY
+        Intent.ACTION_POWER_CONNECTED
+        Intent.ACTION_POWER_DISCONNECTED
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+本地依赖库：.jar/.aar/导入模块
+1. virgocom: aar 控件模块；（独立打包：Terminal ->$ gradlew makeAar + (ctrl+enter))
+2. virgosdk: jar 工具库模块；（独立打包：Terminal ->$ gradlew makeJar + (ctrl+enter))
+3. 添加引用：settings.gradle
+    include ':virgosdk'
+    include ':virgocom'
+
+4. .jar/.aar:
+    implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
+    implementation files('libs/VirgoSDK_1.1.2.jar')
+    implementation files('libs/VirgoComponent_1.1.2.jar')
