@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VirgoBookView">
+        <attr name="vbookTextSize" format="dimension" />
+        <attr name="vbookTextColor" format="color|reference" />
+        <attr name="vbookBgColor" format="color|reference" />
+        <attr name="vbookDividerHeight" format="dimension|reference" />
+        <attr name="vbookPadValue" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="VirgoLrcView">
+        <attr name="vlrcTextSizeMain" format="dimension" />
+        <attr name="vlrcTextSizeSec" format="dimension" />
+        <attr name="vlrcTextColorMain" format="color|reference" />
+        <attr name="vlrcTextColorSec" format="color|reference" />
+        <attr name="vlrcDividerHeight" format="dimension|reference" />
+        <attr name="vlrcpadValue" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="VirgoDrawableTextView">
+        <attr name="dtvDrawableSrc" format="reference"/>
+        <attr name="dtvDrawableHeight" format="dimension"/>
+        <attr name="dtvDrawableWidth" format="dimension"/>
+        <attr name="dtvDrawableLocation">
+            <enum name="left" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="right" value="3"/>
+            <enum name="bottom" value="4"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoCircleProcessBar">
+        <attr name="vcbBackColor" format="color|reference" />
+        <attr name="vcbFrontColor" format="color|reference" />
+        <attr name="vcbTextColor" format="color|reference" />
+        <attr name="vcbTextSize" format="dimension|reference" />
+        <attr name="vcbRadius" format="dimension|reference" />
+        <attr name="vcbStrokeWidth" format="dimension|reference" />
+        <attr name="vcbProcess" format="integer" />
+        <attr name="vcbMax" format="integer" />
+        <attr name="vcbAddText" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoPickerView">
+        <attr name="vpvIsLoop" format="boolean" />
+        <attr name="vpvMainColor" format="color|reference" />
+        <attr name="vpvSecondColor" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="VirgoImagePlayer">
+        <attr name="vipDotSize" format="dimension|reference"/>
+        <attr name="vipDotMargin" format="dimension|reference"/>
+        <attr name="vipDuration" format="integer"/>
+        <attr name="vipAddDot" format="boolean"/>
+        <attr name="vipDotFocus" format="reference"/>
+        <attr name="vipDotUnFocus" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoCircleRoundImageView">
+        <attr name="vimgMode" format="integer">
+            <enum name="mode_round" value="1"/>
+            <enum name="mode_circle" value="2"/>
+        </attr>
+        <attr name="vimgRoundRadious" format="dimension|reference"/>
+        <attr name="vimgAddBorder" format="boolean"/>
+        <attr name="vimgBorderWidth" format="dimension|reference"/>
+        <attr name="vimgBorderStartColor" format="color|reference"/>
+        <attr name="vimgBorderEndColor" format="color|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoParticles">
+        <attr name="vpDotNum" format="integer"/>
+        <attr name="vpDotRadius" format="dimension|reference"/>
+        <attr name="vpMaxSpace" format="float"/>
+        <attr name="vpMoveSpace" format="float"/>
+        <attr name="vpBgColor" format="color|reference"/>
+        <attr name="vpDotColor" format="color|reference"/>
+        <attr name="vpLineColor" format="color|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoRippleView">
+        <attr name="rvBigColor" format="color|reference" />
+        <attr name="rvSmallColor" format="color|reference" />
+        <attr name="rvStrokeWidth" format="dimension|reference" />
+        <attr name="rvBigRadius" format="dimension|reference" />
+        <attr name="rvSmallRadius" format="dimension|reference" />
+        <attr name="rvSpeed" format="float" />
+        <attr name="rvSpace" format="float" />
+        <attr name="rvRotateSpeed" format="integer" />
+        <attr name="rvAlphaSpeed" format="integer" />
+        <attr name="rvFlashInterval" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="VirgoRoundImageView">
+        <attr name="vroundWidth" format="dimension" />
+        <attr name="vroundHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="VirgoGradientView">
+        <attr name="vgMode" format="integer">
+            <enum name="mode_round" value="1"/>
+            <enum name="mode_rect" value="2"/>
+        </attr>
+        <attr name="vgGradientMode" format="integer">
+            <enum name="gradient_linear" value="1"/>
+            <enum name="gradient_sweep" value="2"/>
+            <enum name="gradient_radial" value="3"/>
+        </attr>
+        <attr name="vgLinearAngle" format="integer"/>
+        <attr name="vgRoundRadious" format="dimension|reference"/>
+        <attr name="vgColors" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="VirgoTextClockView">
+        <attr name="vtcTextColorMain" format="color|reference" />
+        <attr name="vtcTextColorSec" format="color|reference" />
+        <attr name="vtcColorBg" format="color|reference" />
+        <attr name="vtcTextSizeMain" format="dimension|reference" />
+        <attr name="vtcTextSizeClock" format="dimension|reference" />
+        <attr name="vtcRadiusH" format="dimension|reference" />
+        <attr name="vtcRadiusM" format="dimension|reference" />
+        <attr name="vtcRadiusS" format="dimension|reference" />
+        <attr name="vtcOffset" format="dimension|reference" />
+    </declare-styleable>
+</resources>
