@@ -3,7 +3,6 @@ package com.nepalese.virgosdk.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -14,8 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
-import androidx.annotation.RequiresApi;
 
 import com.nepalese.virgosdk.Manager.RuntimeExec;
 
@@ -84,30 +81,35 @@ public class WindowUtil {
     /**
      * 获取屏幕显示指标对象
      * @return DisplayMetrics //dm.widthPixels;  //dm.heightPixels;
-     * WindowManager)context.getSystemService(Context.WINDOW_SERVICE).getDefaultDisplay().getMetrics(dm); Deprecated
      */
-    @RequiresApi(api = Build.VERSION_CODES.R)
     public static DisplayMetrics getScreenDM(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
-        context.getDisplay().getRealMetrics(dm);
-
-        return dm;
-    }
-
-    public static DisplayMetrics getScreenDMOld(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(dm);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context.getDisplay().getRealMetrics(dm);
+        }else{
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            windowManager.getDefaultDisplay().getMetrics(dm);
+        }
 
         return dm;
     }
 
     public static int getScreenWidth(Context context){
-        return getScreenDMOld(context).widthPixels;
+        return getScreenDM(context).widthPixels;
     }
 
     public static int getScreenHeight(Context context){
-        return getScreenDMOld(context).heightPixels;
+        return getScreenDM(context).heightPixels;
+    }
+
+    /**
+     * 判断横屏还是竖屏
+     * @param context
+     * @return 横屏 true
+     */
+    public static boolean isLandscape(Context context){
+        DisplayMetrics screenDM = getScreenDM(context);
+        return screenDM.widthPixels>screenDM.heightPixels;
     }
 
     //===========================================键盘===============================================

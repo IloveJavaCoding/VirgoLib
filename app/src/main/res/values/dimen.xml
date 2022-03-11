@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_radius">5dp</dimen>
+    <dimen name="home_button_radius">8dp</dimen>
+    <dimen name="home_grid_padding">20dp</dimen>
+    <dimen name="home_grid_space">15dp</dimen>
+    <dimen name="home_grid_block">68dp</dimen>
+    <dimen name="home_grid_block_padd">5dp</dimen>
 </resources>

@@ -8,10 +8,14 @@ import com.nepalese.virgolib.R;
 
 /**
  * 原配控件使用
- * 1. textview
- * 2. editview
+ * 1. textview, editview, spinner
+ * 2. button, imagebutton, checkboc, radiobutton, togglebutton,
  * 3. fragments
  * 4. listview, gridview,recycleview
+ * 5. seekbar, switch, processbar
+ * 6. calender
+ * 7. dialog
+ * 8. webview
  */
 public class OriComponentActivity extends AppCompatActivity {
 

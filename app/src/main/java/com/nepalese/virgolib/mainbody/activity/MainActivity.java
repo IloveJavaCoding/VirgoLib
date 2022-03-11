@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.nepalese.virgolib.R;
@@ -15,6 +14,7 @@ import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgosdk.Util.GlideUtil;
 import com.nepalese.virgosdk.Util.SystemUtil;
 import com.nepalese.virgosdk.Util.UIUtil;
+import com.nepalese.virgosdk.Util.WindowUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,9 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_PERMISSIONS_ALL_FILES = 0x02;
     private static final int REQUEST_PERMISSIONS_OVERLAYERS = 0x03;
 
+    //onCreate -> onStart
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //隐藏顶部状态栏
+        UIUtil.setStatusHide(this);
         setContentView(R.layout.activity_main);
 
         init();
@@ -103,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){
             //Android 10 WRITE_EXTERNAL_STORAGE 没用
-            if(!CommonHelper.checkPermission(this, NEEDED_PERMISSIONS_10)){
+            if(!SystemUtil.checkPermission(this, NEEDED_PERMISSIONS_10)){
                 ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS_10, REQUEST_PERMISSIONS_STORAGE);
                 return false;
             }
         } else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             //Android 6+ 需动态申请权限
-            if(!CommonHelper.checkPermission(this, NEEDED_PERMISSIONS_6)){
+            if(!SystemUtil.checkPermission(this, NEEDED_PERMISSIONS_6)){
                 ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS_6, REQUEST_PERMISSIONS_STORAGE);
                 return false;
             }
@@ -131,14 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         //正常进入
-        Log.i(TAG, ": 正常进入!");
-
-        //隐藏顶部状态栏
-        UIUtil.setStatusHide(this);
-
         ImageView imageView = findViewById(R.id.imgMainBg);
 
-        if(CommonHelper.isLandscape(this)){
+        if(WindowUtil.isLandscape(this)){
             GlideUtil.loadImage(R.raw.img_bg_land, imageView);
         }else{
             GlideUtil.loadImage(R.raw.img_bg_portrait, imageView);

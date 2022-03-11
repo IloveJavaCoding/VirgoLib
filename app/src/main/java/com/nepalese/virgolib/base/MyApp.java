@@ -7,6 +7,8 @@ import android.util.Log;
 import com.nepalese.virgolib.bean.CrashHandler;
 import com.nepalese.virgolib.helper.CommonHelper;
 
+import androidx.multidex.MultiDex;
+
 /**
  * Created by Administrator on 2022/3/10.
  * Usage:全局
@@ -42,7 +44,7 @@ public class MyApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        Log.i(TAG, "attachBaseContext: ");
+        MultiDex.install(this);//支持分包
     }
 
     @Override

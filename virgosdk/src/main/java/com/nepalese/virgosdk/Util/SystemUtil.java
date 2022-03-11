@@ -182,7 +182,7 @@ public class SystemUtil {
      *                 //get all requested permissions
      *             } else {
      *                 showToast("Permission denied!");
-     *                 finish();
+     *                 //finish();
      *             }
      *         }
      *     }

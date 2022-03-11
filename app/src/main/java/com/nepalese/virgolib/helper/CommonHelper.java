@@ -5,14 +5,8 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.util.DisplayMetrics;
 
 import com.nepalese.virgosdk.Util.JsonUtil;
-import com.nepalese.virgosdk.Util.ScreenUtil;
-import com.nepalese.virgosdk.Util.SystemUtil;
-
-import androidx.core.content.ContextCompat;
 
 /**
  * Created by Administrator on 2022/3/9.
@@ -20,25 +14,6 @@ import androidx.core.content.ContextCompat;
  */
 
 public class CommonHelper {
-    /**
-     * 校验申请的权限是否都已授权
-     * @param context
-     * @param permissions 申请的权限
-     * @return
-     */
-    public static boolean checkPermission(Context context, String[] permissions) {
-        if (permissions != null && permissions.length > 0) {
-            boolean allGranted = true;
-
-            for (String neededPermission : permissions) {
-                allGranted &= ContextCompat.checkSelfPermission(context, neededPermission) == 0;
-            }
-
-            return allGranted;
-        } else {
-            return true;
-        }
-    }
 
     /**
      * activity 跳转到设置页请求某权限
@@ -51,6 +26,16 @@ public class CommonHelper {
         intent.setAction(action);
         intent.setData(Uri.parse("package:" + activity.getPackageName()));
         activity.startActivityForResult(intent, code);
+    }
+
+    /**
+     * 跳转到设置应用详情页
+     * @param activity
+     */
+    public static void jump2AppDetail(Activity activity) {
+        Intent intent = new Intent("android.settings.APPLICATION_DETAILS_SETTINGS");
+        intent.setData(Uri.parse("package:" + activity.getPackageName()));
+        activity.startActivity(intent);
     }
 
     /**
@@ -75,21 +60,5 @@ public class CommonHelper {
         ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
         manager.getMemoryInfo(info);
         return JsonUtil.toJson(info);
-    }
-
-    /**
-     * 判断横屏还是竖屏
-     * @param context
-     * @return
-     */
-    public static boolean isLandscape(Context context){
-        DisplayMetrics screenDM;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            screenDM = ScreenUtil.getScreenDM(context);
-        }else{
-            screenDM = ScreenUtil.getScreenDMOld(context);
-        }
-
-        return screenDM.widthPixels>screenDM.heightPixels;
     }
 }

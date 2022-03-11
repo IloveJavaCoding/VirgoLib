@@ -18,12 +18,10 @@ import java.util.List;
  */
 
 public class Adapter_GridView_Task extends BaseAdapter {
-    private Context context;
-    private LayoutInflater inflater;
-    private List<TaskBean> data;
+    private final LayoutInflater inflater;
+    private final List<TaskBean> data;
 
     public Adapter_GridView_Task(Context context, List<TaskBean> data) {
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.data = data;
     }

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainbody.activity.HomeActivity">
 
+    <com.nepalese.virgocomponent.view.VirgoParticles
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <GridView
         android:id="@+id/gridViewHome"
+        android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"/>
-
-</LinearLayout>
+        android:horizontalSpacing="@dimen/home_grid_space"
+        android:verticalSpacing="@dimen/home_grid_space"
+        android:numColumns="4"/>
+</RelativeLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nepalese.virgolib">
-    <!-- 打开窗口使用 TYPE_SYSTEM_ALERT，显示在其他所有程序的顶层 -->
+
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"
@@ -10,11 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib">
-        <activity android:name=".mainbody.activity.fileopt.FileOperationActivity"></activity>
+        <activity android:name=".mainbody.activity.demo.DemoActivity"></activity>
+        <activity android:name=".mainbody.activity.fileopt.FileOperationActivity" />
         <activity android:name=".mainbody.activity.download.DownloadActivity" />
         <activity android:name=".mainbody.activity.database.DatabaseActivity" />
         <activity android:name=".mainbody.activity.network.NetworkActivity" />
-        <activity android:name=".mainbody.activity.imageopt.ImageOperationActivity" />
+        <activity android:name=".mainbody.activity.mediaopt.MediaOptActivity" />
         <activity android:name=".mainbody.activity.selfcom.SelfComponentActivity" />
         <activity android:name=".mainbody.activity.thirdlib.ThirdLibActivity" />
         <activity android:name=".mainbody.activity.oricom.OriComponentActivity" />
@@ -54,15 +55,15 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-    </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 仅需注册 -->
+    </application> <!-- 仅需注册 -->
     <!-- 网络访问 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 蓝牙 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 禁用键盘锁 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 接收自启广播, Android 10+ 自启需 SYSTEM_ALERT_WINDOW 权限 -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 禁用键盘锁 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 接收自启广播, Android 10+ 自启需 SYSTEM_ALERT_WINDOW 权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />

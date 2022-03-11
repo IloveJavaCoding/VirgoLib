@@ -75,7 +75,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation project(path: ':virgosdk')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -84,9 +83,11 @@ dependencies {
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
 //    implementation files('libs/VirgoSDK_1.1.2.jar')
 //    implementation files('libs/VirgoComponent_1.1.2.jar')
+    implementation project(path: ':virgosdk')
+    implementation project(path: ':virgocom')
 
     //额外第三方库
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex:1.0.3' //android5.0+(21) 后不需要，自动支持
 //    implementation 'com.github.bumptech.glide:glide:4.9.0'
 //    implementation 'com.google.code.gson:gson:2.8.6'
 

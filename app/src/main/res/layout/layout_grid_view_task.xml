@@ -5,9 +5,10 @@
 
     <TextView
         android:id="@+id/tvTaskName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/home_grid_block"
+        android:layout_height="@dimen/home_grid_block"
+        android:padding="@dimen/home_grid_block_padd"
         android:gravity="center"
-        android:textColor="@color/black"
-        android:background="@drawable/button_transparent" />
+        android:textColor="@color/white"
+        android:background="@drawable/home_button" />
 </RelativeLayout>

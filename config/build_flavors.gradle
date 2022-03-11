@@ -17,6 +17,13 @@ android{
             keyPassword 'zsl142857'
             storePassword 'zsl142857'
         }
+
+        toollib {
+            storeFile file('../signKey/toollibs2020.jks')
+            keyAlias 'key0'
+            keyPassword 'zsl142857'
+            storePassword 'zsl142857'
+        }
     }
 
     //多渠道打包:适配机型、android 不同版本

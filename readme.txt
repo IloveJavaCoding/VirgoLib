@@ -80,8 +80,39 @@ mainactivity:
 3. 添加引用：settings.gradle
     include ':virgosdk'
     include ':virgocom'
+4. dependencies:
+    implementation project(path: ':virgosdk')
+    implementation project(path: ':virgocom')
 
-4. .jar/.aar:
+5. .jar/.aar:
     implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs')
     implementation files('libs/VirgoSDK_1.1.2.jar')
     implementation files('libs/VirgoComponent_1.1.2.jar')
+
+开启分包：dex max is 65536(单个包最多纪录方法数)
+    Dex主要组成：
+    - Android FrameWork 方法数
+    - Lib 方法数
+    - 你自己写的代码方法数
+    a: android5.0之前，dalvik规定每一个apk只能包含一个dex文件;
+        defaultConfig {
+            multiDexEnabled true //开启分包
+        }
+        dependencies {
+          implementation 'com.android.support:multidex:1.0.3'
+        }
+    b: android5.0+(21)，开始使用了art环境取代Dalvik，而art架构本身支持多dex文件的加载;
+        defaultConfig {
+            multiDexEnabled true //开启分包
+        }
+    c: 配置Application:
+        <application
+                android:name="android.support.multidex.MultiDexApplication" >
+                ...
+        </application>
+        //或者 重写Application
+        @Override
+        protected void attachBaseContext(Context base) {
+             super.attachBaseContext(context);
+             Multidex.install(this);
+        }
