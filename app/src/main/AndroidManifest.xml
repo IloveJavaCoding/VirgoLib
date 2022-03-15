@@ -10,7 +10,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib">
-        <activity android:name=".mainbody.activity.demo.DemoActivity"></activity>
+        <activity android:name=".mainbody.activity.oricom.ExtSpinnerActivity"></activity>
+        <activity android:name=".mainbody.activity.oricom.WebviewActivity" />
+        <activity android:name=".mainbody.activity.oricom.DialogsActivity" />
+        <activity android:name=".mainbody.activity.oricom.CalenderClockActivity" />
+        <activity android:name=".mainbody.activity.oricom.BarsActivity" />
+        <activity android:name=".mainbody.activity.oricom.FragmentsActivity" />
+        <activity android:name=".mainbody.activity.oricom.ButtonsActivity" />
+        <activity android:name=".mainbody.activity.oricom.TextViewActivity" />
+        <activity android:name=".mainbody.activity.demo.DemoActivity" />
         <activity android:name=".mainbody.activity.fileopt.FileOperationActivity" />
         <activity android:name=".mainbody.activity.download.DownloadActivity" />
         <activity android:name=".mainbody.activity.database.DatabaseActivity" />
@@ -19,8 +27,12 @@
         <activity android:name=".mainbody.activity.selfcom.SelfComponentActivity" />
         <activity android:name=".mainbody.activity.thirdlib.ThirdLibActivity" />
         <activity android:name=".mainbody.activity.oricom.OriComponentActivity" />
-        <activity android:name=".mainbody.activity.HomeActivity" />
-        <activity android:name=".mainbody.activity.MainActivity">
+        <activity
+            android:name=".mainbody.activity.HomeActivity"
+            android:theme="@style/FullTheme" />
+        <activity
+            android:name=".mainbody.activity.MainActivity"
+            android:theme="@style/FullTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,15 +67,14 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-    </application> <!-- 仅需注册 -->
-    <!-- 网络访问 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> <!-- 蓝牙 -->
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 仅需注册 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 网络访问 -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 禁用键盘锁 -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 接收自启广播, Android 10+ 自启需 SYSTEM_ALERT_WINDOW 权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 禁用键盘锁 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />

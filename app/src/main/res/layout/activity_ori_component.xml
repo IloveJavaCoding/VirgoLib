@@ -1,9 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/page_layout_padding"
     tools:context=".mainbody.activity.oricom.OriComponentActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onTextView"
+        android:text="textview"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onEtSp"
+        android:text="editview | spinner"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onButton"
+        android:text="button | checkboc | radiobutton"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onFragments"
+        android:text="fragments | listview | gridview | recycleview"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBar"
+        android:text="seekbar | switch | processbar | ratingbar"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onCalender"
+        android:text="calender | textclock"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onDialog"
+        android:text="dialog"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onWebView"
+        android:text="webview"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+</LinearLayout>

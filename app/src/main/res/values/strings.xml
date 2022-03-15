@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">VirgoLib</string>
 
+    <string name="concat_str">拼接_%1$s_</string>
+    <string name="concat_decimal">拼接_%1$d_</string>
+    <string name="concat_float">拼接_%1$.2f_</string>
 
+    <string name="str_underline"><u>%1$s</u></string>
 </resources>

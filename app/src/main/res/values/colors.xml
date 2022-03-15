@@ -11,6 +11,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="transparent">#00FFFFFF</color>
-    <color name="grey">#cdcdcd</color>
+    <color name="page_btn_grey">#CCEAEAEF</color>
+    <color name="page_btn_grey2">#EAEAEF</color>
 </resources>

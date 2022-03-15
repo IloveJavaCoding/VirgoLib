@@ -116,3 +116,14 @@ mainactivity:
              super.attachBaseContext(context);
              Multidex.install(this);
         }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+原配控件使用:
+ * 1. textview, editview, spinner
+ * 2. button, imagebutton, checkboc, radiobutton, togglebutton,
+ * 3. fragments
+ * 4. listview, gridview, recycleview
+ * 5. seekbar, switch, processbar, ratingbar
+ * 6. calender, textclock
+ * 7. dialog
+ * 8. webview
