@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏顶部状态栏
-        UIUtil.setStatusHide(this);
+        UIUtil.setSNHide(this);
         setContentView(R.layout.activity_main);
 
         init();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             //android 11+
             if(!Environment.isExternalStorageManager()){
                 //跳转新页面申请权限
-                CommonHelper.jump4Permission(this, Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, REQUEST_PERMISSIONS_ALL_FILES);
+                CommonHelper.jump4Permission(MainActivity.this, Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, REQUEST_PERMISSIONS_ALL_FILES);
                 return false;
             }
         } else if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.Q){

@@ -24,7 +24,7 @@ public class CommonHelper {
     public static void jump4Permission(Activity activity, String action, int code){
         Intent intent = new Intent();
         intent.setAction(action);
-        intent.setData(Uri.parse("package:" + activity.getPackageName()));
+//        intent.setData(Uri.parse("package:" + activity.getPackageName()));
         activity.startActivityForResult(intent, code);
     }
 

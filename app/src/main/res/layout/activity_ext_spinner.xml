@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/tvLog"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:padding="10dp"
+        android:layout_height="40dp"
         android:background="@color/colorGray"
         android:textColor="@color/colorRed"/>
 
@@ -19,23 +20,26 @@
         android:layout_height="wrap_content"
         android:background="@color/color_JGH"
         android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <EditText
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:hint="text"
             android:inputType="text"/>
 
         <EditText
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:hint="number"
             android:inputType="number"/>
 
         <EditText
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:hint="numberDecimal"
             android:inputType="numberDecimal"/>
 
@@ -51,23 +55,33 @@
         android:layout_height="wrap_content"
         android:background="@color/color_QCL"
         android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="@dimen/edit_input_width"
+                android:layout_height="wrap_content"
+                android:hint="textPassword"
+                android:inputType="textPassword"/>
+
+            <CheckBox
+                android:id="@+id/cbHidePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+        </LinearLayout>
+
         <EditText
-            android:id="@+id/etPassword"
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
-            android:hint="textPassword"
-            android:inputType="textPassword"/>
-
-        <CheckBox
-            android:id="@+id/cbHidePassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"/>
-
-        <EditText
-            android:layout_width="@dimen/edit_input_width"
-            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:hint="numberPassword"
             android:inputType="numberPassword"/>
 
@@ -91,6 +105,7 @@
             android:id="@+id/etEnter"
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:hint="enter"
             android:background="@drawable/edittext_frame"/>
 
@@ -102,22 +117,19 @@
             android:hint="no keyborad" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/white"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@color/color_XHR">
 
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
+            android:padding="5dp"
             android:layout_weight="1"
             android:entries="@array/Date"
             android:background="@drawable/spinner_frame"/>
@@ -126,6 +138,7 @@
             android:id="@+id/spinner2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:layout_weight="1"/>
 
         <Spinner

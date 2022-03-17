@@ -46,7 +46,7 @@ android {
     dexOptions {
         jumboMode = true
         preDexLibraries false
-        javaMaxHeapSize "2g" //项目最大占用内存
+        javaMaxHeapSize "1g" //项目最大占用内存
     }
 
     packagingOptions {

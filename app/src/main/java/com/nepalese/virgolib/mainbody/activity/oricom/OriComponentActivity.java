@@ -2,6 +2,7 @@ package com.nepalese.virgolib.mainbody.activity.oricom;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,7 +19,7 @@ import com.nepalese.virgosdk.Util.SystemUtil;
  * 6. calender, textclock
  * 7. dialog
  * 8. webview
- * 9. camera
+ * 9. camera/camera2
  */
 public class OriComponentActivity extends AppCompatActivity {
 
@@ -71,7 +72,10 @@ public class OriComponentActivity extends AppCompatActivity {
 
     //camera
     public void onCamrea(View view){
-        SystemUtil.jumActivity(this, CameraActivity.class);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            SystemUtil.jumActivity(this, Camera2Activity.class);
+        }else{
+            SystemUtil.jumActivity(this, CameraActivity.class);
+        }
     }
-
 }

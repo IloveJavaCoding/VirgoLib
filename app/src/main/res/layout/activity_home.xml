@@ -7,12 +7,13 @@
     android:background="@color/black"
     tools:context=".mainbody.activity.HomeActivity">
 
-<!--    <com.nepalese.virgocomponent.view.VirgoParticles-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
+    <com.nepalese.virgocomponent.view.VirgoParticles
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <GridView
         android:id="@+id/gridViewHome"
+        android:layout_marginTop="40dp"
         android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

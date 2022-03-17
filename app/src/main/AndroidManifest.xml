@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib">
-        <activity android:name=".mainbody.activity.oricom.CameraActivity"></activity>
+        <activity android:name=".mainbody.activity.oricom.Camera2Activity" />
+        <activity android:name=".mainbody.activity.oricom.CameraActivity" />
         <activity android:name=".mainbody.activity.oricom.ExtSpinnerActivity" />
         <activity android:name=".mainbody.activity.oricom.WebviewActivity" />
         <activity android:name=".mainbody.activity.oricom.DialogsActivity" />
@@ -28,12 +29,10 @@
         <activity android:name=".mainbody.activity.selfcom.SelfComponentActivity" />
         <activity android:name=".mainbody.activity.thirdlib.ThirdLibActivity" />
         <activity android:name=".mainbody.activity.oricom.OriComponentActivity" />
+        <activity android:name=".mainbody.activity.HomeActivity" />
+<!--        android:theme="@style/FullTheme"-->
         <activity
-            android:name=".mainbody.activity.HomeActivity"
-            android:theme="@style/FullTheme" />
-        <activity
-            android:name=".mainbody.activity.MainActivity"
-            android:theme="@style/FullTheme">
+            android:name=".mainbody.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,20 +67,25 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-    </application> <!-- 仅需注册 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 网络访问 -->
+    </application>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 蓝牙 -->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 禁用键盘锁 -->
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 仅需注册 -->
+    <!-- 网络访问 -->
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 禁用键盘锁 -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 

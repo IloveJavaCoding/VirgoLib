@@ -7,6 +7,9 @@
 
     <string name="str_underline"><u>测试</u></string>
 
+    <string name="camera_play_pause">播放|停止</string>
+    <string name="camera_capture">拍照</string>
+    <string name="camera_record">录像</string>
 
     <string-array name="Date">
         <item>星期一</item>

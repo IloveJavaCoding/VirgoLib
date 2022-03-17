@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mainbody.activity.oricom.CameraActivity">
+    tools:context=".mainbody.activity.oricom.Camera2Activity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:layout_weight="1">
 
         <TextureView
-            android:id="@+id/texture_camera"
+            android:id="@+id/texture_camera2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </FrameLayout>
@@ -56,7 +56,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/img_camera_capture"
+            android:id="@+id/img_camera2_capture"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerInside"/>

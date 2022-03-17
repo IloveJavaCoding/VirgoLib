@@ -12,5 +12,6 @@
     <dimen name="page_layout_padding">20dp</dimen>
     <dimen name="page_tv_size">18sp</dimen>
 
-    <dimen name="edit_input_width">150dp</dimen>
+    <dimen name="edit_input_width">200dp</dimen>
+    <dimen name="edit_input_margin_b">10dp</dimen>
 </resources>

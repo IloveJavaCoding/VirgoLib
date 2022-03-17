@@ -14,10 +14,10 @@ import androidx.core.app.ActivityCompat;
  */
 public abstract class BasePermission2Activity extends BaseActivity {
     private static final int PERMISSION_REQUEST_CODE = 0x01;
-    private final String[] needPermissions;
+    protected String[] needPermissions;
 
-    public BasePermission2Activity(String[] permissions) {
-        this.needPermissions = permissions;
+    public BasePermission2Activity() {
+        setNeedPermissions();
     }
 
     public void setContentView(int layoutResID) {
@@ -29,15 +29,17 @@ public abstract class BasePermission2Activity extends BaseActivity {
         }
     }
 
+    protected abstract void setNeedPermissions();
+
     /**
      * 授权成功
      */
-    abstract void onPermissioned();
+    protected abstract void onPermissioned();
 
     /**
      * 拒绝授权
      */
-    abstract void onPermissionDeny();
+    protected abstract void onPermissionDeny();
 
     private boolean checkPermissions() {
         if(needPermissions==null || needPermissions.length<1){

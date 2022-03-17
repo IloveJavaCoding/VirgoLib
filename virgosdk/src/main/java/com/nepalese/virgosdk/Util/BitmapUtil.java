@@ -116,7 +116,7 @@ public class BitmapUtil {
 
     /**
      * byte[] 转 bitmap
-     * @param bytes byte[]
+     * @param bytes byte[] byte array of compressed image data
      * @return bitmap
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
