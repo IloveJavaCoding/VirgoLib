@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--通常是用layer-list来模拟一条线，shape本身是无法画一条线的
+将shape：rect 上，左，右延伸到有效范围内（不可见）-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:left="-2dp"
+        android:right="-2dp"
+        android:top="-2dp">
+        <shape>
+            <solid android:color="@color/colorTransparent" />
+
+            <stroke
+                android:width="2px"
+                android:color="@color/colorGray" />
+        </shape>
+    </item>
+</layer-list>

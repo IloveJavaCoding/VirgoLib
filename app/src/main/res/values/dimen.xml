@@ -8,7 +8,9 @@
 
     <dimen name="page_button_radius">5dp</dimen>
     <dimen name="page_button_padding">8dp</dimen>
-    <dimen name="page_button_margin">15dp</dimen>
-    <dimen name="page_layout_padding">15dp</dimen>
+    <dimen name="page_button_margin">20dp</dimen>
+    <dimen name="page_layout_padding">20dp</dimen>
     <dimen name="page_tv_size">18sp</dimen>
+
+    <dimen name="edit_input_width">150dp</dimen>
 </resources>

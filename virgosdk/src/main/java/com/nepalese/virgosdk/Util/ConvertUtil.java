@@ -217,23 +217,16 @@ public class ConvertUtil {
 
     //============================================array & list======================================
     // int[] 转 List<Integer>
-    @RequiresApi(api = Build.VERSION_CODES.N) //24
-    public static List<Object> intArr2List(int[] data) {
-        return Arrays.stream(data).boxed().collect(Collectors.toList());
-    }
-
-    /**
-     * int[] 转 List<Integer>
-     *
-     * @param data
-     * @return
-     */
-    public static List<Integer> intArr2List2(int[] data) {
-        List<Integer> list = new ArrayList<>();
-        for (int a : data) {
-            list.add(a);
+    public static List<Integer> intArr2List(int[] data) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//24
+            return Arrays.stream(data).boxed().collect(Collectors.toList());
+        }else{
+            List<Integer> list = new ArrayList<>();
+            for (int a : data) {
+                list.add(a);
+            }
+            return list;
         }
-        return list;
     }
 
     /**

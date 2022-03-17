@@ -33,7 +33,7 @@ public class TextViewActivity extends BaseActivity {
             "葡萄美酒夜光杯，欲饮琵琶马上催。醉卧沙场君莫笑。古来征战几人回。";
 
     private TextView tvLamp, tvConcatStr, tvConcatDecimal, tvConcatFloat, tvSpan;
-    private TextView tvTest1, tvTest2, tvTest3, tvTest4, tvTest5, tvTest6, tvTest7;
+    private TextView tvTest1, tvTest2, tvTest3, tvTest5, tvTest6, tvTest7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,6 @@ public class TextViewActivity extends BaseActivity {
         tvTest1 = findViewById(R.id.tvTest1);
         tvTest2 = findViewById(R.id.tvTest2);
         tvTest3 = findViewById(R.id.tvTest3);
-        tvTest4 = findViewById(R.id.tvTest4);
         tvTest5 = findViewById(R.id.tvTest5);
         tvTest6 = findViewById(R.id.tvTest6);
         tvTest7 = findViewById(R.id.tvTest7);
@@ -153,12 +152,12 @@ public class TextViewActivity extends BaseActivity {
         tvTest3.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
 
         //借用html <u></u>
-//          <string name="str_underline"><u>%1$s</u></string>
-        //在xml 可直接引用，java内需Html.fromHtml()转义一下；
-//        tvTest4.setText(Html.fromHtml(String.format(getString(R.string.str_underline), text)));
-
         String content2 = "<u>" + text + "</u>";
         tvTest5.setText(Html.fromHtml(content2));
+
+        //在xml 可直接引用
+//        <string name="str_underline"><u>测试</u></string>
+//        android:text="@string/str_underline"
 
         //4. 字体颜色
         tvTest6.setText(text);

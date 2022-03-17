@@ -18,6 +18,7 @@ import com.nepalese.virgosdk.Util.SystemUtil;
  * 6. calender, textclock
  * 7. dialog
  * 8. webview
+ * 9. camera
  */
 public class OriComponentActivity extends AppCompatActivity {
 
@@ -68,5 +69,9 @@ public class OriComponentActivity extends AppCompatActivity {
         SystemUtil.jumActivity(this, FragmentsActivity.class);
     }
 
+    //camera
+    public void onCamrea(View view){
+        SystemUtil.jumActivity(this, CameraActivity.class);
+    }
 
 }

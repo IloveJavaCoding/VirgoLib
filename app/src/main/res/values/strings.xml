@@ -5,5 +5,16 @@
     <string name="concat_decimal">拼接_%1$d_</string>
     <string name="concat_float">拼接_%1$.2f_</string>
 
-    <string name="str_underline"><u>%1$s</u></string>
+    <string name="str_underline"><u>测试</u></string>
+
+
+    <string-array name="Date">
+        <item>星期一</item>
+        <item>星期二</item>
+        <item>星期三</item>
+        <item>星期四</item>
+        <item>星期五</item>
+        <item>星期六</item>
+        <item>星期日</item>
+    </string-array>
 </resources>
