@@ -12,7 +12,7 @@ import com.nepalese.virgosdk.Util.SystemUtil;
 /**
  * 原配控件使用
  * 1. textview, editview, spinner
- * 2. button, imagebutton, checkboc, radiobutton, togglebutton,
+ * 2. button, imagebutton, checkbox, radiobutton, togglebutton,
  * 3. fragments
  * 4. listview, gridview, recycleview
  * 5. seekbar, switch, processbar, ratingbar
@@ -39,8 +39,7 @@ public class OriComponentActivity extends AppCompatActivity {
         SystemUtil.jumActivity(this, ExtSpinnerActivity.class);
     }
 
-
-    //button, imagebutton, checkboc, radiobutton, togglebutton,
+    //button, imagebutton, checkbox, radiobutton, togglebutton,
     public void onButton(View view) {
         SystemUtil.jumActivity(this, ButtonsActivity.class);
     }

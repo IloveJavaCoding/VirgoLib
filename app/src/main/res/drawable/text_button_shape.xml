@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<!--上面的在底层-->
+<!--    给text_button外框加上阴影效果-->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:color="@color/colorGray2"
+                android:width="1dp"/>
+            <solid android:color="@color/colorGray2"/>
+            <corners android:radius="@dimen/text_button_radius"/>
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/text_button"
+        android:bottom="3dp"
+        android:right="1dp"></item>
+</layer-list>

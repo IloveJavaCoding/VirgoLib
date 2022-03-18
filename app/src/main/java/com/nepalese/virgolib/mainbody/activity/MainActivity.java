@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         //隐藏顶部状态栏
         UIUtil.setSNHide(this);
-        setContentView(R.layout.activity_main);
 
         init();
     }

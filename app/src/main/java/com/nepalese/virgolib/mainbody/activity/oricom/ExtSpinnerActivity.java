@@ -46,7 +46,8 @@ import java.util.stream.Collectors;
  *
  * Spinner:
  * 1. 使用方法；
- * 2.
+ * 2. 自定义外框：background
+ * 3. 指定义适配器：单项显示样式
  */
 public class ExtSpinnerActivity extends BaseActivity {
     private static final String TAG = "ExtSpinnerActivity";
@@ -133,6 +134,32 @@ public class ExtSpinnerActivity extends BaseActivity {
 
         //3. 设置默认值（按列表索引）：默认选择第一个
         spinner1.setSelection(1);
+
+
+        ///=================================自定义外框=========================
+//        android:background="@drawable/spinner_frame"
+
+//        <?xml version="1.0" encoding="utf-8"?>
+//        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+//
+                //外框
+//            <item>
+//                <shape android:shape="rectangle">
+//                    <stroke
+//                android:color="@color/colorCyan"
+//                android:width="1dp"/>
+//                    <corners android:radius="3dp"/>
+//                </shape>
+//            </item>
+//
+                //右边图标
+//            <item
+//                android:width="24dp" // android api 23+ 才有效
+//                android:height="24dp"
+//                android:drawable="@drawable/ic_drop_down" //drawable 图标资源
+//                android:gravity="end|center_vertical">
+//            </item>
+//        </layer-list>
     }
 
     //禁用系统软件盘,使用自定义键盘;
@@ -201,6 +228,22 @@ public class ExtSpinnerActivity extends BaseActivity {
 //        etTest.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);//可见文本密码（用于切换密码是否可见） android:inputType="textVisiblePassword"
 //        etTest.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);//用于web-from内输入密码 android:inputType="textWebPassword"
 //        etTest.setInputType(InputType.TYPE_NUMBER_VARIATION_PASSWORD);//数字密码  android:inputType="numberPassword"
+
+
+        //===================自定义边框样式=================
+        //在目标edittext 设置如下属性
+//        android:background="@drawable/edittext_frame"
+
+        //edittext_frame:
+//        <?xml version="1.0" encoding="utf-8"?>
+//        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+//        android:shape="rectangle">
+//            <stroke
+        //            android:color="@color/colorCyan"  //边框颜色
+        //            android:width="1dp"/>             //边框粗细
+//            <corners android:radius="3dp"/>
+//        </shape>
+
     }
 
     @Override
@@ -241,21 +284,6 @@ public class ExtSpinnerActivity extends BaseActivity {
                 return false;
             }
         });
-
-        //===================自定义边框样式=================
-        //在目标edittext 设置如下属性
-//        android:background="@drawable/edittext_frame"
-
-        //edittext_frame:
-//        <?xml version="1.0" encoding="utf-8"?>
-//        <shape xmlns:android="http://schemas.android.com/apk/res/android"
-//        android:shape="rectangle">
-//            <stroke
-    //            android:color="@color/colorCyan"  //边框颜色
-    //            android:width="1dp"/>             //边框粗细
-//            <corners android:radius="3dp"/>
-//        </shape>
-
 
         //=================spinner 选择变化监听==============================
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_JGH"
-        android:padding="10dp"
+        android:padding="@dimen/layout_block_padding"
         android:orientation="vertical">
 
         <EditText
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_QCL"
-        android:padding="10dp"
+        android:padding="@dimen/layout_block_padding"
         android:orientation="vertical">
 
         <LinearLayout
@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="@dimen/layout_block_padding"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:background="@color/color_GJZ">
@@ -113,38 +113,35 @@
             android:id="@+id/etNoKeyBorad"
             android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:hint="no keyborad" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/layout_block_padding"
         android:orientation="vertical"
         android:background="@color/color_XHR">
 
         <Spinner
             android:id="@+id/spinner1"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/edit_input_margin_b"
             android:padding="5dp"
-            android:layout_weight="1"
             android:entries="@array/Date"
             android:background="@drawable/spinner_frame"/>
 
         <Spinner
             android:id="@+id/spinner2"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/edit_input_width"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/edit_input_margin_b"
-            android:layout_weight="1"/>
+            android:layout_marginBottom="@dimen/edit_input_margin_b" />
 
         <Spinner
             android:id="@+id/spinner3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_width="@dimen/edit_input_width"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

@@ -17,6 +17,8 @@
         android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:columnWidth="@dimen/home_grid_block"
+        android:stretchMode="spacingWidthUniform"
         android:horizontalSpacing="@dimen/home_grid_space"
         android:verticalSpacing="@dimen/home_grid_space"
         android:numColumns="4"/>

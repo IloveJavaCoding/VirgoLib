@@ -21,6 +21,9 @@
     a: libs -> .jar, .aar   引用 implementation fileTree(include: ['*.jar', "*.aar"], dir: 'libs'); aar需手动添加，jar可as libary
     b. main 下创建 assets (app -> new -> Folder -> Assets Folder) -> 访问的时候需要AssetManager类;
     c. res 下创建 raw (res -> new -> Android Resource Directory -> Resource Type 选择 raw) -> 访问的时候直接使用资源ID;
+            drawable: .xml 样式文件（自定义背景，边框）；
+            mipmap: 图标文件（.jpg, .png）；
+
 
     c. main 下创建 jniLibs -> ndk so库集 [arm64-v8a, armeabi, armeabi-v7a...];
     d. android 下显示的jniLibs 目录和 project 下的libs 其实是一个?;
@@ -120,7 +123,7 @@ mainactivity:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 原配控件使用:
  * 1. textview, editview, spinner
- * 2. button, imagebutton, checkboc, radiobutton, togglebutton,
+ * 2. button, imagebutton, checkbox, radiobutton, togglebutton,
  * 3. fragments
  * 4. listview, gridview, recycleview
  * 5. seekbar, switch, processbar, ratingbar

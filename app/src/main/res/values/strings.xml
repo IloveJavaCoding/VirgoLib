@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">VirgoLib</string>
 
+    <string name="print_log">print=> %1$s</string>
     <string name="concat_str">拼接_%1$s_</string>
     <string name="concat_decimal">拼接_%1$d_</string>
     <string name="concat_float">拼接_%1$.2f_</string>
@@ -10,6 +11,10 @@
     <string name="camera_play_pause">播放|停止</string>
     <string name="camera_capture">拍照</string>
     <string name="camera_record">录像</string>
+    <string name="button_text">点我</string>
+    <string name="radio_button_text1">生存</string>
+    <string name="radio_button_text2">毁灭</string>
+    <string name="radio_button_text3">想想</string>
 
     <string-array name="Date">
         <item>星期一</item>

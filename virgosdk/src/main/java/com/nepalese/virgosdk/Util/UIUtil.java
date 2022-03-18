@@ -27,6 +27,11 @@ public class UIUtil {
 
     /**
      * 沉浸式1: 无状态栏、导航栏（全屏模式）
+     *  1.non-critical screen decorations (such as the status bar) will be hidden;
+     *  View.SYSTEM_UI_FLAG_FULLSCREEN //关闭状态栏但空间保留 == WindowManager.LayoutParams.FLAG_FULLSCREEN*
+     *  View.SYSTEM_UI_FLAG_HIDE_NAVIGATION //隐藏底部导航栏且占用其空间
+     *  View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN //单个使用无效果
+     *  View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION //单个使用无效果
      * @param activity
      */
     public static void setSNHide(Activity activity) {

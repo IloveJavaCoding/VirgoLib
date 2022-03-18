@@ -2,7 +2,7 @@
 <resources>
     <dimen name="home_button_radius">8dp</dimen>
     <dimen name="home_grid_padding">20dp</dimen>
-    <dimen name="home_grid_space">15dp</dimen>
+    <dimen name="home_grid_space">30dp</dimen>
     <dimen name="home_grid_block">68dp</dimen>
     <dimen name="home_grid_block_padd">5dp</dimen>
 
@@ -12,6 +12,20 @@
     <dimen name="page_layout_padding">20dp</dimen>
     <dimen name="page_tv_size">18sp</dimen>
 
+    <dimen name="layout_block_padding">10dp</dimen>
+
     <dimen name="edit_input_width">200dp</dimen>
     <dimen name="edit_input_margin_b">10dp</dimen>
+
+    <dimen name="button_width">100dp</dimen>
+    <dimen name="troggle_button_size">60dp</dimen>
+    <dimen name="text_button_radius">3dp</dimen>
+    <dimen name="img_button_radius">5dp</dimen>
+    <dimen name="checkbox_padding">3dp</dimen>
+
+    <dimen name="player_icon_size_big">36dp</dimen>
+    <dimen name="player_icon_size_small">28dp</dimen>
+    <dimen name="player_icon_margin">8dp</dimen>
+    <dimen name="player_layout_padding">10dp</dimen>
+    <dimen name="player_img_size">100dp</dimen>
 </resources>

@@ -46,7 +46,7 @@ public class MathUtil {
      * @param c
      * @return int
      */
-    private int getRandom(int a, int b, int c){
+    public static int getRandom(int a, int b, int c){
         if(a>b)
             return -1;
         int d = getRandomInt(a,b);

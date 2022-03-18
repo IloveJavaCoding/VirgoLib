@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="@dimen/page_layout_padding"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_card_red">
+
+    <ImageView
+        android:layout_width="@dimen/player_img_size"
+        android:layout_height="@dimen/player_img_size"
+        android:src="@mipmap/icon_qq"
+        android:scaleType="centerCrop"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/music_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="歌名"
+                android:textSize="@dimen/text_size_14"
+                android:textColor="@color/black"
+                android:paddingStart="15dp"/>
+
+            <SeekBar
+                android:id="@+id/music_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/black"
+                android:thumbTint="@color/color_QYH"
+                android:layout_marginTop="3dp"
+                android:progress="10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/music_btn_last"
+                android:layout_width="@dimen/player_icon_size_small"
+                android:layout_height="@dimen/player_icon_size_small"
+                android:layout_margin="@dimen/player_icon_margin"
+                android:background="@drawable/img_button_transprant"
+                android:src="@mipmap/icon_last"
+                android:scaleType="centerCrop"/>
+
+            <ImageButton
+                android:id="@+id/music_btn_paly"
+                android:layout_width="@dimen/player_icon_size_big"
+                android:layout_height="@dimen/player_icon_size_big"
+                android:background="@drawable/img_button_transprant"
+                android:src="@mipmap/icon_pause"
+                android:scaleType="centerCrop"/>
+
+            <ImageButton
+                android:id="@+id/music_btn_next"
+                android:layout_width="@dimen/player_icon_size_small"
+                android:layout_height="@dimen/player_icon_size_small"
+                android:layout_margin="@dimen/player_icon_margin"
+                android:background="@drawable/img_button_transprant"
+                android:src="@mipmap/icon_next"
+                android:scaleType="centerCrop"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
