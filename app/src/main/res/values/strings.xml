@@ -15,6 +15,9 @@
     <string name="radio_button_text1">生存</string>
     <string name="radio_button_text2">毁灭</string>
     <string name="radio_button_text3">想想</string>
+    <string name="fragment_listview">ListView</string>
+    <string name="fragment_gridview">GridView</string>
+    <string name="fragment_recyclevieew">RecycleVieew</string>
 
     <string-array name="Date">
         <item>星期一</item>

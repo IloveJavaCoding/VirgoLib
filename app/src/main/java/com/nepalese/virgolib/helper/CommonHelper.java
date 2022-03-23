@@ -5,8 +5,16 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 
+import com.nepalese.virgolib.bean.AudioItem;
 import com.nepalese.virgosdk.Util.JsonUtil;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.annotation.WorkerThread;
 
 /**
  * Created by Administrator on 2022/3/9.
@@ -60,5 +68,31 @@ public class CommonHelper {
         ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
         manager.getMemoryInfo(info);
         return JsonUtil.toJson(info);
+    }
+
+    /**
+     * 同步本地指定路径下音频文件： Music, .mp3
+     * @param dir "Music"
+     * @return
+     */
+    @WorkerThread
+    public static List<AudioItem> synLocalMusic(String dir) {
+        File root = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), dir);
+        if(root.exists()){
+            File[] files = root.listFiles();
+            if(files==null || files.length<1){
+                return null;
+            }
+
+            List<AudioItem> list = new ArrayList<>();
+            for(File f: files){
+                if(f.isFile() && f.getName().endsWith(".mp3")){
+                    list.add(new AudioItem(f.getPath()));
+                }
+            }
+
+            return list;
+        }
+        return null;
     }
 }

@@ -63,14 +63,13 @@ public class CameraActivity extends BaseActivity {
     }
 
     @Override
-    protected void onBack() {
-        finish();
+    protected void release() {
+        releaseCamera();
     }
 
     @Override
-    protected void onDestroy() {
-        releaseCamera();
-        super.onDestroy();
+    protected void onBack() {
+        finish();
     }
 
     /**

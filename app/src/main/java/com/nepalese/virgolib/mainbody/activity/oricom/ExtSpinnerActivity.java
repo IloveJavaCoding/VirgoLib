@@ -1,14 +1,11 @@
 package com.nepalese.virgolib.mainbody.activity.oricom;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,10 +26,7 @@ import com.nepalese.virgosdk.Base.BaseActivity;
 import com.nepalese.virgosdk.Util.ConvertUtil;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * EditText:
@@ -325,6 +319,11 @@ public class ExtSpinnerActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void release() {
+
     }
 
     @Override

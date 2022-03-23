@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -372,6 +371,11 @@ public class ButtonsActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void release() {
+
     }
 
     private void printLog(String s) {

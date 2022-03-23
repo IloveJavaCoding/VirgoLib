@@ -12,14 +12,19 @@
         android:layout_height="match_parent"/>
 
     <GridView
-        android:id="@+id/gridViewHome"
+        android:id="@+id/gridview_home"
         android:layout_marginTop="40dp"
         android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:columnWidth="@dimen/home_grid_block"
         android:stretchMode="spacingWidthUniform"
-        android:horizontalSpacing="@dimen/home_grid_space"
         android:verticalSpacing="@dimen/home_grid_space"
         android:numColumns="4"/>
+
+    <com.nepalese.virgolib.widget.musicplayer.VirgoSimplePlayer
+        android:id="@+id/simplePlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

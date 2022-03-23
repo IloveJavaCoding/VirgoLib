@@ -27,5 +27,5 @@
     <dimen name="player_icon_size_small">28dp</dimen>
     <dimen name="player_icon_margin">8dp</dimen>
     <dimen name="player_layout_padding">10dp</dimen>
-    <dimen name="player_img_size">100dp</dimen>
+    <dimen name="player_img_size">85dp</dimen>
 </resources>

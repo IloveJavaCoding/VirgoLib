@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="@dimen/player_img_size"
         android:layout_height="@dimen/player_img_size"
-        android:src="@mipmap/icon_qq"
+        android:src="@mipmap/img_cover_default"
         android:scaleType="centerCrop"/>
 
     <LinearLayout
@@ -42,42 +42,94 @@
                 android:progressTint="@color/black"
                 android:thumbTint="@color/color_QYH"
                 android:layout_marginTop="3dp"
-                android:progress="10"/>
+                android:progress="0"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/music_btn_last"
-                android:layout_width="@dimen/player_icon_size_small"
-                android:layout_height="@dimen/player_icon_size_small"
-                android:layout_margin="@dimen/player_icon_margin"
-                android:background="@drawable/img_button_transprant"
-                android:src="@mipmap/icon_last"
-                android:scaleType="centerCrop"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/music_btn_paly"
-                android:layout_width="@dimen/player_icon_size_big"
-                android:layout_height="@dimen/player_icon_size_big"
-                android:background="@drawable/img_button_transprant"
-                android:src="@mipmap/icon_pause"
-                android:scaleType="centerCrop"/>
+                <TextView
+                    android:id="@+id/music_cur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_14"/>
 
-            <ImageButton
-                android:id="@+id/music_btn_next"
-                android:layout_width="@dimen/player_icon_size_small"
-                android:layout_height="@dimen/player_icon_size_small"
-                android:layout_margin="@dimen/player_icon_margin"
-                android:background="@drawable/img_button_transprant"
-                android:src="@mipmap/icon_next"
-                android:scaleType="centerCrop"/>
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/music_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/music_btn_last"
+                    android:layout_width="@dimen/player_icon_size_small"
+                    android:layout_height="@dimen/player_icon_size_small"
+                    android:layout_margin="@dimen/player_icon_margin"
+                    android:background="@drawable/img_button_transprant"
+                    android:src="@mipmap/icon_last"
+                    android:scaleType="centerCrop"/>
+
+                <ImageButton
+                    android:id="@+id/music_btn_paly"
+                    android:layout_width="@dimen/player_icon_size_big"
+                    android:layout_height="@dimen/player_icon_size_big"
+                    android:background="@drawable/img_button_transprant"
+                    android:src="@mipmap/icon_pause"
+                    android:scaleType="centerCrop"/>
+
+                <ImageButton
+                    android:id="@+id/music_btn_next"
+                    android:layout_width="@dimen/player_icon_size_small"
+                    android:layout_height="@dimen/player_icon_size_small"
+                    android:layout_margin="@dimen/player_icon_margin"
+                    android:background="@drawable/img_button_transprant"
+                    android:src="@mipmap/icon_next"
+                    android:scaleType="centerCrop"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true">
+
+                <ImageButton
+                    android:id="@+id/music_btn_mode"
+                    android:layout_width="@dimen/player_icon_size_small"
+                    android:layout_height="@dimen/player_icon_size_small"
+                    android:layout_margin="@dimen/player_icon_margin"
+                    android:background="@drawable/img_button_transprant"
+                    android:src="@mipmap/icon_order"
+                    android:scaleType="centerCrop"/>
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
-
 </LinearLayout>

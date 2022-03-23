@@ -9,8 +9,9 @@ import com.nepalese.virgolib.R;
 /**
  * 1. 定位，地图；
  * 2. pdf 阅读器；
- * 3. 二维码生成及扫描
- * 4.
+ * 3. 二维码生成及扫描；
+ * 4. 和风天气；
+ *
  */
 public class ThirdLibActivity extends AppCompatActivity {
 

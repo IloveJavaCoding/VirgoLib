@@ -69,6 +69,11 @@ public class TextViewActivity extends BaseActivity {
     }
 
     @Override
+    protected void release() {
+
+    }
+
+    @Override
     protected void onBack() {
         finish();
     }

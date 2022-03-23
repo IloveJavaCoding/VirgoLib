@@ -12,8 +12,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.bean.AudioBean;
+import com.nepalese.virgolib.bean.AudioItem;
+import com.nepalese.virgosdk.Util.ConvertUtil;
 import com.nepalese.virgosdk.Util.MathUtil;
+import com.nepalese.virgosdk.Util.TimeUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
     private static final String TAG = "VirgoSimplePlayer";
 
     private SeekBar musicSeekbar;
-    private TextView musicName;
-    private ImageButton musicLast, musicPlay, musicNext;
+    private TextView musicName, musicCur, musicAll;
+    private ImageButton musicLast, musicPlay, musicNext, musicMode;
 
     public VirgoSimplePlayer(Context context) {
         this(context, null);
@@ -54,9 +56,13 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
     private void initUI() {
         musicSeekbar = findViewById(R.id.music_seekbar);
         musicName = findViewById(R.id.music_tv_name);
+        musicCur = findViewById(R.id.music_cur);
+        musicAll = findViewById(R.id.music_all);
+
         musicLast = findViewById(R.id.music_btn_last);
         musicPlay = findViewById(R.id.music_btn_paly);
         musicNext = findViewById(R.id.music_btn_next);
+        musicMode = findViewById(R.id.music_btn_mode);
     }
 
     private void initData() {
@@ -79,6 +85,8 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
 
         musicPlay.setOnClickListener(v -> playOrPause());
 
+        musicMode.setOnClickListener(v -> changPlayMode());
+
         musicSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -95,6 +103,24 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
                 seekTo(seekBar.getProgress());
             }
         });
+    }
+
+    private void changPlayMode() {
+        curMode++;
+        if(curMode >= MODE_RANDOM){
+            curMode = MODE_SINGLE;
+        }
+        switch (curMode){
+            case MODE_SINGLE:
+                musicMode.setImageResource(R.mipmap.icon_single);
+                break;
+            case MODE_LOOP:
+                musicMode.setImageResource(R.mipmap.icon_order);
+                break;
+            case MODE_RANDOM:
+                musicMode.setImageResource(R.mipmap.icon_random);
+                break;
+        }
     }
 
     private void playOrPause() {
@@ -119,11 +145,13 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
 
     private void notifyProcessChanged(int process) {
         musicSeekbar.setProgress(process);
+        musicCur.setText(ConvertUtil.formatTime(process));
     }
 
-    private void notifySongChanged(AudioBean bean) {
-//        musicName.setText(name);
-//        musicSeekbar.setMax(duration);
+    private void notifySongChanged(String name, int duration) {
+        musicName.setText(name);
+        musicSeekbar.setMax(duration);
+        musicAll.setText(ConvertUtil.formatTime(duration));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,7 +170,7 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
     public static final int MODE_RANDOM = 2;//列表随机
 
     private MediaPlayer mediaPlayer;
-    private List<AudioBean> beanList;//当前播放列表
+    private List<AudioItem> beanList;//当前播放列表
 
     private int curState;//当前播放状态
     private int curIndex;//当前播放索引
@@ -163,7 +191,6 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
 
     /**
      * 播放器是否可播放
-     *
      * @return
      */
     private boolean isValid() {
@@ -197,13 +224,13 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
         playResource(beanList.get(curIndex));
     }
 
-    private void playResource(AudioBean bean) {
+    private void playResource(AudioItem bean) {
         startTask();
         try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(bean.getPath());//本地文件、在线链接
             mediaPlayer.setOnPreparedListener(mp -> {
-                notifySongChanged(bean);
+                notifySongChanged(bean.getName(), mediaPlayer.getDuration());
                 notifyStateChanged(true);
                 curState = STATE_PLAYING;
                 mediaPlayer.seekTo(aimSeek);
@@ -247,9 +274,9 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
     /**
      * 临时播放某个音频文件
      *
-     * @param bean AudioBean
+     * @param bean AudioItem
      */
-    public void play(AudioBean bean) {
+    public void play(AudioItem bean) {
         if (bean == null) {
             notifyError("指定歌曲为空！");
             return;
@@ -265,7 +292,7 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
      * @param list  新列表
      * @param index 开始位置，默认：0
      */
-    public void play(List<AudioBean> list, int index) {
+    public void play(List<AudioItem> list, int index) {
         if (list == null || list.isEmpty()) {
             notifyError("新列表为空！");
             return;
@@ -356,7 +383,7 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
      *
      * @param beans
      */
-    private void setPlayList(List<AudioBean> beans) {
+    public void setPlayList(List<AudioItem> beans) {
         if (beans == null || beans.isEmpty()) {
             notifyError("新列表为空！");
             return;
@@ -444,5 +471,11 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
 
     private void stopTask() {
         handler.removeCallbacks(getProcessTask);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        releasePlayer();
+        super.onDetachedFromWindow();
     }
 }

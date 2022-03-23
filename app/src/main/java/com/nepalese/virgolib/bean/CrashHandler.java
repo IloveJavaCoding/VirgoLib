@@ -60,5 +60,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     private void dealExceptionInfo(Throwable e) {
         //todo
+
     }
 }

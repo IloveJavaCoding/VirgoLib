@@ -29,6 +29,11 @@ public class BarsActivity extends BaseActivity {
     }
 
     @Override
+    protected void release() {
+
+    }
+
+    @Override
     protected void onBack() {
 
     }

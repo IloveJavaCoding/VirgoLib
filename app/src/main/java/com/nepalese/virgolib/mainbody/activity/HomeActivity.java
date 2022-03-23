@@ -6,6 +6,7 @@ import android.widget.GridView;
 
 import com.nepalese.virgolib.R;
 import com.nepalese.virgolib.bean.TaskBean;
+import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgolib.mainbody.Adapter.Adapter_GridView_Task;
 import com.nepalese.virgolib.mainbody.activity.database.DatabaseActivity;
 import com.nepalese.virgolib.mainbody.activity.demo.DemoActivity;
@@ -16,6 +17,7 @@ import com.nepalese.virgolib.mainbody.activity.network.NetworkActivity;
 import com.nepalese.virgolib.mainbody.activity.oricom.OriComponentActivity;
 import com.nepalese.virgolib.mainbody.activity.selfcom.SelfComponentActivity;
 import com.nepalese.virgolib.mainbody.activity.thirdlib.ThirdLibActivity;
+import com.nepalese.virgolib.widget.musicplayer.VirgoSimplePlayer;
 import com.nepalese.virgosdk.Base.BaseActivity;
 import com.nepalese.virgosdk.Util.SystemUtil;
 import com.nepalese.virgosdk.Util.UIUtil;
@@ -28,6 +30,7 @@ public class HomeActivity extends BaseActivity {
 
     private GridView gridView;
     private List<TaskBean> list;
+    private VirgoSimplePlayer simplePlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +44,16 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initUI() {
-        gridView = findViewById(R.id.gridViewHome);
+        gridView = findViewById(R.id.gridview_home);
+        simplePlayer = findViewById(R.id.simplePlayer);
     }
 
     @Override
     protected void initData() {
         createTasks();
         gridView.setAdapter(new Adapter_GridView_Task(getApplicationContext(), list));
+
+        simplePlayer.setPlayList(CommonHelper.synLocalMusic("netease/cloudmusic/Music"));
     }
 
     private void createTasks() {
@@ -78,6 +84,12 @@ public class HomeActivity extends BaseActivity {
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             SystemUtil.jumActivity(this, list.get(position).getC());
         });
+    }
+
+    @Override
+    protected void release() {
+        list.clear();
+        simplePlayer.releasePlayer();
     }
 
     @Override

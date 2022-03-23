@@ -48,6 +48,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void setListener();
 
     /**
+     * ondestroy 内调用
+     */
+    protected abstract void release();
+
+    /**
      * 按返回键时触发
      */
     protected abstract void onBack();
@@ -131,6 +136,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         releaseDialog();
+        release();
         super.onDestroy();
     }
 }

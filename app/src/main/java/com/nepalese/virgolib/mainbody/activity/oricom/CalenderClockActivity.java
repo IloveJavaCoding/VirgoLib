@@ -29,6 +29,11 @@ public class CalenderClockActivity extends BaseActivity {
     }
 
     @Override
+    protected void release() {
+
+    }
+
+    @Override
     protected void onBack() {
 
     }
