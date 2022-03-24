@@ -28,4 +28,6 @@
     <dimen name="player_icon_margin">8dp</dimen>
     <dimen name="player_layout_padding">10dp</dimen>
     <dimen name="player_img_size">85dp</dimen>
+
+    <dimen name="bar_color_view_size">120dp</dimen>
 </resources>

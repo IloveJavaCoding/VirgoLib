@@ -18,6 +18,7 @@
     <string name="fragment_listview">ListView</string>
     <string name="fragment_gridview">GridView</string>
     <string name="fragment_recyclevieew">RecycleVieew</string>
+    <string name="bar_color_value">#%1$s%1$s%1$s</string>
 
     <string-array name="Date">
         <item>星期一</item>

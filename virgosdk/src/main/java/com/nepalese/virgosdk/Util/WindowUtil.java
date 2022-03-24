@@ -56,13 +56,15 @@ public class WindowUtil {
     public static void screenCap(Activity activity, String fileName){
         View dView = activity.getWindow().getDecorView();
         dView.setDrawingCacheEnabled(true);
-        dView.buildDrawingCache();
+        dView.buildDrawingCache(true);
         Bitmap bmp = dView.getDrawingCache();
 
         if (bmp != null) {
             String path = FileUtil.getAppRootPth(activity);
             BitmapUtil.saveBitmap2File(bmp, path, fileName);
         }
+        dView.setDrawingCacheEnabled(false);
+        dView.destroyDrawingCache();
     }
 
     /**

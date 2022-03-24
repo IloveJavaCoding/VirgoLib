@@ -32,6 +32,7 @@
     <color name="colorEye">#C7EDCC</color>
     <color name="colorEye50">#80C7EDCC</color>
     <color name="colorTY">#66CCFF</color>
+    <color name="colorTY30">#4D66CCFF</color>
     <color name="colorTY50">#8066CCFF</color>
 
     <color name="color_XHR">#FAF9DE</color>

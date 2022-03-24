@@ -2,6 +2,7 @@ package com.nepalese.virgolib.mainbody.Adapter;
 
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
  * 分两种布局
  */
 public class Adapter_RecycleView_Data extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = "Adapter_RecycleView_Dat";
+    private static final int HOLDER_ONE = 1;
+    private static final int HOLDER_TWO = 2;
+
+
     private final LayoutInflater layoutInflater;
     private final List<String> data;
 
@@ -32,10 +38,21 @@ public class Adapter_RecycleView_Data extends RecyclerView.Adapter<RecyclerView.
         return data==null?0:data.size();
     }
 
+    //用来分类
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public int getItemViewType(int position) {
+        if(position%2==0){
+            return HOLDER_TWO;
+        }else{
+            return HOLDER_ONE;
+        }
+    }
+
+    //viewType: getItemViewType
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View view;
-        if(i%2==0){
+        if(viewType==HOLDER_TWO){
             view = layoutInflater.inflate(R.layout.layout_recycleview_data2, null);
             return new ViewHolder2(view);
         }else{
