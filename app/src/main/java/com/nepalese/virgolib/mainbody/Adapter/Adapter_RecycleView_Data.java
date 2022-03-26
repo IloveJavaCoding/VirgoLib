@@ -24,7 +24,6 @@ public class Adapter_RecycleView_Data extends RecyclerView.Adapter<RecyclerView.
     private static final int HOLDER_ONE = 1;
     private static final int HOLDER_TWO = 2;
 
-
     private final LayoutInflater layoutInflater;
     private final List<String> data;
 
@@ -41,10 +40,14 @@ public class Adapter_RecycleView_Data extends RecyclerView.Adapter<RecyclerView.
     //用来分类
     @Override
     public int getItemViewType(int position) {
-        if(position%2==0){
-            return HOLDER_TWO;
-        }else{
+        if(position<2){
             return HOLDER_ONE;
+        }else{
+            if(position%2==0){
+                return HOLDER_TWO;
+            }else{
+                return HOLDER_ONE;
+            }
         }
     }
 

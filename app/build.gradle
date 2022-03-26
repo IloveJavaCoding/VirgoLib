@@ -5,6 +5,7 @@ plugins {
     id 'com.android.application'
 }
 apply from: '../config/build_flavors.gradle'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -19,6 +20,12 @@ android {
         multiDexEnabled true //开启分包
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 
     //编译版本
@@ -68,6 +75,13 @@ android {
             outputFileName = "${appName}_${variant.productFlavors[0].name}_${appVersion}.apk" //开启分渠打包后，加入分支名
         }
     }
+
+    //greendao 配置
+    greendao {
+        schemaVersion 1 //数据库版本号
+        daoPackage 'com.nepalese.virgolib.data.db'// 设置DaoMaster、DaoSession、Dao 包名
+        targetGenDir 'src/main/java/'//设置DaoMaster、DaoSession、Dao目录
+    }
 }
 
 dependencies {
@@ -97,8 +111,8 @@ dependencies {
 //    releaseImplementation('com.squareup.leakcanary:leakcanary-android-no-op:1.5.4')
 
 //    implementation 'org.greenrobot:eventbus:3.1.1'
-//    implementation 'org.greenrobot:greendao:3.3.0'
-//    implementation 'org.greenrobot:greendao-generator:3.3.0'
+    implementation 'org.greenrobot:greendao:3.3.0'
+    implementation 'org.greenrobot:greendao-generator:3.3.0'
 
 //    implementation rootProject.ext.dependencies["multidex"] //分包
 //    implementation rootProject.ext.dependencies["glide"] //图片加载

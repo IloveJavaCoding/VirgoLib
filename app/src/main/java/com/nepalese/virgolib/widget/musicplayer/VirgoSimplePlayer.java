@@ -12,10 +12,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.bean.AudioItem;
+import com.nepalese.virgolib.data.bean.AudioItem;
 import com.nepalese.virgosdk.Util.ConvertUtil;
 import com.nepalese.virgosdk.Util.MathUtil;
-import com.nepalese.virgosdk.Util.TimeUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +62,8 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
         musicPlay = findViewById(R.id.music_btn_paly);
         musicNext = findViewById(R.id.music_btn_next);
         musicMode = findViewById(R.id.music_btn_mode);
+
+        musicName.setSelected(true);
     }
 
     private void initData() {
@@ -107,7 +108,7 @@ public class VirgoSimplePlayer extends RelativeLayout implements MediaPlayer.OnC
 
     private void changPlayMode() {
         curMode++;
-        if(curMode >= MODE_RANDOM){
+        if(curMode > MODE_RANDOM){
             curMode = MODE_SINGLE;
         }
         switch (curMode){

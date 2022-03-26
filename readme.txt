@@ -26,6 +26,13 @@
 
 
     c. main 下创建 jniLibs -> ndk so库集 [arm64-v8a, armeabi, armeabi-v7a...];
+        android{
+            sourceSets {
+                main {
+                    jniLibs.srcDirs = ['libs']
+                }
+            }
+        }
     d. android 下显示的jniLibs 目录和 project 下的libs 其实是一个?;
 
 4. 同步git:（安装git）
@@ -130,3 +137,22 @@ mainactivity:
  * 6. calender, textclock
  * 7. dialog
  * 8. webview
+
+ 第三方库：
+ 1. greendao: 数据库
+    a: project dependencies: classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0'
+    b: app module:
+        apply plugin: 'org.greenrobot.greendao'
+        android:
+                //greendao 配置
+                greendao {
+                    schemaVersion 1 //数据库版本号
+                    daoPackage 'com.nepalese.virgolib.data.db'// 设置DaoMaster、DaoSession、Dao 包名
+                    targetGenDir 'src/main/java/'//设置DaoMaster、DaoSession、Dao目录
+                }
+        dependencies :
+            implementation 'org.greenrobot:greendao:3.3.0'
+            implementation 'org.greenrobot:greendao-generator:3.3.0'
+    c: 创建bean类： @Entity
+    d: build -> make project;
+

@@ -53,7 +53,7 @@ public class HomeActivity extends BaseActivity {
         createTasks();
         gridView.setAdapter(new Adapter_GridView_Task(getApplicationContext(), list));
 
-        simplePlayer.setPlayList(CommonHelper.synLocalMusic("netease/cloudmusic/Music"));
+        simplePlayer.setPlayList(CommonHelper.getAudioItems(this));
     }
 
     private void createTasks() {

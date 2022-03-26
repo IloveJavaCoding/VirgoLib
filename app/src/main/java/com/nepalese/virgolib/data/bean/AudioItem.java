@@ -1,13 +1,19 @@
-package com.nepalese.virgolib.bean;
+package com.nepalese.virgolib.data.bean;
 
 import com.nepalese.virgosdk.Beans.BaseBean;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by Administrator on 2022/3/21.
  * Usage: 简单音频信息类
  */
-
+@Entity
 public class AudioItem extends BaseBean {
+    @Id(autoincrement = true)
+    private Long id;
     private String name;
     private String path;
 
@@ -25,6 +31,17 @@ public class AudioItem extends BaseBean {
         }
 
         this.name = name;
+    }
+
+    @Generated(hash = 1886452029)
+    public AudioItem(Long id, String name, String path) {
+        this.id = id;
+        this.name = name;
+        this.path = path;
+    }
+
+    @Generated(hash = 1683268244)
+    public AudioItem() {
     }
 
     public String getName() {
@@ -49,5 +66,13 @@ public class AudioItem extends BaseBean {
                 "name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 '}';
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

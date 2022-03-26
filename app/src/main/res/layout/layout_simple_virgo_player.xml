@@ -27,9 +27,12 @@
 
             <TextView
                 android:id="@+id/music_tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
                 android:text="歌名"
                 android:textSize="@dimen/text_size_14"
                 android:textColor="@color/black"

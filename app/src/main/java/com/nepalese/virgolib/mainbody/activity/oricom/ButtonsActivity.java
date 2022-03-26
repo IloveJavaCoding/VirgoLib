@@ -473,7 +473,7 @@ public class ButtonsActivity extends BaseActivity {
         printLog("来自QQ的问候！");
 
         /**
-         * 图片默认：android:scaleType="centerCrop"
+         * 图片默认：
          * <enum name="matrix" value="0" /> //不改变原图的大小，从View的左上角开始绘制，超出部分做剪切处理;
          *  <enum name="fitXY" value="1" /> //不按比例扩大/缩小图片，目标是把图片塞满整个View;
          *  <enum name="fitStart" value="2" />//把图片按比例扩大/缩小到View的宽度, 前部/上部显示;

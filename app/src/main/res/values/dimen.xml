@@ -13,7 +13,6 @@
     <dimen name="page_tv_size">18sp</dimen>
 
     <dimen name="layout_block_padding">10dp</dimen>
-
     <dimen name="edit_input_width">200dp</dimen>
     <dimen name="edit_input_margin_b">10dp</dimen>
 
@@ -24,10 +23,13 @@
     <dimen name="checkbox_padding">3dp</dimen>
 
     <dimen name="player_icon_size_big">36dp</dimen>
-    <dimen name="player_icon_size_small">28dp</dimen>
-    <dimen name="player_icon_margin">8dp</dimen>
+    <dimen name="player_icon_size_small">30dp</dimen>
+    <dimen name="player_icon_margin">10dp</dimen>
     <dimen name="player_layout_padding">10dp</dimen>
     <dimen name="player_img_size">85dp</dimen>
+
+    <dimen name="recycle_img_hight_small">180dp</dimen>
+    <dimen name="recycle_img_hight_big">240dp</dimen>
 
     <dimen name="bar_color_view_size">120dp</dimen>
 </resources>

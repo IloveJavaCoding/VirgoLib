@@ -1,5 +1,6 @@
 package com.nepalese.virgolib.mainbody.fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,8 +51,61 @@ public class FragmentRecycleView extends Fragment {
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(new Adapter_RecycleView_Data(view.getContext(), data));
+
+        //RecyclerView没有可以直接设置间距的属性，可以用ItemDecoration来装饰一个item，所以继承重写ItemDecoration就可以实现间距;
+        SpaceItemDecoration itemDecoration = new SpaceItemDecoration(10, 8);
+        itemDecoration.setRowNum(2);
+        recyclerView.addItemDecoration(itemDecoration);
     }
 
     private void setListener() {
+    }
+}
+
+class SpaceItemDecoration extends RecyclerView.ItemDecoration{
+    private int top;
+    private int left;
+    private int right;
+    private int bottom;
+    private int rowNum = 1;//每行项目个数
+
+    /**
+     * 传入一个值，默认四个值相同
+     * @param space 间隔值
+     */
+    public SpaceItemDecoration(int space) {
+        this.top = space;
+        this.left = space;
+        this.right = space;
+        this.bottom = space;
+    }
+
+    public SpaceItemDecoration(int tm, int lr) {
+        this.top = tm;
+        this.left = lr;
+        this.right = lr;
+        this.bottom = tm;
+    }
+
+    public SpaceItemDecoration(int top, int left, int right, int bottom) {
+        this.top = top;
+        this.left = left;
+        this.right = right;
+        this.bottom = bottom;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        outRect.left = left;
+        outRect.right = right;
+        outRect.bottom = bottom;
+        // Add top margin only for the first item to avoid double space between items
+        if (parent.getChildAdapterPosition(view) < rowNum){
+            outRect.top = top;
+        }
     }
 }

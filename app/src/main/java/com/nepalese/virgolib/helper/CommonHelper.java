@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 
-import com.nepalese.virgolib.bean.AudioItem;
+import com.nepalese.virgolib.config.Constans;
+import com.nepalese.virgolib.data.bean.AudioItem;
+import com.nepalese.virgolib.data.dbhelper.DBHelper;
+import com.nepalese.virgolib.data.dbhelper.DBManager;
 import com.nepalese.virgosdk.Util.JsonUtil;
 
 import java.io.File;
@@ -91,6 +94,21 @@ public class CommonHelper {
                 }
             }
 
+            return list;
+        }
+        return null;
+    }
+
+    public static List<AudioItem> getAudioItems(Context context){
+        List<AudioItem> list;
+        DBManager dbManager = DBHelper.getInstance(context).getDbManager();
+        list = dbManager.getAllAudioItem();
+        if(list==null){
+            list = synLocalMusic(Constans.DEFAULT_SYN_MUSIC_DIR);
+        }
+
+        if(list!=null && !list.isEmpty()){
+            dbManager.addAudioItems(list);
             return list;
         }
         return null;

@@ -8,12 +8,14 @@
     <ImageView
         android:id="@+id/img_cover_recycleview1"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="@dimen/recycle_img_hight_small"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tv_data_recycleview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="@dimen/padding_10"
         android:textSize="@dimen/text_size_20"
         android:textColor="@color/black"/>
 </LinearLayout>

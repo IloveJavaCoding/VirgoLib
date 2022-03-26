@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.nepalese.virgolib.R;
 import com.nepalese.virgolib.helper.CommonHelper;
+import com.nepalese.virgolib.mainbody.activity.thirdlib.ThirdLibActivity;
 import com.nepalese.virgosdk.Util.GlideUtil;
 import com.nepalese.virgosdk.Util.SystemUtil;
 import com.nepalese.virgosdk.Util.UIUtil;
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 SystemUtil.jumActivity(MainActivity.this, HomeActivity.class);
+//                SystemUtil.jumActivity(MainActivity.this, ThirdLibActivity.class);
                 finish();
             }
         }.start();
