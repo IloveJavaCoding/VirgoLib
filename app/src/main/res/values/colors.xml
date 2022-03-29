@@ -4,8 +4,8 @@
     <color name="colorPrimaryVariant">#50D1FF</color>
     <color name="colorOnPrimary">#2EAAFF</color>
 
-    <color name="colorSecondary">#4BD63D</color>
-    <color name="colorSecondaryVariant">#00A84A</color>
+    <color name="colorSecondary">#D63D3D</color>
+    <color name="colorSecondaryVariant">#A80000</color>
     <color name="colorOnSecondary">#18A05E</color>
 
     <color name="black">#FF000000</color>

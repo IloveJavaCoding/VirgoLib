@@ -1,4 +1,4 @@
-
+include ':ffmpeg-player-master'
 include ':virgosdk'
 include ':virgocom'
 include ':app'

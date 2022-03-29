@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">VirgoLib</string>
 
+<!--    占位符
+%1$s%2$d%3$.2f
+%n：序号，第n个参数；
+$s：任意字符串；
+$d：任意数字（整型）；
+$f：任意数字（浮点型， .2f: 保留两位小数）；
+-->
     <string name="print_log">print=> %1$s</string>
     <string name="concat_str">拼接_%1$s_</string>
     <string name="concat_decimal">拼接_%1$d_</string>
@@ -18,7 +25,7 @@
     <string name="fragment_listview">ListView</string>
     <string name="fragment_gridview">GridView</string>
     <string name="fragment_recyclevieew">RecycleVieew</string>
-    <string name="bar_color_value">#%3$s$s$s</string>
+    <string name="bar_color_value">#%1$s%2$s%3$s</string>
 
     <string-array name="Date">
         <item>星期一</item>

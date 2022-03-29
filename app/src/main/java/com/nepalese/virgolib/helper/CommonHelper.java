@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
 import com.nepalese.virgolib.config.Constans;
 import com.nepalese.virgolib.data.bean.AudioItem;
@@ -25,7 +26,7 @@ import androidx.annotation.WorkerThread;
  */
 
 public class CommonHelper {
-
+    private static final String TAG = "CommonHelper";
     /**
      * activity 跳转到设置页请求某权限
      * @param activity
@@ -90,6 +91,7 @@ public class CommonHelper {
             List<AudioItem> list = new ArrayList<>();
             for(File f: files){
                 if(f.isFile() && f.getName().endsWith(".mp3")){
+                    Log.d(TAG, "synLocalMusic: " + f.getName());
                     list.add(new AudioItem(f.getPath()));
                 }
             }
@@ -103,14 +105,12 @@ public class CommonHelper {
         List<AudioItem> list;
         DBManager dbManager = DBHelper.getInstance(context).getDbManager();
         list = dbManager.getAllAudioItem();
-        if(list==null){
+        if(list==null || list.isEmpty()){
             list = synLocalMusic(Constans.DEFAULT_SYN_MUSIC_DIR);
+            if(list!=null && !list.isEmpty()){
+                dbManager.addAudioItems(list);
+            }
         }
-
-        if(list!=null && !list.isEmpty()){
-            dbManager.addAudioItems(list);
-            return list;
-        }
-        return null;
+        return list;
     }
 }

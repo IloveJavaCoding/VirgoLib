@@ -24,8 +24,7 @@
             drawable: .xml 样式文件（自定义背景，边框）；
             mipmap: 图标文件（.jpg, .png）；
 
-
-    c. main 下创建 jniLibs -> ndk so库集 [arm64-v8a, armeabi, armeabi-v7a...];
+    d. main 下创建 jniLibs -> ndk so库集 [arm64-v8a, armeabi, armeabi-v7a...];
         android{
             sourceSets {
                 main {
@@ -33,7 +32,11 @@
                 }
             }
         }
-    d. android 下显示的jniLibs 目录和 project 下的libs 其实是一个?;
+    e. android 下显示的jniLibs 目录和 project 下的libs 其实是一个?;
+    f. values:
+        dimen: 大小单位引用；
+        arrays: 引用变量数组；
+        styles: 自定义样式；
 
 4. 同步git:（安装git）
     a; ternimal -> git init -> 创建本地git库 .git;
@@ -156,3 +159,8 @@ mainactivity:
     c: 创建bean类： @Entity
     d: build -> make project;
 
+ 占位符：%1$s%2$d%3$.2f
+    %n：序号，第n个参数；
+    $s：任意字符串；
+    $d：任意数字（整型）；
+    $f：任意数字（浮点型， .2f: 保留两位小数）；
