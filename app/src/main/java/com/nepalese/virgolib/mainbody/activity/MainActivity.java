@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
      *   permission:android.permission.SYSTEM_OVERLAY_WINDOW
      */
     private boolean checkPermissions() {
+        //    使用旧文件系统，在Androidmainfest里面application下添加：android:requestLegacyExternalStorage="true"
+
         //    Android 6.0以前：只需在AndroidManifest注册使用的权限即可使用；
         //    Android 6.0+（M 23）：正常权限，注册后，系统会自动授予该权限；
         //                        危险权限，部分需动态申请权限（弹框，有些需跳转到设置页手动授权)；

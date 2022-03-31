@@ -1,9 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".mainbody.activity.oricom.WebviewActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_3"
+        android:background="@drawable/layout_frame">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/atv_input_wv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:imeOptions="actionNext"/>
+
+        <ImageButton
+            android:id="@+id/ib_search_wv"
+            android:layout_width="@dimen/wv_icon_size"
+            android:layout_height="@dimen/wv_icon_size"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_search"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_button_transprant"
+            android:layout_margin="@dimen/margin_5"/>
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_JGH"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_5"
+        android:background="@color/white">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/wv_icon_size"
+            android:layout_height="@dimen/wv_icon_size"
+            android:onClick="onBackLeftWv"
+            android:src="@mipmap/icon_back_left"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_button_transprant"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/wv_icon_size"
+            android:layout_height="@dimen/wv_icon_size"
+            android:onClick="onBackRightWv"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_back_right"
+            android:background="@drawable/img_button_transprant"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/wv_icon_size"
+            android:layout_height="@dimen/wv_icon_size"
+            android:onClick="onFreshWv"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_fresh"
+            android:background="@drawable/img_button_transprant"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/wv_icon_size"
+            android:layout_height="@dimen/wv_icon_size"
+            android:onClick="onHomeWv"
+            android:src="@mipmap/icon_home"
+            android:scaleType="centerCrop"
+            android:background="@drawable/img_button_transprant"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

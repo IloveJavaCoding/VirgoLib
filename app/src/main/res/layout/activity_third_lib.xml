@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/layout_block_padding"
+    android:orientation="vertical"
     android:background="@color/black"
     tools:context=".mainbody.activity.thirdlib.ThirdLibActivity">
 
-    <RelativeLayout
-        android:id="@+id/layoutTestRoot"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:onClick="onMap"
+        android:text="定位 | 地图"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onPDF"
+        android:text="PDF 阅读器"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onQRCode"
+        android:text="二维码生成 | 扫描"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onWeather"
+        android:text="和风天气"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onVideoTest"
+        android:text="video player"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+</LinearLayout>

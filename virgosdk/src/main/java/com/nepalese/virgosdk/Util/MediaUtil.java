@@ -389,7 +389,7 @@ public class MediaUtil {
 
     //======================================获取缩略图===========================================
     /**
-     * 获取视频第一帧作为缩略图
+     * 获取视频第一帧作为缩略图 128x72
      * @param pathOrUrl 本地路径或url
      * @param type 1:本地视频  2:在线视频
      * 	retriever.getFrameAtTime(); //获取视频第一帧
@@ -410,7 +410,6 @@ public class MediaUtil {
         return retriever.getFrameAtTime();
     }
 
-
     /**
      * 获取视频的缩略图--可指定大小
      * 先通过ThumbnailUtils来创建一个视频的缩略图，然后再利用ThumbnailUtils来生成指定大小的缩略图。
@@ -419,7 +418,7 @@ public class MediaUtil {
      * @param width 指定输出视频缩略图的宽度
      * @param height 指定输出视频缩略图的高度度
      * @param kind 参照MediaStore.Images(Video).Thumbnails类中的常量MINI_KIND和MICRO_KIND。
-     *            其中，MINI_KIND: 512 x 384，MICRO_KIND: 96 x 96
+     *            其中，MINI_KIND: 128x72，MICRO_KIND: 96 x 96
      * @return 指定大小的视频缩略图
      */
     public static Bitmap getVideoThumb(String videoPath, int width, int height, int kind) {

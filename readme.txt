@@ -31,7 +31,24 @@
                     jniLibs.srcDirs = ['libs']
                 }
             }
+
+            //或
+            sourceSets.main {
+                 ni.srcDirs = []
+                 jniLibs.srcDir "src/main/libs"
+            }
+
+            //或
+            sourceSets.main.jniLibs.srcDirs = ['libs']
+
+            //或
+            sourceSets {
+                main {
+                    jniLibs.srcDir 'src/main/libs'
+                }
+            }
         }
+
     e. android 下显示的jniLibs 目录和 project 下的libs 其实是一个?;
     f. values:
         dimen: 大小单位引用；
@@ -133,10 +150,10 @@ mainactivity:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 原配控件使用:
  * 1. textview, editview, spinner
- * 2. button, imagebutton, checkbox, radiobutton, togglebutton,
+ * 2. button, imagebutton, checkbox, radiobutton, togglebutton, switch
  * 3. fragments
  * 4. listview, gridview, recycleview
- * 5. seekbar, switch, processbar, ratingbar
+ * 5. seekbar, processbar, ratingbar
  * 6. calender, textclock
  * 7. dialog
  * 8. webview
@@ -164,3 +181,21 @@ mainactivity:
     $s：任意字符串；
     $d：任意数字（整型）；
     $f：任意数字（浮点型， .2f: 保留两位小数）；
+
+ Log:有五个方法，分别是（级别由低到高）：
+    在onCreate()方法的外面输入logt，然后按下Tab键，这时就会以当前的类名作为值产生一个tag常量；
+    1.Log.v()[verbose]：打印一些最为繁琐、意义不大的日志信息；
+    2.Log.d()[debug]：打印一些调试信息(logd+tab)；
+    3.Log.i()[info]：打印一些比较重要的数据，可帮助你分析用户行为数据（logi+tab）；
+    4.Log.w()[warn]：打印一些警告信息，提示程序该处可能存在的风险(logw+tab)；
+    5.Log.e()[error]：打印程序中的错误信息(loge+tab)；
+
+ 创建中英文string （中文：zh; 英文：en)
+    1. 视角调为Project视图
+    2. 找到res资源文件夹
+    3. 右键res, New -> Android Resource Directory)
+    4. 创建values-zh/values-en文件夹 (type: values)
+    5. 右键values-zh/values-en文件夹, New -> Values Resource file
+    6. 创建strings.xml文件 (输入：strings)
+    7. 点击OK
+    8. 返回Android视图查看

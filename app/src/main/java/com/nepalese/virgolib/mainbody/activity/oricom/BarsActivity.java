@@ -1,6 +1,7 @@
 package com.nepalese.virgolib.mainbody.activity.oricom;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,6 @@ import com.nepalese.virgosdk.Base.BaseActivity;
  *  2. 自定义滑块颜色|样式、进度条颜色；(api>21)
  *  3. 跟随滑块移动的提示框；
  *
- *  switch,
  *  processbar:（仅后台改变）
  *  1. 横向进度条；
  *  2. 自定义进度条颜色；(api>21)
@@ -110,6 +110,9 @@ public class BarsActivity extends BaseActivity {
          * </layer-list>
          *
          */
+
+//        barR.getThumb().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//滑块
+//        barR.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);//进度条
 
 
 //        3. 跟随滑块移动的提示框；

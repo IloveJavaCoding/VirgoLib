@@ -2,10 +2,12 @@ package com.nepalese.virgolib.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.nepalese.virgolib.bean.CrashHandler;
 import com.nepalese.virgolib.helper.CommonHelper;
+import com.nepalese.virgosdk.Util.WindowUtil;
 
 import androidx.multidex.MultiDex;
 
@@ -20,6 +22,8 @@ public class MyApp extends Application {
 
     //全局上下文环境
     private static MyApp myApp;
+    private final int sWidth;
+    private final int sHeight;
 
     /**
      * 单例模式
@@ -37,8 +41,19 @@ public class MyApp extends Application {
         return myApp;
     }
 
-    public MyApp() {
+    private MyApp() {
         myApp = this;
+        DisplayMetrics screenDM = WindowUtil.getScreenDM(this);
+        sWidth= screenDM.widthPixels;
+        sHeight = screenDM.heightPixels;
+    }
+
+    public int getsWidth() {
+        return sWidth;
+    }
+
+    public int getsHeight() {
+        return sHeight;
     }
 
     @Override

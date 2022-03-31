@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mainbody.activity.SettingActivity"></activity>
+        <activity android:name=".mainbody.activity.thirdlib.VideoPlayTestActivity"></activity>
+        <activity android:name=".mainbody.activity.demo.ScreenCapDemoActivity" />
+        <activity android:name=".mainbody.activity.SettingActivity" />
         <activity android:name=".mainbody.activity.oricom.Camera2Activity" />
         <activity android:name=".mainbody.activity.oricom.CameraActivity" />
         <activity android:name=".mainbody.activity.oricom.ExtSpinnerActivity" />
@@ -80,15 +82,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 仅需注册 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 仅需注册 -->
     <!-- 网络访问 -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 蓝牙 -->
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 蓝牙 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 禁用键盘锁 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 禁用键盘锁 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />

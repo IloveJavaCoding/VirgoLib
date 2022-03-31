@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">VirgoLib</string>
 
-<!--    占位符
+    <!--    占位符
 %1$s%2$d%3$.2f
 %n：序号，第n个参数；
 $s：任意字符串；
@@ -26,14 +26,4 @@ $f：任意数字（浮点型， .2f: 保留两位小数）；
     <string name="fragment_gridview">GridView</string>
     <string name="fragment_recyclevieew">RecycleVieew</string>
     <string name="bar_color_value">#%1$s%2$s%3$s</string>
-
-    <string-array name="Date">
-        <item>星期一</item>
-        <item>星期二</item>
-        <item>星期三</item>
-        <item>星期四</item>
-        <item>星期五</item>
-        <item>星期六</item>
-        <item>星期日</item>
-    </string-array>
 </resources>

@@ -297,5 +297,12 @@
             android:textOn=""
             android:textOff=""
             android:checked="true"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="@color/black"
+            app:trackTint="@color/colorGreen"
+            android:checked="true"/>
     </LinearLayout>
 </LinearLayout>

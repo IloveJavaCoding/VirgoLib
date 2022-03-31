@@ -39,6 +39,8 @@ import androidx.core.content.res.ResourcesCompat;
  * 1. 设置默认选中；
  * 2. 监听；
  * 3. 自定义图标样式；
+ *
+ * switch：
  */
 public class ButtonsActivity extends BaseActivity {
     private TextView tvLog;
@@ -80,6 +82,7 @@ public class ButtonsActivity extends BaseActivity {
         setCheckBox();
         setRadioButton();
         setToggleButton();
+        setSwitch();
     }
 
     private void setCheckBox() {
@@ -214,6 +217,18 @@ public class ButtonsActivity extends BaseActivity {
          *         android:drawable="@mipmap/icon_troggle_off"/>
          * </selector>
          */
+    }
+
+    private void setSwitch() {
+        //===== 设置默认选中=================================
+        //1.
+//        switchcompat.setChecked(true);
+
+        //2. xml android:checked="true"
+
+        //==========颜色======================
+//        app:thumbTint="@color/black"  //滑块颜色
+//        app:trackTint="@color/colorGreen" //轨道颜色
     }
 
     @Override

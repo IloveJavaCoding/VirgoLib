@@ -66,7 +66,9 @@ public class OriComponentActivity extends AppCompatActivity {
 
     //webview
     public void onWebView(View view) {
-        SystemUtil.jumActivity(this, FragmentsActivity.class);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            SystemUtil.jumActivity(this, WebviewActivity.class);
+        }
     }
 
     //camera
