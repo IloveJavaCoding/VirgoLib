@@ -16,7 +16,7 @@ import com.nepalese.virgosdk.Util.SystemUtil;
  * 3. fragments
  * 4. listview, gridview, recycleview
  * 5. seekbar, switch, processbar, ratingbar
- * 6. calender, textclock
+ * 6. calendar, textclock
  * 7. dialog
  * 8. webview
  * 9. camera/camera2

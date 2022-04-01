@@ -154,7 +154,7 @@ mainactivity:
  * 3. fragments
  * 4. listview, gridview, recycleview
  * 5. seekbar, processbar, ratingbar
- * 6. calender, textclock
+ * 6. calendar, textclock, datepicker, timepicker
  * 7. dialog
  * 8. webview
 

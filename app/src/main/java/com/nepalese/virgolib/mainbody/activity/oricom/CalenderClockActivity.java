@@ -1,19 +1,32 @@
 package com.nepalese.virgolib.mainbody.activity.oricom;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.nepalese.virgolib.R;
 import com.nepalese.virgosdk.Base.BaseActivity;
 
+import androidx.annotation.NonNull;
+
 /**
  * textclock：
  * 1. 时间格式；
- * 2.
  *
- * calender：
+ * calendarView：
+ * 1. 使用；
+ *
+ * datepicker, timepicker：
  * 1. 日期、时间选择器；
  */
 public class CalenderClockActivity extends BaseActivity {
+    private static final String TAG = "CalenderClockActivity";
+
+    private CalendarView calendarView;
+    private DatePicker datePicker;
+    private TimePicker timePicker1, timePicker2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +37,17 @@ public class CalenderClockActivity extends BaseActivity {
 
     @Override
     protected void initUI() {
-
+        calendarView = findViewById(R.id.calendar_cc);
+        datePicker = findViewById(R.id.datepicker);
+        timePicker1 = findViewById(R.id.timepicker_spinner);
+        timePicker2 = findViewById(R.id.timepicker_clock);
     }
 
     @Override
     protected void initData() {
         setTextClock();
+        setCalendar();
+        setTimePicker();
     }
 
     private void setTextClock() {
@@ -71,9 +89,47 @@ public class CalenderClockActivity extends BaseActivity {
          */
     }
 
+    private void setCalendar() {
+        //日历
+
+        /**
+         *  设置每周起始日（默认星期日）
+         *  calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+         */
+    }
+
+    private void setTimePicker() {
+        //时间选择器
+        timePicker1.setIs24HourView(true);//24小时制
+        //设置选中时间， 默认当前时间
+        timePicker1.setCurrentHour(9);
+        timePicker1.setCurrentMinute(30);
+    }
+
     @Override
     protected void setListener() {
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                showToast(year + " - "+ month + " - " + dayOfMonth);
+            }
+        });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+                @Override
+                public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    showToast(year + " - " + monthOfYear + " - " + dayOfMonth);
+                }
+            });
+        }
+
+        timePicker1.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                showToast(hourOfDay + " : " + minute);
+            }
+        });
     }
 
     @Override

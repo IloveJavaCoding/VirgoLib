@@ -4,9 +4,9 @@
     <color name="colorPrimaryVariant">#50D1FF</color>
     <color name="colorOnPrimary">#2EAAFF</color>
 
-    <color name="colorSecondary">#D63D3D</color>
-    <color name="colorSecondaryVariant">#A80000</color>
-    <color name="colorOnSecondary">#18A05E</color>
+    <color name="colorSecondary">#663DD6</color>
+    <color name="colorSecondaryVariant">#2D00A8</color>
+    <color name="colorOnSecondary">#3518A0</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

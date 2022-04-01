@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 3. 二维码生成及扫描；
  * 4. 和风天气；
  * 5. 视频播放器；
+ * 6. 日历；
  */
 public class ThirdLibActivity extends AppCompatActivity {
 
