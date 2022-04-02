@@ -10,8 +10,8 @@ import com.nepalese.virgolib.mainbody.activity.oricom.TextViewActivity;
 import com.nepalese.virgosdk.Util.SystemUtil;
 
 /**
- * 1. 截屏
- * 2.
+ * 1. 截屏；
+ * 2. 全屏走字；
  */
 public class DemoActivity extends AppCompatActivity {
 

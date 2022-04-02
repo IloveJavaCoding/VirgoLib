@@ -8,7 +8,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 /**
  * Created by Administrator on 2022/3/10.
  * Usage: 接收自启广播，实现自启
