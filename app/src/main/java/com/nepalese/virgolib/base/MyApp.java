@@ -22,8 +22,8 @@ public class MyApp extends Application {
 
     //全局上下文环境
     private static MyApp myApp;
-    private final int sWidth;
-    private final int sHeight;
+    private int sWidth;
+    private int sHeight;
 
     /**
      * 单例模式
@@ -41,12 +41,6 @@ public class MyApp extends Application {
         return myApp;
     }
 
-    private MyApp() {
-        myApp = this;
-        DisplayMetrics screenDM = WindowUtil.getScreenDM(this);
-        sWidth= screenDM.widthPixels;
-        sHeight = screenDM.heightPixels;
-    }
 
     public int getsWidth() {
         return sWidth;
@@ -79,8 +73,15 @@ public class MyApp extends Application {
     private void init() {
         catchCrash();
         catchLeak();
+        initScreenInfo();
 
 //        OkGoManager.initOkGo(this);
+    }
+
+    private void initScreenInfo() {
+        DisplayMetrics screenDM = WindowUtil.getScreenDM(this);
+        sWidth= screenDM.widthPixels;
+        sHeight = screenDM.heightPixels;
     }
 
     private void catchCrash() {

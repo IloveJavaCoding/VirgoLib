@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 4. 和风天气；
  * 5. 视频播放器；
  * 6. 日历；
+ * 7. Glide 图片加载；
  */
 public class ThirdLibActivity extends AppCompatActivity {
 
@@ -43,5 +44,9 @@ public class ThirdLibActivity extends AppCompatActivity {
     //视频播放器；
     public void onVideoTest(View view) {
         SystemUtil.jumActivity(this, VideoPlayTestActivity.class);
+    }
+
+    public void onGlideImg(View view) {
+        SystemUtil.jumActivity(this, GlideImageActivity.class);
     }
 }

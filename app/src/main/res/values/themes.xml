@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="FullTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="FullTheme" parent="Theme.VirgoLib">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsTranslucent">false</item>
     </style>

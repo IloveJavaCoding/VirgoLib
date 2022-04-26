@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--自定义控件xml属性设定-->
     <style name="VirgoRateBar" parent="Widget.AppCompat.RatingBar">
         <item name="android:progressDrawable">@drawable/ratebar_style</item>
         <item name="android:maxHeight">32dp</item>

@@ -12,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.nepalese.virgosdk.R;
 
 import java.io.File;
 
@@ -27,7 +28,7 @@ public class GlideUtil {
 
     static {
         requestOptions = new RequestOptions().skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
         circleRequestOptions = RequestOptions.circleCropTransform()
                 .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         transitionOptions = new DrawableTransitionOptions().dontTransition();

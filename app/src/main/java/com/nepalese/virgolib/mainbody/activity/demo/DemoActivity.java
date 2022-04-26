@@ -12,6 +12,9 @@ import com.nepalese.virgosdk.Util.SystemUtil;
 /**
  * 1. 截屏；
  * 2. 全屏走字；
+ * 3. 相册；
+ * 4. 转盘时钟；
+ * 5. 和风天气；
  */
 public class DemoActivity extends AppCompatActivity {
 
