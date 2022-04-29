@@ -12,7 +12,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onScreenCap"
-        android:text="截屏"
+        android:text="@string/demo_capture"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onScrollText"
+        android:text="@string/demo_scroll_text"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onAlbum"
+        android:text="@string/demo_album"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onTextClock"
+        android:text="@string/demo_text_clock"
         android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"

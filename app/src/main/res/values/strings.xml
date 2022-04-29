@@ -26,4 +26,11 @@ $f：任意数字（浮点型， .2f: 保留两位小数）；
     <string name="fragment_gridview">GridView</string>
     <string name="fragment_recyclevieew">RecycleVieew</string>
     <string name="bar_color_value">#%1$s%2$s%3$s</string>
+
+    <string name="demo_capture">截屏</string>
+    <string name="demo_scroll_text">全屏走字</string>
+    <string name="demo_album">相册</string>
+    <string name="demo_text_clock">文字钟</string>
+
+
 </resources>

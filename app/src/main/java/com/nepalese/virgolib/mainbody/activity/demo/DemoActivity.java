@@ -13,7 +13,7 @@ import com.nepalese.virgosdk.Util.SystemUtil;
  * 1. 截屏；
  * 2. 全屏走字；
  * 3. 相册；
- * 4. 转盘时钟；
+ * 4. 文字时钟；
  * 5. 和风天气；
  */
 public class DemoActivity extends AppCompatActivity {
@@ -26,5 +26,17 @@ public class DemoActivity extends AppCompatActivity {
 
     public void onScreenCap(View view) {
         SystemUtil.jumActivity(this, TextViewActivity.class);
+    }
+
+    public void onScrollText(View view) {
+
+    }
+
+    public void onAlbum(View view) {
+
+    }
+
+    public void onTextClock(View view) {
+
     }
 }
