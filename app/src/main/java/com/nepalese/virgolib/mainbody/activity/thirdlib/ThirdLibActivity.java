@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 5. 视频播放器；
  * 6. 日历；
  * 7. Glide 图片加载；
+ * 8. 统计图表
  */
 public class ThirdLibActivity extends AppCompatActivity {
 
@@ -48,5 +49,9 @@ public class ThirdLibActivity extends AppCompatActivity {
 
     public void onGlideImg(View view) {
         SystemUtil.jumActivity(this, GlideImageActivity.class);
+    }
+
+    //统计图表
+    public void onCharts(View view) {
     }
 }
