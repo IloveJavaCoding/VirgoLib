@@ -72,6 +72,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onCalender3rd"
+        android:text="日历"
+        android:textSize="@dimen/page_tv_size"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:padding="@dimen/page_button_padding"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="onGlideImg"
         android:text="glide 图片"
         android:textSize="@dimen/page_tv_size"

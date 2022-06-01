@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainbody.activity.thirdlib.PDFViewActivity">
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--导入按钮-->
+    <ImageButton
+        android:layout_width="@dimen/img_30"
+        android:layout_height="@dimen/img_30"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/margin_10"
+        android:src="@mipmap/icon_file"
+        android:background="@drawable/img_button_transprant"
+        android:onClick="onImportFile"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCurPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="第 1 页"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16"/>
+
+            <TextView
+                android:id="@+id/tvAllPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:text="共 2 页"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/inputPage"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_16"
+                android:textAlignment="center"
+                android:textColor="#f00"
+                android:padding="5dp"
+                android:focusable="true"
+                android:inputType="numberDecimal"
+                android:hint="1,2,3"
+                android:background="@drawable/edittext_frame"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="跳转"
+                android:textSize="@dimen/text_size_16"
+                android:textColor="@color/black"
+                android:background="@drawable/text_button"
+                android:focusable="true"
+                android:onClick="onJumpPage"
+                android:layout_marginStart="@dimen/margin_3"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

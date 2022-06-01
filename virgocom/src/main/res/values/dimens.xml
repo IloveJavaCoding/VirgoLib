@@ -42,6 +42,7 @@
     <dimen name="icon_64">64dp</dimen>
     <dimen name="icon_128">128dp</dimen>
 
+    <dimen name="img_30">30dp</dimen>
     <dimen name="img_50">50dp</dimen>
     <dimen name="img_100">100dp</dimen>
     <dimen name="img_120">120dp</dimen>

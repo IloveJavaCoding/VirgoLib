@@ -111,6 +111,9 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.3.0'
     implementation 'org.greenrobot:greendao-generator:3.3.0'
 
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    
 //    implementation rootProject.ext.dependencies["multidex"] //分包
 //    implementation rootProject.ext.dependencies["glide"] //图片加载
 

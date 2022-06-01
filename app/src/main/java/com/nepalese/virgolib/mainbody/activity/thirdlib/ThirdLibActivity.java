@@ -28,22 +28,31 @@ public class ThirdLibActivity extends AppCompatActivity {
 
     //定位，地图；
     public void onMap(View view) {
-    }
-
-    //和风天气
-    public void onWeather(View view) {
-    }
-
-    //二维码生成及扫描；
-    public void onQRCode(View view) {
+        SystemUtil.jumActivity(this, GDMapActivity.class);
     }
 
     //pdf 阅读器
     public void onPDF(View view) {
+        SystemUtil.jumActivity(this, PDFViewActivity.class);
+    }
+
+    //二维码生成及扫描；
+    public void onQRCode(View view) {
+        SystemUtil.jumActivity(this, QRActivity.class);
+    }
+
+    //和风天气
+    public void onWeather(View view) {
+
     }
 
     //视频播放器；
     public void onVideoTest(View view) {
+        SystemUtil.jumActivity(this, VideoPlayTestActivity.class);
+    }
+
+    //日历
+    public void onCalender3rd(View view) {
         SystemUtil.jumActivity(this, VideoPlayTestActivity.class);
     }
 
@@ -53,5 +62,6 @@ public class ThirdLibActivity extends AppCompatActivity {
 
     //统计图表
     public void onCharts(View view) {
+        SystemUtil.jumActivity(this, ChartsActivity.class);
     }
 }
