@@ -32,5 +32,7 @@ $f：任意数字（浮点型， .2f: 保留两位小数）；
     <string name="demo_album">相册</string>
     <string name="demo_text_clock">文字钟</string>
 
+    <string name="cur_page">第 %1$d 页</string>
+    <string name="all_page">共 %1$d 页</string>
 
 </resources>

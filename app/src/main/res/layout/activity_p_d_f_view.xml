@@ -7,7 +7,7 @@
     tools:context=".mainbody.activity.thirdlib.PDFViewActivity">
 
     <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdfView"
+        android:id="@+id/pdf_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -37,7 +37,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvCurPage"
+                android:id="@+id/tv_cur_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="第 1 页"
@@ -45,7 +45,7 @@
                 android:textSize="@dimen/text_size_16"/>
 
             <TextView
-                android:id="@+id/tvAllPage"
+                android:id="@+id/tv_all_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10"
@@ -63,7 +63,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/inputPage"
+                android:id="@+id/input_page"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_16"
