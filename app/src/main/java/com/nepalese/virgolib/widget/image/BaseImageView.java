@@ -3,21 +3,23 @@ package com.nepalese.virgolib.widget.image;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -27,32 +29,48 @@ import androidx.core.content.res.ResourcesCompat;
 /**
  * Created by Administrator on 2022/4/18.
  * Usage:自带动画的图片播放器: 两张图之间
+ *
+ * BaseImageView imageView = new BaseImageView(this);
+ * imageView.setAnimType(BaseImageView.ANIM_RANDOM);
+ * MyUtils.add2ParentIfNeed(root, imageView);
+ * updateLayoutParams(imageView, width / 2, 100, width / 2, (height - 100) / 2);
+ * imageView.initLayout(width / 2, (height - 100) / 2);
  */
 
 public class BaseImageView extends View {
     private static final String TAG = "BaseImageView";
 
     private static final long INTERVAL_ANIMATION = 600L;//动画时长
+    private static final int ANIM_NUM = 6;//动画效果数（除随机）
+    private static final int LENTH = 35;//像素跨值|cube 边长
 
     public static final int ANIM_NONE = 0;//无动画
     public static final int ANIM_FADE = 1;//淡入淡出 默认
     public static final int ANIM_RIGHT = 2;//右进左出
     public static final int ANIM_SCALE = 3;//中心缩放
+    public static final int ANIM_CRASH = 4;//破碎效果
+    public static final int ANIM_JUMP = 5;//弹跳退出
+    public static final int ANIM_RANDOM = 10;//随机
 
     private final Context context;
     private Drawable[] drawables;//操作的两张图
     private ValueAnimator animator;//动画
+    private Paint paint;//画笔
 
     private int width, height;//控件宽高
     private int animType;//动画类型
     private int curIndex;//0|1
     private int CV;//线性变化的基础值
+    private int JUMP_THRESHOLD;//跳动偏移阈值 px
     private int alphaLast, alphaCur;//上一张、当前图片透明值[0-255]
     private int leftLast, leftCur;//上一张、当前图片左上点x[0-width]
-    private Rect rectLast, rectCur;//上一张、当前图片位置
+    private Rect rectLast, rectCur, rectJump;//上一张、当前图片位置
+    private List<Cube> pixelList;
+    private float animTime;//动画运行时间
     private float whRate;//宽高比
     private boolean isSecond;//第二部分
     private boolean isOver;//动画结束
+    private boolean isRandom;//随机动画效果
 
     public BaseImageView(Context context) {
         this(context, null);
@@ -69,34 +87,44 @@ public class BaseImageView extends View {
     }
 
     private void init() {
+        animTime = 0;
         curIndex = -1;
-        isSecond = false;
         isOver = false;
-        animType = ANIM_FADE;
+        isSecond = false;
+        isRandom = false;
+        animType = ANIM_NONE;
     }
 
     /**
+     * 通过 java 创建设置布局
      * 设置|更改布局时调用
-     * @param width
-     * @param height
+     *
+     * @param width  容器宽
+     * @param height 容器高
      */
-    public void updateLayout(int width, int height) {
-        Log.d(TAG, "updateLayout: ");
+    public void initLayout(int width, int height) {
         this.width = width;
         this.height = height;
         whRate = width * 1f / height;
         initAnimator();
     }
 
-//    private void initPosition() {
-//        width = getWidth();
-//        height = getHeight();
-//        whRate = width * 1f / height;
-//    }
+    /**
+     * 通过xml创建控件调用
+     */
+    public void initLayout() {
+        width = getWidth();
+        height = getHeight();
+        whRate = width * 1f / height;
+        initAnimator();
+    }
 
     private void initAnimator() {
         cancelAnim();
+        resetAnimator();
+    }
 
+    private void resetAnimator() {
         switch (animType) {
             case ANIM_NONE:
                 CV = 0;
@@ -112,12 +140,30 @@ public class BaseImageView extends View {
                 rectCur = new Rect();
                 CV = width / 2;
                 break;
+            case ANIM_CRASH:
+                if (paint == null) {
+                    paint = new Paint();
+                    paint.setAntiAlias(true);
+                    paint.setStyle(Paint.Style.FILL);
+                }
+                if (pixelList == null) {
+                    pixelList = new ArrayList<>();
+                }
+                CV = 100;
+                break;
+            case ANIM_JUMP:
+                rectJump = new Rect();
+                JUMP_THRESHOLD = Math.max(width / 5, 30);
+                CV = width + JUMP_THRESHOLD;
+                break;
         }
 
         if (CV > 0) {
             animator = ValueAnimator.ofInt(0, CV);
             animator.setDuration(INTERVAL_ANIMATION);
             animator.setInterpolator(new LinearInterpolator());//插值器设为线性
+        } else {
+            animator = null;
         }
     }
 
@@ -139,6 +185,12 @@ public class BaseImageView extends View {
                 break;
             case ANIM_SCALE:
                 drawScal(canvas);
+                break;
+            case ANIM_CRASH:
+                drawCrash(canvas);
+                break;
+            case ANIM_JUMP:
+                drawJump(canvas);
                 break;
         }
     }
@@ -228,6 +280,50 @@ public class BaseImageView extends View {
         drawables[curIndex].draw(canvas);
     }
 
+    private void drawCrash(Canvas canvas) {
+        if (isOver) {
+            //动画结束
+            drawables[curIndex].setBounds(0, 0, width, height);
+            drawables[curIndex].draw(canvas);
+        } else {
+            for (Cube item : pixelList) {
+                if (item.sY > height) {
+                    //超出容器不用画
+                    continue;
+                }
+                paint.setColor(item.color);
+                canvas.drawRect(item.sX, item.sY, item.sX + item.cL, item.sY + item.cL, paint);
+
+                //变化 s = v0t + at^2
+                item.sY += (float) (item.vY * animTime + item.aY * Math.pow(animTime, 2));
+            }
+        }
+    }
+
+    private void drawJump(Canvas canvas) {
+        //当前图片一直存在
+        drawables[curIndex].setBounds(0, 0, width, height);
+        drawables[curIndex].draw(canvas);
+
+        if (isOver) {
+            return;
+        }
+
+        //上一张图
+        if (curIndex == 0) {
+            if (drawables[1] != null) {
+                //上一张
+                drawables[1].setBounds(rectJump);
+                drawables[1].draw(canvas);
+            }
+        } else {
+            //上一张
+            drawables[0].setBounds(rectJump);
+            drawables[0].draw(canvas);
+        }
+    }
+
+
     @Override
     protected void onDetachedFromWindow() {
         releaseBase();
@@ -239,30 +335,19 @@ public class BaseImageView extends View {
         if (TextUtils.isEmpty(filePath)) {
             return null;
         } else {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                return null;
-            } else {
-                FileInputStream inputStream = null;
-                Drawable drawable = null;
+            Drawable drawable = null;
 
-                try {
-                    inputStream = new FileInputStream(filePath);
-                    drawable = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(inputStream));
-                } catch (IOException var5) {
-                    var5.printStackTrace();
-                } finally {
-                    if (inputStream != null) {
-                        try {
-                            inputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+            try {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                options.inSampleSize = 1;// 1/insample
 
-                return drawable;
+                drawable = new BitmapDrawable(getResources(), BitmapFactory.decodeFile(filePath, options));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
+            return drawable;
         }
     }
 
@@ -275,21 +360,70 @@ public class BaseImageView extends View {
     }
 
     private void doAnimation() {
-        if (animType == ANIM_NONE || animator == null) {
-            //无动画
-            return;
+        if (animator != null) {
+            animator.removeAllListeners();
         }
 
-        animator.removeAllListeners();
+        if (isRandom) {
+            animType = (int) (Math.random() * 1000) % ANIM_NUM;
+            Log.d(TAG, "animType: " + animType);
+            resetAnimator();
+        }
+
+        if (animType == ANIM_NONE || animator == null) {
+            //无动画
+            invalidate();
+            return;
+        } else if (animType == ANIM_CRASH) {
+            pixelList.clear();
+            //获取上一张图片的像素
+            BitmapDrawable bitmapDrawable = null;
+            if (curIndex == 0) {
+                bitmapDrawable = (BitmapDrawable) drawables[1];
+            } else if (curIndex == 1) {
+                bitmapDrawable = (BitmapDrawable) drawables[0];
+            }
+            if (bitmapDrawable == null) {
+                isOver = true;
+                invalidate();
+                return;
+            }
+
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+            if (bitmap != null) {
+                //该参数控制原来每一个像素点在屏幕上的缩放比例，此时为放大两倍
+                Cube item;
+                for (int i = 0; i < bitmap.getWidth(); i += LENTH) {//像素跨值
+                    for (int j = 0; j < bitmap.getHeight(); j += LENTH) {
+                        item = new Cube();
+                        item.color = bitmap.getPixel(i, j);//取样点
+
+                        item.sX = i;
+                        item.sY = j;
+                        item.cL = LENTH;
+
+                        //初始速度
+                        item.vY = getRandom(3, 20);
+                        //加速度
+                        item.aY = 25f;//9.8f;
+
+                        pixelList.add(item);
+                    }
+                }
+            }
+        }
+
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
+                animTime = 0;
                 isSecond = false;
                 isOver = false;
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                animTime = 0;
                 isOver = true;
                 invalidate();
             }
@@ -304,54 +438,99 @@ public class BaseImageView extends View {
 
             }
         });
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int av = (int) animation.getAnimatedValue();
-                switch (animType) {
-                    case ANIM_FADE:
-                        if (av > CV / 2) {//一半
-                            isSecond = true;
-                        }
-                        alphaCur = av;
-                        alphaLast = CV - av;
-                        break;
-                    case ANIM_RIGHT:
-                        leftLast = -av - 10;//增加两图之间间隔
-                        leftCur = CV - av;
-                        break;
-                    case ANIM_SCALE:
-                        if (av > CV / 2) {//一半
-                            isSecond = true;
-                        }
 
-                        if (!isSecond) {
-                            //后面不用变化上一张 变小
-                            rectLast.left = av;
-                            rectLast.top = (int) (av / whRate);
-                            rectLast.right = width - av;
-                            rectLast.bottom = height - rectLast.top;
+        animator.addUpdateListener(animation -> {
+            int av = (int) animation.getAnimatedValue();
+            switch (animType) {
+                case ANIM_FADE:
+                    if (av > CV / 2) {//一半
+                        isSecond = true;
+                    }
+                    alphaCur = av;
+                    alphaLast = CV - av;
+                    break;
+                case ANIM_RIGHT:
+                    leftLast = -av - 10;//增加两图之间间隔
+                    leftCur = CV - av;
+                    break;
+                case ANIM_SCALE:
+                    if (av > CV / 2) {//一半
+                        isSecond = true;
+                    }
+
+                    if (!isSecond) {
+                        //后面不用变化上一张 变小
+                        rectLast.left = av;
+                        rectLast.top = (int) (av / whRate);
+                        rectLast.right = width - av;
+                        rectLast.bottom = height - rectLast.top;
+                    }
+
+                    //当前：变大
+                    rectCur.left = CV - av;
+                    rectCur.top = (int) (rectCur.left / whRate);
+                    rectCur.right = CV + av;
+                    rectCur.bottom = height - rectCur.top;
+                    break;
+                case ANIM_CRASH:
+                    animTime = animation.getCurrentPlayTime() / 1000f;//ms
+                    break;
+                case ANIM_JUMP:
+                    if (curIndex == 0) {
+                        //右出
+                        if (av < JUMP_THRESHOLD) {
+                            //先向左移动
+                            rectJump.left = -av;
+                        } else {
+                            //向右跳出
+                            rectJump.left = av - JUMP_THRESHOLD;
                         }
+                    } else {
+                        //左出
+                        if (av < JUMP_THRESHOLD) {
+                            //先向左移动
+                            rectJump.left = av;
+                        } else {
+                            //向右跳出
+                            rectJump.left = JUMP_THRESHOLD - av;
+                        }
+                    }
 
-                        //当前：变大
-                        rectCur.left = CV - av;
-                        rectCur.top = (int) (rectCur.left / whRate);
-                        rectCur.right = CV + av;
-                        rectCur.bottom = height - rectCur.top;
-                        break;
-                }
-
-                invalidate();
+                    rectJump.right = width + rectJump.left;
+                    rectJump.top = 0;
+                    rectJump.bottom = height;
+                    break;
             }
+
+            invalidate();
         });
         animator.start();
     }
+
+    private float getRandom(int a, int b) {
+        return (float) (Math.random() * (b - a) + a);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 设置是否开启随机动画效果: 默认 false
+     *
+     * @param random b
+     */
+    public void setRandom(boolean random) {
+        this.isRandom = random;
+    }
 
     /**
      * 设置动画类型
      */
     public void setAnimType(int animType) {
+        if (animType >= ANIM_NUM) {
+            //随机
+            this.isRandom = true;
+            return;
+        }
         this.animType = animType;
     }
 
@@ -372,7 +551,7 @@ public class BaseImageView extends View {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             d = ContextCompat.getDrawable(context, resId);
         } else {
-            d = ResourcesCompat.getDrawable(context.getResources(), resId, null);
+            d = ResourcesCompat.getDrawable(getResources(), resId, null);
         }
 
         return setImageResource(d);
@@ -385,7 +564,7 @@ public class BaseImageView extends View {
      */
     public boolean setImageResource(Drawable drawable) {
         if (drawable == null) {
-            Log.e(TAG, "图片资源为空！");
+            //图片资源为空
             return false;
         }
 
@@ -394,8 +573,13 @@ public class BaseImageView extends View {
         }
 
         curIndex++;
+
         if (curIndex > 1) {
             curIndex = 0;
+        }
+
+        if (drawables[curIndex] != null) {
+            drawables[curIndex] = null;//回收
         }
 
         drawables[curIndex] = drawable;
@@ -409,5 +593,9 @@ public class BaseImageView extends View {
         cancelAnim();
         drawables = null;
         curIndex = -1;
+        if (pixelList != null) {
+            pixelList.clear();
+            pixelList = null;
+        }
     }
 }
