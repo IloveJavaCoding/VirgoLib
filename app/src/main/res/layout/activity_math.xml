@@ -4,69 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/layout_block_padding"
-    android:background="@color/black"
     tools:context=".mainbody.activity.math.MathActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCalculate"
+        android:padding="@dimen/page_button_padding"
         android:text="计算器"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onAlgorithm"
+        android:padding="@dimen/page_button_padding"
         android:text="高级算法"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onHamoni"
+        android:padding="@dimen/page_button_padding"
         android:text="汉莫尼塔"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCRT"
+        android:padding="@dimen/page_button_padding"
         android:text="中国剩余定理"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onRandom"
+        android:padding="@dimen/page_button_padding"
         android:text="随机数生成器"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
 </LinearLayout>

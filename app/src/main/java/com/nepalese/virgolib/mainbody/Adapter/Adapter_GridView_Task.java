@@ -20,10 +20,12 @@ import java.util.List;
 public class Adapter_GridView_Task extends BaseAdapter {
     private final LayoutInflater inflater;
     private final List<TaskBean> data;
+    private final boolean isLandscape;
 
-    public Adapter_GridView_Task(Context context, List<TaskBean> data) {
+    public Adapter_GridView_Task(Context context, List<TaskBean> data, boolean isLandscape) {
         this.inflater = LayoutInflater.from(context);
         this.data = data;
+        this.isLandscape = isLandscape;
     }
 
     @Override
@@ -49,7 +51,11 @@ public class Adapter_GridView_Task extends BaseAdapter {
     public View getView(final int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.layout_grid_view_task, null);
+            if(isLandscape){
+                convertView = inflater.inflate(R.layout.layout_gridview_task_land, null);
+            }else{
+                convertView = inflater.inflate(R.layout.layout_gridview_task_portrait, null);
+            }
             holder = new ViewHolder();
 
             holder.tvName = convertView.findViewById(R.id.tvTaskName);

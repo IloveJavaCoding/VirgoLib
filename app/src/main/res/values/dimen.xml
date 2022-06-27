@@ -2,9 +2,10 @@
 <resources>
     <dimen name="home_button_radius">8dp</dimen>
     <dimen name="home_grid_padding">20dp</dimen>
-    <dimen name="home_grid_space">30dp</dimen>
-    <dimen name="home_grid_block">68dp</dimen>
-    <dimen name="home_grid_block_padd">5dp</dimen>
+    <dimen name="home_grid_row_space">30dp</dimen>
+    <dimen name="home_grid_block_portrait">64dp</dimen>
+    <dimen name="home_grid_block_land">98dp</dimen>
+    <dimen name="home_grid_block_padd">3dp</dimen>
 
     <dimen name="page_button_radius">5dp</dimen>
     <dimen name="page_button_padding">8dp</dimen>
@@ -34,4 +35,10 @@
     <dimen name="bar_color_view_size">120dp</dimen>
 
     <dimen name="wv_icon_size">30dp</dimen>
+
+    <!--    统计图-->
+    <dimen name="chart_height">120dp</dimen>
+    <dimen name="chart_margin">5dp</dimen>
+    <dimen name="chart_margin_title">6dp</dimen>
+    <dimen name="chart_margin_line">3dp</dimen>
 </resources>

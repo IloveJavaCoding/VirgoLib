@@ -13,23 +13,27 @@ import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnErrorListener;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.nepalese.virgocomponent.view.VirgoFileSelectorDialog;
 import com.nepalese.virgolib.R;
+import com.nepalese.virgolib.base.MyApp;
 import com.nepalese.virgosdk.Base.BaseActivity;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * pdf 阅读器
  * implementation 'com.github.barteksc:android-pdf-viewer:2.8.0'
  */
-public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnPageChangeListener, OnErrorListener, OnLoadCompleteListener {
+public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnPageChangeListener, OnErrorListener, OnLoadCompleteListener,
+        VirgoFileSelectorDialog.SelectFileCallback {
     private static final String TAG = "PDFViewActivity";
 
     private Context context;
+    private VirgoFileSelectorDialog fileSelectorDialog;
     private PDFView pdfView;
     private TextView curPage, allPage;
     private EditText inputPage;
-    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +53,22 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
     @Override
     protected void initData() {
         context = getApplicationContext();
+        fileSelectorDialog = new VirgoFileSelectorDialog(this);
+        fileSelectorDialog.setFlag(VirgoFileSelectorDialog.FLAG_FILE);
+        fileSelectorDialog.setFileType(VirgoFileSelectorDialog.TYPE_DOC);
+        fileSelectorDialog.setDialogHeight(MyApp.getInstance().getsHeight() / 2);
     }
 
     @Override
     protected void setListener() {
-
+        fileSelectorDialog.setCallback(this);
     }
 
     @Override
     protected void release() {
-
+        if (fileSelectorDialog != null) {
+            fileSelectorDialog.destory();
+        }
     }
 
     @Override
@@ -67,7 +77,9 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
     }
 
     public void onImportFile(View view) {
-
+        if (fileSelectorDialog != null) {
+            fileSelectorDialog.show();
+        }
     }
 
     public void onJumpPage(View view) {
@@ -83,7 +95,7 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
         }
     }
 
-    private void loadPdf() {
+    private void loadPdf(String path) {
         try {
             //打开pef
             pdfView.fromFile(new File(path))   //设置pdf文件地址 fromAsset(assetFileName)
@@ -137,5 +149,14 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
             curpage++;
             pdfView.jumpTo(curpage);
         }
+    }
+
+    @Override
+    public void onResult(List<File> list) {
+        if (list == null || list.isEmpty()) {
+            return;
+        }
+
+        loadPdf(list.get(0).getPath());
     }
 }

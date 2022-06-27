@@ -1,9 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainbody.activity.thirdlib.ChartsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/chart_margin_title"
+                    android:text="条形统计图"
+                    android:textSize="@dimen/text_size_20"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/bc_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+
+                    <com.github.mikephil.charting.charts.HorizontalBarChart
+                        android:id="@+id/hbc_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color_JGH"
+                android:layout_margin="@dimen/chart_margin_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/chart_margin_title"
+                    android:text="折线统计图"
+                    android:textSize="@dimen/text_size_20"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/sl_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/ml_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color_JGH"
+                android:layout_margin="@dimen/chart_margin_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/chart_margin_title"
+                    android:text="扇形统计图"
+                    android:textSize="@dimen/text_size_20"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/p1_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginEnd="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/p2_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/chart_margin"
+                        android:layout_height="@dimen/chart_height"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color_JGH"
+                android:layout_margin="@dimen/chart_margin_line"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/chart_margin_title"
+                    android:text="组合统计图"
+                    android:textSize="@dimen/text_size_20"
+                    android:textColor="@color/black"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.github.mikephil.charting.charts.CombinedChart
+                        android:id="@+id/cb_chart"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/chart_height"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/color_JGH"
+                android:layout_margin="@dimen/chart_margin_line"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

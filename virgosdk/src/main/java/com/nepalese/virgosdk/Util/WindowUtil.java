@@ -86,12 +86,15 @@ public class WindowUtil {
      */
     public static DisplayMetrics getScreenDM(Context context) {
         DisplayMetrics dm = new DisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            context.getDisplay().getRealMetrics(dm);
-        }else{
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(dm);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            context.getDisplay().getRealMetrics(dm);//仅activity可调用？
+//        } else{
+//            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//            windowManager.getDefaultDisplay().getMetrics(dm);
+//        }
+
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getMetrics(dm);
 
         return dm;
     }

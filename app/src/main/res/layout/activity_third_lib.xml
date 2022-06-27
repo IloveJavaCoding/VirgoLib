@@ -4,104 +4,112 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/layout_block_padding"
+    android:background="@color/white"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:padding="@dimen/layout_block_padding"
     tools:context=".mainbody.activity.thirdlib.ThirdLibActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onMap"
+        android:padding="@dimen/page_button_padding"
         android:text="定位 | 地图"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onPDF"
+        android:padding="@dimen/page_button_padding"
         android:text="PDF 阅读器"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onQRCode"
+        android:padding="@dimen/page_button_padding"
         android:text="二维码生成 | 扫描"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onWeather"
+        android:padding="@dimen/page_button_padding"
         android:text="和风天气"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onVideoTest"
+        android:padding="@dimen/page_button_padding"
         android:text="video player"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCalender3rd"
+        android:padding="@dimen/page_button_padding"
         android:text="日历"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onGlideImg"
+        android:padding="@dimen/page_button_padding"
         android:text="glide 图片"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCharts"
+        android:padding="@dimen/page_button_padding"
         android:text="统计图表"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 </LinearLayout>

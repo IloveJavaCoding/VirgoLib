@@ -9,6 +9,7 @@ import com.nepalese.virgolib.bean.CrashHandler;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgosdk.Util.WindowUtil;
 
+import androidx.appcompat.view.menu.MenuWrapperICS;
 import androidx.multidex.MultiDex;
 
 /**
@@ -50,6 +51,10 @@ public class MyApp extends Application {
         return sHeight;
     }
 
+    public boolean isLandscape(){
+        return sWidth>=sHeight;
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -58,6 +63,7 @@ public class MyApp extends Application {
 
     @Override
     public void onCreate() {
+        myApp = this;
         super.onCreate();
         Log.i(TAG, "onCreate: ");
 
@@ -79,9 +85,10 @@ public class MyApp extends Application {
     }
 
     private void initScreenInfo() {
-        DisplayMetrics screenDM = WindowUtil.getScreenDM(this);
+        DisplayMetrics screenDM = WindowUtil.getScreenDM(getApplicationContext());
         sWidth= screenDM.widthPixels;
         sHeight = screenDM.heightPixels;
+        Log.i(TAG, "initScreenInfo: " + sWidth + "*" + sHeight);
     }
 
     private void catchCrash() {

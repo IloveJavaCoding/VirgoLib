@@ -14,7 +14,6 @@ import android.os.Build;
 
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -29,7 +28,7 @@ import androidx.core.content.res.ResourcesCompat;
 /**
  * Created by Administrator on 2022/4/18.
  * Usage:自带动画的图片播放器: 两张图之间
- *
+ * <p>
  * BaseImageView imageView = new BaseImageView(this);
  * imageView.setAnimType(BaseImageView.ANIM_RANDOM);
  * MyUtils.add2ParentIfNeed(root, imageView);
@@ -39,10 +38,8 @@ import androidx.core.content.res.ResourcesCompat;
 
 public class BaseImageView extends View {
     private static final String TAG = "BaseImageView";
-
-    private static final long INTERVAL_ANIMATION = 600L;//动画时长
     private static final int ANIM_NUM = 6;//动画效果数（除随机）
-    private static final int LENTH = 35;//像素跨值|cube 边长
+    private static final int LENTH = 50;//像素跨值|cube 边长
 
     public static final int ANIM_NONE = 0;//无动画
     public static final int ANIM_FADE = 1;//淡入淡出 默认
@@ -68,6 +65,7 @@ public class BaseImageView extends View {
     private List<Cube> pixelList;
     private float animTime;//动画运行时间
     private float whRate;//宽高比
+    private long INTERVAL_ANIMATION;//动画时长
     private boolean isSecond;//第二部分
     private boolean isOver;//动画结束
     private boolean isRandom;//随机动画效果
@@ -105,16 +103,9 @@ public class BaseImageView extends View {
     public void initLayout(int width, int height) {
         this.width = width;
         this.height = height;
-        whRate = width * 1f / height;
-        initAnimator();
-    }
-
-    /**
-     * 通过xml创建控件调用
-     */
-    public void initLayout() {
-        width = getWidth();
-        height = getHeight();
+        if (width == 0 || height == 0) {
+            return;
+        }
         whRate = width * 1f / height;
         initAnimator();
     }
@@ -131,14 +122,17 @@ public class BaseImageView extends View {
                 break;
             case ANIM_FADE:
                 CV = 255; //透明值
+                INTERVAL_ANIMATION = 600L;
                 break;
             case ANIM_RIGHT:
                 CV = width;
+                INTERVAL_ANIMATION = 600L;
                 break;
             case ANIM_SCALE:
                 rectLast = new Rect();
                 rectCur = new Rect();
                 CV = width / 2;
+                INTERVAL_ANIMATION = 800L;
                 break;
             case ANIM_CRASH:
                 if (paint == null) {
@@ -150,11 +144,13 @@ public class BaseImageView extends View {
                     pixelList = new ArrayList<>();
                 }
                 CV = 100;
+                INTERVAL_ANIMATION = 2000L;
                 break;
             case ANIM_JUMP:
                 rectJump = new Rect();
                 JUMP_THRESHOLD = Math.max(width / 5, 30);
                 CV = width + JUMP_THRESHOLD;
+                INTERVAL_ANIMATION = 1200L;
                 break;
         }
 
@@ -165,6 +161,24 @@ public class BaseImageView extends View {
         } else {
             animator = null;
         }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (width == 0 || height == 0) {
+            initLayout();
+        }
+    }
+
+    private void initLayout() {
+        width = getWidth();
+        height = getHeight();
+        if (width == 0 || height == 0) {
+            return;
+        }
+        whRate = width * 1f / height;
+        initAnimator();
     }
 
     @Override
@@ -366,7 +380,7 @@ public class BaseImageView extends View {
 
         if (isRandom) {
             animType = (int) (Math.random() * 1000) % ANIM_NUM;
-            Log.d(TAG, "animType: " + animType);
+//            Log.d(TAG, "animType: " + animType);
             resetAnimator();
         }
 
@@ -392,20 +406,24 @@ public class BaseImageView extends View {
             Bitmap bitmap = bitmapDrawable.getBitmap();
             if (bitmap != null) {
                 //该参数控制原来每一个像素点在屏幕上的缩放比例，此时为放大两倍
+                //该参数控制原来每一个像素点在屏幕上的缩放比例，此时为放大两倍
+                //基于控件宽高， 获取等比缩放下对应的像素点
+                float rW = bitmap.getWidth() * 1f / width;
+                float rH = bitmap.getHeight() * 1f / height;
                 Cube item;
-                for (int i = 0; i < bitmap.getWidth(); i += LENTH) {//像素跨值
-                    for (int j = 0; j < bitmap.getHeight(); j += LENTH) {
+                for (int i = 0; i < width; i += LENTH) {//像素跨值
+                    for (int j = 0; j < height; j += LENTH) {
                         item = new Cube();
-                        item.color = bitmap.getPixel(i, j);//取样点
+                        item.color = bitmap.getPixel((int) (i * rW), (int) (j * rH));//取样点
 
                         item.sX = i;
                         item.sY = j;
                         item.cL = LENTH;
 
                         //初始速度
-                        item.vY = getRandom(3, 20);
+                        item.vY = getRandom(5, 25);
                         //加速度
-                        item.aY = 25f;//9.8f;
+                        item.aY = 30f;//9.8f;
 
                         pixelList.add(item);
                     }

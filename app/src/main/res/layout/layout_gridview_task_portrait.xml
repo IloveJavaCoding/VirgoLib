@@ -5,8 +5,8 @@
 
     <TextView
         android:id="@+id/tvTaskName"
-        android:layout_width="@dimen/home_grid_block"
-        android:layout_height="@dimen/home_grid_block"
+        android:layout_width="@dimen/home_grid_block_portrait"
+        android:layout_height="@dimen/home_grid_block_portrait"
         android:padding="@dimen/home_grid_block_padd"
         android:gravity="center"
         android:textColor="@color/white"

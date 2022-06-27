@@ -91,16 +91,30 @@ mainactivity:
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 后台
 1. broadcast receiver:
-    a: 自启广播：android.intent.action.BOOT_COMPLETED
+    a: 自启广播：
+        android.intent.action.BOOT_COMPLETED
     b: usb 插入拔出广播：该广播先于自启广播，且自启时自带外部存储会会触发
         android.intent.action.MEDIA_MOUNTED
         android.intent.action.MEDIA_UNMOUNTED
+        android.intent.action.MEDIA_REMOVED
+        android.intent.action.MEDIA_EJECT
     c: 电源、电量变化广播：
         Intent.ACTION_BATTERY_CHANGE
         Intent.ACTION_BATTERY_LOW
         Intent.ACTION_BATTERY_OKAY
         Intent.ACTION_POWER_CONNECTED
         Intent.ACTION_POWER_DISCONNECTED
+    d: 网络状态变化广播：
+        ConnectivityManager.CONNECTIVITY_ACTION
+        android.net.ethernet.STATE_CHANGE //有线网络
+        android.net.ethernet.ETHERNET_STATE_CHANGED
+        WifiManager.WIFI_STATE_CHANGED_ACTION
+        WifiManager.NETWORK_STATE_CHANGED_ACTION
+    e: 屏幕状态变化广播：
+        Intent.ACTION_SCREEN_ON
+        Intent.ACTION_SCREEN_OFF
+        Intent.ACTION_USER_PRESENT
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

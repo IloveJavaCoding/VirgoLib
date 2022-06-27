@@ -2,6 +2,8 @@ package com.nepalese.virgocomponent.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -12,8 +14,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.nepalese.virgocomponent.R;
 import com.nepalese.virgocomponent.adapter.ListView_FileSelector_Adapter;
@@ -29,7 +29,6 @@ import java.util.Objects;
 /**
  * @author nepalese on 2020/10/30 15:20
  * @usage 弹框式文件选择器，可筛选文件类型或仅文件夹，返回选中的文件或文件夹
- *
  */
 public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSelector_Adapter.FileInterListener {
     private static final String TAG = "FileSelectorDialog";
@@ -44,12 +43,14 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     public static final String TYPE_TEXT = "txt";
     public static final String TYPE_VIDEO = "video";
     public static final String TYPE_AUDIO = "audio";
+    public static final String TYPE_DOC = "docs";
 
     //选择特定文件类型后将显示的文件拓展名
     public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "png", "svg", "bmp", "tiff"};
     public static final String[] AUDIO_EXTENSION = {"mp3", "wav", "wma", "aac", "flac"};
     public static final String[] VIDEO_EXTENSION = {"mp4", "flv", "avi", "wmv", "mpeg", "mov", "rm", "swf"};
     public static final String[] TEXT_EXTENSION = {"txt", "java", "html", "xml", "php"};
+    public static final String[] DOC_EXTENSION = {"doc", "pdf", "xls", "xlsx"};
 
     private static final String DEFAULT_ROOT_PATH = "/storage/emulated/0";//默认初始位置
 
@@ -71,13 +72,15 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     private String fileType = TYPE_ALL;
     private int dialogHeight = 500;//默认弹框高度
     private float dialogAlpha = 0.85f;//默认弹框透明度
+    private boolean needReLayout;//需变更布局？
+    private boolean needReData;//需变更起始数据？
 
-    public VirgoFileSelectorDialog(@NonNull Context context) {
+    public VirgoFileSelectorDialog(Context context) {
         //默认自定义弹框样式，使用下面的构造函数可另设样式
         this(context, R.style.VirgoFile_Dialog);
     }
 
-    public VirgoFileSelectorDialog(@NonNull Context context, int themeResId) {
+    public VirgoFileSelectorDialog(Context context, int themeResId) {
         super(context, themeResId);
         setCancelable(false);
         init(context);
@@ -96,13 +99,32 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         layoutLast = view.findViewById(R.id.layoutToLast);
 
         listView = view.findViewById(R.id.listViewFile);
-        index = new ArrayList<>();
-
         setContentView(view);
+
+        initData();
         setListener();
     }
 
+    private void initData() {
+        needReLayout = true;
+        needReData = true;
+        index = new ArrayList<>();
+        files = new ArrayList<>();
+    }
+
+    //==============================================================================================
+    private void setData() {
+        setLayout();
+        initFiles();
+    }
+
+    //设置弹框布局
     private void setLayout() {
+        if (!needReLayout) {
+            return;
+        }
+        needReLayout = false;
+
         Window dialogWindow = this.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         dialogWindow.setGravity(Gravity.CENTER);
@@ -124,28 +146,37 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
 //        lp.width = 300; // 宽度
         lp.height = dialogHeight; // 高度
         lp.alpha = dialogAlpha; // 透明度
+        Log.d(TAG, "setLayout: " + lp);
 
         dialogWindow.setAttributes(lp);
     }
 
-    //==============================================================================================
-    //初始化数据
-    private void setData() {
-        setLayout();//设置弹框布局
+    private void initFiles() {
+        if(!needReData){
+            return;
+        }
+        needReData = false;
+
         curPath = rootPath;
         tvCurPath.setText(curPath);
-        files  = new ArrayList(getFiles(curPath));
 
-        adapter = new ListView_FileSelector_Adapter(context, files, this);//指向的是最开始的list
+        List<File> temp = getFiles(curPath);
+        if (temp == null) {
+            CommonUtil.showToast(context, "空文件夹！");
+            return;
+        }
+
+        files.addAll(temp);
+        adapter = new ListView_FileSelector_Adapter(context, this.files, this);//指向的是最开始的list
 //        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(adapter);
     }
 
     //进入新的路径或返回上一层，刷新数据
-    private void resetData(String path){
+    private void resetData(String path) {
         //若为空文件夹，则不进入
         File file = new File(path);
-        if(file.listFiles()==null || file.listFiles().length==0){
+        if (file.listFiles() == null || file.listFiles().length == 0) {
             CommonUtil.showToast(context, "空文件夹！");
             return;
         }
@@ -154,22 +185,26 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         files.clear();
         index.clear();//重置选中
 
-        //note: 若直接使用 files = getFiles(curPath);listView 将无变化
         List<File> temp = getFiles(curPath);
+        if (temp == null) {
+            return;
+        }
         files.addAll(temp);
         adapter.notifyDataSetChanged();
     }
 
     //根据条件筛选显示文件
-    private List<File> getFiles(String path){
-        if(flag==FLAG_DIR){
+    private List<File> getFiles(String path) {
+        if (flag == FLAG_DIR) {
             FileFilter filter = File::isDirectory;//File::isDirectory
             return Arrays.asList(Objects.requireNonNull(new File(path).listFiles(filter)));
-        }else if(flag==FLAG_FILE){//显示所有文件夹及选择的类型的文件
-            switch (fileType){
+        } else if (flag == FLAG_FILE) {//显示所有文件夹及选择的类型的文件
+            switch (fileType) {
                 case TYPE_ALL:
                     File[] fs = new File(path).listFiles();
-                    assert fs != null;
+                    if (fs == null) {
+                        return null;
+                    }
                     Arrays.sort(fs, (o1, o2) -> o1.getName().compareTo(o2.getName()));
                     return Arrays.asList(fs);
                 case TYPE_AUDIO:
@@ -180,37 +215,49 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
                     return getCertainFile(path, TEXT_EXTENSION);
                 case TYPE_VIDEO:
                     return getCertainFile(path, VIDEO_EXTENSION);
+                case TYPE_DOC:
+                    return getCertainFile(path, DOC_EXTENSION);
             }
         }
-        return new ArrayList<>();
+        return null;
     }
 
-    private List<File> getCertainFile(String path, String[] extension){
+    private List<File> getCertainFile(String path, String[] extension) {
+        File[] files = new File(path).listFiles();
+        if (files == null) {
+            return null;
+        }
+
         List<File> list = new ArrayList<>();
-        File[] files = new File(path).listFiles();;
-
         //排序
-        Arrays.sort(files, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-
-        List extList = Arrays.asList(extension);
-        for (File file:files){
-            if (file.isDirectory()){
+//        Arrays.sort(files, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+        List<String> extList = Arrays.asList(extension);
+        for (File file : files) {
+            if (file.isDirectory()) {
                 list.add(file);
                 continue;
             }
-            if (extList.contains(getExtensionName(file.getName()))){
+            if (extList.contains(getExtensionName(file.getName()))) {
                 list.add(file);
             }
         }
+
+        //排序
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        }
+
         return list;
     }
 
     private String getExtensionName(String filename) {
-        if ((filename != null) && (filename.length() > 0)) {
-            int dot = filename.lastIndexOf('.');
-            if ((dot > -1) && (dot < (filename.length() - 1))) {
-                return filename.substring(dot + 1).toLowerCase();
-            }
+        Log.d(TAG, "getExtensionName: " + filename);
+        if (TextUtils.isEmpty(filename)) {
+            return "";
+        }
+        int dot = filename.lastIndexOf('.');
+        if ((dot > -1) && (dot < (filename.length() - 1))) {
+            return filename.substring(dot + 1).toLowerCase();
         }
         return "";
     }
@@ -220,6 +267,7 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         files.clear();
         index.clear();
         adapter = null;
+        callback = null;
     }
 
     //===============================================外部调用api=====================================
@@ -232,25 +280,42 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     @Override
     public void dismiss() {
         super.dismiss();
+    }
+
+    public void destory() {
+        dismiss();
         release();
     }
 
     //设置根目录
     public void setRootPath(String rootPath) {
+        if (rootPath.equals(this.rootPath)) {
+            return;
+        }
         File file = new File(rootPath);
-        if(file.exists() && file.isDirectory()){
+        if (file.exists() && file.isDirectory()) {
             this.rootPath = rootPath;
+            needReData = true;
         }
     }
 
     //设置选择文件或文件夹
     public void setFlag(int flag) {
+        if (flag == this.flag) {
+            return;
+        }
         this.flag = flag;
+        needReData = true;
     }
 
     //设置要筛选文件类型
     public void setFileType(String fileType) {
+        if (fileType.equals(this.fileType)) {
+            return;
+        }
+
         this.fileType = fileType;
+        needReData = true;
     }
 
     public void setCallback(SelectFileCallback callback) {
@@ -259,16 +324,18 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
 
     public void setDialogHeight(int dialogHeight) {
         this.dialogHeight = dialogHeight;
+        needReLayout = true;
     }
 
     public void setDialogAlpha(float dialogAlpha) {
         this.dialogAlpha = dialogAlpha;
+        needReLayout = true;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_BACK){
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             this.cancel();
         }
         return super.onKeyDown(keyCode, event);
@@ -291,44 +358,44 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
 
     private void setListener() {
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Log.d("click", String.valueOf(position+1));
+            Log.d("click", String.valueOf(position + 1));
             //judge file/dir
-            if(files.get(position).isFile()){
+            if (files.get(position).isFile()) {
                 //do nothing
                 //可增加本地打开查看
-            }else{
+            } else {
                 //点击，进入文件夹
                 resetData(files.get(position).getPath());
             }
         });
 
         tvConfirm.setOnClickListener(v -> {
-            if(index.size()<1) {
+            if (index.size() < 1) {
                 //未选择, 退出
                 dismiss();
                 return;
             }
 
             List<File> result = new ArrayList<>();
-            switch (flag){
+            switch (flag) {
                 case FLAG_DIR://return dirs
-                    for(int i=0; i<index.size(); i++){
+                    for (int i = 0; i < index.size(); i++) {
                         //双重保险
-                        if(files.get(index.get(i)).isDirectory()){
+                        if (files.get(index.get(i)).isDirectory()) {
                             result.add(files.get(index.get(i)));
                         }
                     }
                     break;
                 case FLAG_FILE://return files
-                    for(int i=0; i<index.size(); i++){
-                        if(files.get(index.get(i)).isFile()){
+                    for (int i = 0; i < index.size(); i++) {
+                        if (files.get(index.get(i)).isFile()) {
                             result.add(files.get(index.get(i)));
                         }
                     }
                     break;
             }
             //通过回调函数返回结果
-            if(callback!=null){
+            if (callback != null) {
                 callback.onResult(result);
             }
             //退出
@@ -341,7 +408,7 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
             if (curPath.equals(rootPath)) {
                 //do nothing
                 CommonUtil.showToast(context, "已是根目录");
-            }else{
+            } else {
                 //back to last layer
                 resetData(curPath.substring(0, curPath.lastIndexOf("/")));
             }
@@ -349,10 +416,10 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
 
         //返回根目录
         layoutRoot.setOnClickListener(v -> {
-            if(curPath.equals(rootPath)){
+            if (curPath.equals(rootPath)) {
                 //do nothing
                 CommonUtil.showToast(context, "已是根目录");
-            }else{
+            } else {
                 //back to root
                 resetData(rootPath);
             }
@@ -360,7 +427,7 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     }
 
     //自定义回调接口：
-    public interface SelectFileCallback{
+    public interface SelectFileCallback {
         void onResult(List<File> list);
     }
 }

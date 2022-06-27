@@ -28,15 +28,15 @@ import androidx.annotation.RequiresPermission;
 public class NetworkUtil {
     private static final String TAG = "NetworkUtil";
 
-    public static final int NETWORK_NONE = 0;      //没有网络连接
-    public static final int NETWORK_INTERNET = 1;  //有线连接
-    public static final int NETWORK_WIFI = 2;      //wifi连接
+    public static final int NETWORK_NONE = -1;      //没有网络连接
+    public static final int NETWORK_INTERNET = 0;  //有线连接
+    public static final int NETWORK_WIFI = 1;      //wifi连接
     //手机网络数据连接类型
-    public static final int NETWORK_2G = 3;
-    public static final int NETWORK_3G = 4;
-    public static final int NETWORK_4G = 5;
-    public static final int NETWORK_5G = 6;
-    public static final int NETWORK_MOBILE = 7;
+    public static final int NETWORK_2G = 2;
+    public static final int NETWORK_3G = 3;
+    public static final int NETWORK_4G = 4;
+    public static final int NETWORK_5G = 5;
+    public static final int NETWORK_MOBILE = 6;
 
     public static final int TYPE_NO_SIM = -1; //无sim卡
     public static final int TYPE_UNKNOWN = 0; //未知运营商

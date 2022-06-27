@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.nepalese.virgolib">
-    <!-- 仅需注册 -->
-    <!-- 网络访问 -->
+
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"
@@ -12,11 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mainbody.activity.thirdlib.CalenderActivity"></activity>
+        <activity android:name=".mainbody.activity.selfcom.ImageAnimActivity"></activity>
+        <activity android:name=".mainbody.activity.thirdlib.CalenderActivity" />
         <activity android:name=".mainbody.activity.thirdlib.QRActivity" />
         <activity android:name=".mainbody.activity.thirdlib.GDMapActivity" />
         <activity android:name=".mainbody.activity.thirdlib.ChartsActivity" />
-        <activity android:name=".mainbody.activity.thirdlib.PDFViewActivity" />
+        <activity
+            android:name=".mainbody.activity.thirdlib.PDFViewActivity"
+            android:theme="@style/FullTheme" />
         <activity android:name=".mainbody.activity.math.MathActivity" />
         <activity android:name=".mainbody.activity.game.GameActivity" />
         <activity android:name=".mainbody.activity.thirdlib.GlideImageActivity" />
@@ -84,11 +86,10 @@
             </intent-filter>
         </receiver>
     </application>
-    <uses-feature android:name="android.hardware.camera" />
-
-    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 蓝牙 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 禁用键盘锁 -->
+    <uses-feature android:name="android.hardware.camera" /> <!-- 蓝牙 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 禁用键盘锁 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

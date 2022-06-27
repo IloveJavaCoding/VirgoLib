@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.GridView;
 
 import com.nepalese.virgolib.R;
+import com.nepalese.virgolib.base.MyApp;
 import com.nepalese.virgolib.bean.TaskBean;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgolib.mainbody.Adapter.Adapter_GridView_Task;
@@ -53,7 +54,15 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initData() {
         createTasks();
-        gridView.setAdapter(new Adapter_GridView_Task(getApplicationContext(), list));
+        if(MyApp.getInstance().isLandscape()){
+            gridView.setNumColumns(8);
+            gridView.setColumnWidth((int) getResources().getDimension(R.dimen.home_grid_block_land));
+        }else{
+            gridView.setNumColumns(4);
+            gridView.setColumnWidth((int) getResources().getDimension(R.dimen.home_grid_block_portrait));
+        }
+
+        gridView.setAdapter(new Adapter_GridView_Task(getApplicationContext(), list, MyApp.getInstance().isLandscape()));
 
         simplePlayer.setPlayList(CommonHelper.getAudioItems(this));
     }

@@ -113,4 +113,20 @@ public class CommonHelper {
         }
         return list;
     }
+
+    public static void LogDebug(String tag, String msg) {
+        Log.d(tag, msg);
+    }
+
+    public static void LogInfo(String tag, String msg) {
+        Log.i(tag, msg);
+    }
+
+    public static void LogWarn(String tag, String msg) {
+        Log.w(tag, msg);
+    }
+
+    public static void LogError(String tag, String msg) {
+        Log.e(tag, msg);
+    }
 }

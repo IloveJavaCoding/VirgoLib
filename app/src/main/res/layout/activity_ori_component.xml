@@ -4,117 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:padding="@dimen/page_layout_padding"
     tools:context=".mainbody.activity.oricom.OriComponentActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onTextView"
+        android:padding="@dimen/page_button_padding"
         android:text="textview"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onEtSp"
+        android:padding="@dimen/page_button_padding"
         android:text="editview | spinner"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onButton"
+        android:padding="@dimen/page_button_padding"
         android:text="button | checkboc | radiobutton"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onFragments"
+        android:padding="@dimen/page_button_padding"
         android:text="fragments | listview | gridview | recycleview"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onBar"
+        android:padding="@dimen/page_button_padding"
         android:text="seekbar | switch | processbar | ratingbar"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCalender"
+        android:padding="@dimen/page_button_padding"
         android:text="calender | textclock"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onDialog"
+        android:padding="@dimen/page_button_padding"
         android:text="dialog"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onWebView"
+        android:padding="@dimen/page_button_padding"
         android:text="webview"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
         android:onClick="onCamrea"
+        android:padding="@dimen/page_button_padding"
         android:text="camera"
-        android:textSize="@dimen/page_tv_size"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:padding="@dimen/page_button_padding"
-        android:layout_marginBottom="@dimen/page_button_margin"
-        android:background="@drawable/page_button" />
+        android:textSize="@dimen/page_tv_size" />
 
 </LinearLayout>

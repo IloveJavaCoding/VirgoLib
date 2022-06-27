@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.widget.ImageView;
 
 import com.nepalese.virgolib.R;
+import com.nepalese.virgolib.base.MyApp;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgolib.mainbody.activity.thirdlib.ThirdLibActivity;
 import com.nepalese.virgosdk.Util.GlideUtil;
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         //正常进入
         ImageView imageView = findViewById(R.id.imgMainBg);
 
-        if(WindowUtil.isLandscape(this)){
+        if(MyApp.getInstance().isLandscape()){
             GlideUtil.loadImage(R.raw.img_bg_land, imageView);
         }else{
             GlideUtil.loadImage(R.raw.img_bg_portrait, imageView);
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 super.run();
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

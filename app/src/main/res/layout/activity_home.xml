@@ -17,10 +17,8 @@
         android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnWidth="@dimen/home_grid_block"
         android:stretchMode="spacingWidthUniform"
-        android:verticalSpacing="@dimen/home_grid_space"
-        android:numColumns="4"/>
+        android:verticalSpacing="@dimen/home_grid_row_space"/>
 
     <com.nepalese.virgolib.widget.musicplayer.VirgoSimplePlayer
         android:id="@+id/simplePlayer"
