@@ -20,6 +20,8 @@
     <color name="colorGray80">#CCD3D3D3</color>
 
     <color name="colorGray2">#919191</color>
+    <color name="color_dot">#7026C5</color>
+    <color name="color_line">#80EAEAEF</color>
 
     <color name="colorRed">#ff0000</color>
     <color name="colorOrange">#ffA500</color>
@@ -27,7 +29,7 @@
     <color name="colorGreen">#00ff00</color>
     <color name="colorCyan">#00ffff</color>
     <color name="colorBlue">#0000ff</color>
-    <color name="colorPurple">#ff00ff</color>
+    <color name="colorPurple">#800080</color>
 
     <color name="colorEye">#C7EDCC</color>
     <color name="colorEye50">#80C7EDCC</color>

@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.base.MyApp;
+import com.nepalese.virgolib.config.MyApp;
 import com.nepalese.virgosdk.Base.BaseActivity;
 import com.nepalese.virgosdk.Util.BitmapUtil;
 import com.nepalese.virgosdk.Util.FileUtil;

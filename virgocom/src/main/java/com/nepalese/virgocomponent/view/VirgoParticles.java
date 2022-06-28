@@ -40,8 +40,6 @@ public class VirgoParticles extends View {
     private float mMaxSpace;//最大吸引距离
 
     private int bgColor;//背景颜色
-    private int dotColor;//点颜色
-    private int lineColor;//线颜色
 
     private final List<VirgoPoint2> listDot = new ArrayList<>();//存放现有点容器
     private final List<VirgoPoint2> backupDot = new ArrayList<>();//备份未与其他点计算吸引的点的容器
@@ -67,9 +65,11 @@ public class VirgoParticles extends View {
         mDotRadius = ta.getDimensionPixelSize(R.styleable.VirgoParticles_vpDotRadius, 5);
         mMaxSpace = ta.getFloat(R.styleable.VirgoParticles_vpMaxSpace, 120f);
         mMoveSpace = ta.getFloat(R.styleable.VirgoParticles_vpMoveSpace, 2f);
-        bgColor = ta.getColor(R.styleable.VirgoParticles_vpBgColor, Color.rgb(24,31,26));
-        dotColor = ta.getColor(R.styleable.VirgoParticles_vpDotColor, Color.GREEN);
-        lineColor = ta.getColor(R.styleable.VirgoParticles_vpLineColor, Color.argb(80, 0, 255,0));
+        bgColor = ta.getColor(R.styleable.VirgoParticles_vpBgColor, Color.rgb(24, 31, 26));
+        //点颜色
+        int dotColor = ta.getColor(R.styleable.VirgoParticles_vpDotColor, Color.GREEN);
+        //线颜色
+        int lineColor = ta.getColor(R.styleable.VirgoParticles_vpLineColor, Color.argb(80, 0, 255, 0));
         ta.recycle();
 
         paintLine = new Paint();
@@ -84,47 +84,47 @@ public class VirgoParticles extends View {
         paintDot.setStyle(Paint.Style.FILL);
     }
 
-    private  void initDots(){
+    private void initDots() {
         listDot.clear();
-        int ava = mDotNum/mParts;
+        int ava = mDotNum / mParts;
 
-        for(int i=0; i<mDotNum; i++){
-            if(i<ava){
+        for (int i = 0; i < mDotNum; i++) {
+            if (i < ava) {
                 //区块1：
-                int x = CommonUtil.getRandomInt(1,mWidth/2);
-                int y = CommonUtil.getRandomInt(1,mHeight/3);
+                int x = CommonUtil.getRandomInt(1, mWidth / 2);
+                int y = CommonUtil.getRandomInt(1, mHeight / 3);
 
-                listDot.add(new VirgoPoint2(x,y));
-            }else if(i<ava*2){
+                listDot.add(new VirgoPoint2(x, y));
+            } else if (i < ava * 2) {
                 //区块2：
-                int x = CommonUtil.getRandomInt(mWidth/2,mWidth);
-                int y = CommonUtil.getRandomInt(1,mHeight/3);
+                int x = CommonUtil.getRandomInt(mWidth / 2, mWidth);
+                int y = CommonUtil.getRandomInt(1, mHeight / 3);
 
-                listDot.add(new VirgoPoint2(x,y));
-            }else if(i<ava*3){
+                listDot.add(new VirgoPoint2(x, y));
+            } else if (i < ava * 3) {
                 //区块3：
-                int x = CommonUtil.getRandomInt(1,mWidth/2);
-                int y = CommonUtil.getRandomInt(mHeight/3,mHeight*2/3);
+                int x = CommonUtil.getRandomInt(1, mWidth / 2);
+                int y = CommonUtil.getRandomInt(mHeight / 3, mHeight * 2 / 3);
 
-                listDot.add(new VirgoPoint2(x,y));
-            }else if(i<ava*4){
+                listDot.add(new VirgoPoint2(x, y));
+            } else if (i < ava * 4) {
                 //区块4：
-                int x = CommonUtil.getRandomInt(mWidth/2,mWidth);
-                int y = CommonUtil.getRandomInt(mHeight/3,mHeight*2/3);
+                int x = CommonUtil.getRandomInt(mWidth / 2, mWidth);
+                int y = CommonUtil.getRandomInt(mHeight / 3, mHeight * 2 / 3);
 
-                listDot.add(new VirgoPoint2(x,y));
-            }else if(i<ava*5){
+                listDot.add(new VirgoPoint2(x, y));
+            } else if (i < ava * 5) {
                 //区块5：
-                int x = CommonUtil.getRandomInt(1,mWidth/2);
-                int y = CommonUtil.getRandomInt(mHeight*2/3,mHeight);
+                int x = CommonUtil.getRandomInt(1, mWidth / 2);
+                int y = CommonUtil.getRandomInt(mHeight * 2 / 3, mHeight);
 
-                listDot.add(new VirgoPoint2(x,y));
-            }else{
+                listDot.add(new VirgoPoint2(x, y));
+            } else {
                 //区块6：
-                int x = CommonUtil.getRandomInt(mWidth/2,mWidth);
-                int y = CommonUtil.getRandomInt(mHeight*2/3,mHeight);
+                int x = CommonUtil.getRandomInt(mWidth / 2, mWidth);
+                int y = CommonUtil.getRandomInt(mHeight * 2 / 3, mHeight);
 
-                listDot.add(new VirgoPoint2(x,y));
+                listDot.add(new VirgoPoint2(x, y));
             }
         }
     }
@@ -152,17 +152,17 @@ public class VirgoParticles extends View {
         canvas.drawColor(bgColor);
 
         //画点
-        for(VirgoPoint2 p: listDot){
+        for (VirgoPoint2 p : listDot) {
             canvas.drawCircle(p.getX(), p.getY(), mDotRadius, paintDot);
         }
 
         //连线
         backupDot.clear();
         backupDot.addAll(listDot);
-        for(VirgoPoint2 p: listDot){
+        for (VirgoPoint2 p : listDot) {
             backupDot.remove(p);
-            for(VirgoPoint2 p1: backupDot){
-                if(isNear(p, p1)){
+            for (VirgoPoint2 p1 : backupDot) {
+                if (isNear(p, p1)) {
                     canvas.drawLine(p.getX(), p.getY(), p1.getX(), p1.getY(), paintLine);
                 }
             }
@@ -170,23 +170,23 @@ public class VirgoParticles extends View {
     }
 
     //判断两个点是否在吸引范围
-    private boolean isNear(VirgoPoint2 p1, VirgoPoint2 p2){
-        if(Math.abs(p1.getX()-p2.getX())>mMaxSpace || Math.abs(p1.getY()-p2.getY())>mMaxSpace){
+    private boolean isNear(VirgoPoint2 p1, VirgoPoint2 p2) {
+        if (Math.abs(p1.getX() - p2.getX()) > mMaxSpace || Math.abs(p1.getY() - p2.getY()) > mMaxSpace) {
             return false;
         }
-        return Math.sqrt(Math.pow((p1.getX()-p2.getX()), 2) + Math.pow((p1.getY()-p2.getY()), 2))<=mMaxSpace;
+        return Math.sqrt(Math.pow((p1.getX() - p2.getX()), 2) + Math.pow((p1.getY() - p2.getY()), 2)) <= mMaxSpace;
     }
 
     //实现36个方向
-    private void moveDot(){
+    private void moveDot() {
         //需新生成个数
         int mNewNum = 0;
         clearDot.clear();
-        for(VirgoPoint2 p: listDot){
-            p.setX((float) (p.getX()+mMoveSpace*Math.cos(p.getOffset()*Math.PI/18f)));
-            p.setY((float) (p.getY()-mMoveSpace*Math.sin(p.getOffset()*Math.PI/18f)));
+        for (VirgoPoint2 p : listDot) {
+            p.setX((float) (p.getX() + mMoveSpace * Math.cos(p.getOffset() * Math.PI / 18f)));
+            p.setY((float) (p.getY() - mMoveSpace * Math.sin(p.getOffset() * Math.PI / 18f)));
 
-            if(p.getX()<0 || p.getY()<0 || p.getX()>mWidth || p.getY()>mHeight){
+            if (p.getX() < 0 || p.getY() < 0 || p.getX() > mWidth || p.getY() > mHeight) {
                 mNewNum++;
                 clearDot.add(p);
             }
@@ -194,26 +194,26 @@ public class VirgoParticles extends View {
 
         listDot.removeAll(clearDot);
 
-        for(int i = 0; i< mNewNum; i++){
+        for (int i = 0; i < mNewNum; i++) {
             generateDot();
         }
 
         invalidate();
     }
 
-    private void generateDot(){
-        int x = CommonUtil.getRandomInt(1,mWidth);
-        int y = CommonUtil.getRandomInt(1,mHeight);
+    private void generateDot() {
+        int x = CommonUtil.getRandomInt(1, mWidth);
+        int y = CommonUtil.getRandomInt(1, mHeight);
 
-        listDot.add(new VirgoPoint2(x,y));
+        listDot.add(new VirgoPoint2(x, y));
     }
 
-    private void startMove(){
+    private void startMove() {
         stopMove();
         handler.post(moveTask);
     }
 
-    private void stopMove(){
+    private void stopMove() {
         handler.removeCallbacks(moveTask);
     }
 
@@ -234,8 +234,8 @@ public class VirgoParticles extends View {
 
     @Override
     protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
         stopMove();
+        super.onDetachedFromWindow();
     }
 
     @Override

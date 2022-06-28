@@ -1,4 +1,4 @@
-package com.nepalese.virgolib.base;
+package com.nepalese.virgolib.config;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,7 +9,6 @@ import com.nepalese.virgolib.bean.CrashHandler;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgosdk.Util.WindowUtil;
 
-import androidx.appcompat.view.menu.MenuWrapperICS;
 import androidx.multidex.MultiDex;
 
 /**

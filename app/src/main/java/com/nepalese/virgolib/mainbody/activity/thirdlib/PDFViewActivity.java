@@ -15,7 +15,7 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.nepalese.virgocomponent.view.VirgoFileSelectorDialog;
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.base.MyApp;
+import com.nepalese.virgolib.config.MyApp;
 import com.nepalese.virgosdk.Base.BaseActivity;
 
 import java.io.File;

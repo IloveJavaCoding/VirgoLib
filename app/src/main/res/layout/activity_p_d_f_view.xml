@@ -18,7 +18,6 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="@dimen/margin_10"
         android:src="@mipmap/icon_file"
-        android:scaleType="centerCrop"
         android:background="@drawable/img_button_transprant"
         android:onClick="onImportFile"/>
 

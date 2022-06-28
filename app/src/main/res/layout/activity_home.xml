@@ -8,6 +8,11 @@
     tools:context=".mainbody.activity.HomeActivity">
 
     <com.nepalese.virgocomponent.view.VirgoParticles
+        app:vpDotNum="128"
+        app:vpMaxSpace="110"
+        app:vpMoveSpace="0.8"
+        app:vpDotColor="@color/color_dot"
+        app:vpLineColor="@color/color_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

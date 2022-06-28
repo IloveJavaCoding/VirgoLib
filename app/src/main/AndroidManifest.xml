@@ -3,7 +3,7 @@
     package="com.nepalese.virgolib">
 
     <application
-        android:name=".base.MyApp"
+        android:name=".config.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VirgoLib"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mainbody.activity.selfcom.ImageAnimActivity"></activity>
+        <activity
+            android:name=".mainbody.activity.selfcom.ImageAnimActivity"
+            android:theme="@style/FullTheme" />
         <activity android:name=".mainbody.activity.thirdlib.CalenderActivity" />
         <activity android:name=".mainbody.activity.thirdlib.QRActivity" />
         <activity android:name=".mainbody.activity.thirdlib.GDMapActivity" />

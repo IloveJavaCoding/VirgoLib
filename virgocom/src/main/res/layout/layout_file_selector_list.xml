@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/imgFileDir"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:scaleType="centerCrop" />
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:scaleType="center" />
 
     <TextView
         android:id="@+id/tvFilePath"
@@ -27,7 +27,7 @@
 
     <CheckBox
         android:id="@+id/cbChoose"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:focusable="false" />
 </LinearLayout>

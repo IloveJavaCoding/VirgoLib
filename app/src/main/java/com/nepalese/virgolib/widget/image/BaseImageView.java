@@ -14,6 +14,7 @@ import android.os.Build;
 
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -69,6 +70,7 @@ public class BaseImageView extends View {
     private boolean isSecond;//第二部分
     private boolean isOver;//动画结束
     private boolean isRandom;//随机动画效果
+    private boolean isSkip;
 
     public BaseImageView(Context context) {
         this(context, null);
@@ -90,6 +92,7 @@ public class BaseImageView extends View {
         isOver = false;
         isSecond = false;
         isRandom = false;
+        isSkip = false;
         animType = ANIM_NONE;
     }
 
@@ -144,13 +147,19 @@ public class BaseImageView extends View {
                     pixelList = new ArrayList<>();
                 }
                 CV = 100;
-                INTERVAL_ANIMATION = 2000L;
+                if (width >= height) {
+                    //横向
+                    INTERVAL_ANIMATION = 1200L;
+                } else {
+                    //竖向
+                    INTERVAL_ANIMATION = 2000L;
+                }
                 break;
             case ANIM_JUMP:
                 rectJump = new Rect();
                 JUMP_THRESHOLD = Math.max(width / 5, 30);
                 CV = width + JUMP_THRESHOLD;
-                INTERVAL_ANIMATION = 1200L;
+                INTERVAL_ANIMATION = 1000L;
                 break;
         }
 
@@ -179,6 +188,10 @@ public class BaseImageView extends View {
         }
         whRate = width * 1f / height;
         initAnimator();
+        if (isSkip) {
+            isSkip = false;
+            doAnimation();
+        }
     }
 
     @Override
@@ -374,6 +387,12 @@ public class BaseImageView extends View {
     }
 
     private void doAnimation() {
+        if (width <= 0 || height <= 0) {
+            Log.e(TAG, "doAnimation: 布局还未加载！");
+            isSkip = true;//等待加载后再播放
+            return;
+        }
+
         if (animator != null) {
             animator.removeAllListeners();
         }
@@ -421,9 +440,9 @@ public class BaseImageView extends View {
                         item.cL = LENTH;
 
                         //初始速度
-                        item.vY = getRandom(5, 25);
+                        item.vY = getRandom(3, 15);
                         //加速度
-                        item.aY = 30f;//9.8f;
+                        item.aY = 15f;//9.8f;
 
                         pixelList.add(item);
                     }
@@ -583,6 +602,7 @@ public class BaseImageView extends View {
     public boolean setImageResource(Drawable drawable) {
         if (drawable == null) {
             //图片资源为空
+            Log.d(TAG, ": 图片资源为空！");
             return false;
         }
 

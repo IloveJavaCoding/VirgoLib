@@ -10,13 +10,11 @@ import android.provider.Settings;
 import android.widget.ImageView;
 
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.base.MyApp;
+import com.nepalese.virgolib.config.MyApp;
 import com.nepalese.virgolib.helper.CommonHelper;
-import com.nepalese.virgolib.mainbody.activity.thirdlib.ThirdLibActivity;
 import com.nepalese.virgosdk.Util.GlideUtil;
 import com.nepalese.virgosdk.Util.SystemUtil;
 import com.nepalese.virgosdk.Util.UIUtil;
-import com.nepalese.virgosdk.Util.WindowUtil;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

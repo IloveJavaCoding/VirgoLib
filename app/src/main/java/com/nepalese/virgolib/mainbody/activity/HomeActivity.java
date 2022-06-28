@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.GridView;
 
 import com.nepalese.virgolib.R;
-import com.nepalese.virgolib.base.MyApp;
+import com.nepalese.virgolib.config.MyApp;
 import com.nepalese.virgolib.bean.TaskBean;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgolib.mainbody.Adapter.Adapter_GridView_Task;

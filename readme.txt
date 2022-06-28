@@ -6,15 +6,14 @@
     d: 多渠道打包：适配机型、android 不同版本;
 
 2. 项目文件层级：
-    a: bean: 自定义对象类（区分数据库的bean）;
-    b: base: application、一些父类;
-    c: config: 常量（Constants）;
+    b: bean: 自定义对象类（区分数据库的bean）;
+    c: config: 常量(Constants), application, shareDao;
     d: data: 数据库专用;
     e: event: eventbus 注册类;
-    f: helper: 静态、非静态工具类;
-    g: interfaces: 接口类;
-    h: mainbody: 四大组件（activity[fragment]，services，broadcast receiver,content provider）;
-    i: widget: 自定义控件;
+    h: helper: 静态、非静态工具类;
+    i: interfaces: 接口类;
+    m: mainbody: 四大组件（activity[fragment]，services，broadcast receiver,content provider）;
+    w: widget: 自定义控件;
     
 
 3. 添加本地资源、库：
