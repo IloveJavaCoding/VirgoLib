@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    顶部导航栏-->
+    <dimen name="margin_statue">40dp</dimen>
+
     <dimen name="home_button_radius">8dp</dimen>
     <dimen name="home_grid_padding">20dp</dimen>
     <dimen name="home_grid_row_space">30dp</dimen>

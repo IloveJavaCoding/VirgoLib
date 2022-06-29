@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.nepalese.virgocomponent.view.VirgoFileSelectorDialog;
 import com.nepalese.virgolib.R;
@@ -22,11 +23,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-//全屏模式
+//全屏模式, 常亮
 public class ImageAnimActivity extends BaseActivity implements VirgoFileSelectorDialog.SelectFileCallback {
     private static final String TAG = "ImageAnimActivity";
 
     private Context context;
+    private ImageButton imageButton;
     private VirgoFileSelectorDialog fileSelectorDialog;
     private BaseImageView baseImageView;
     private List<String> imgList;//图片文件路径
@@ -48,6 +50,7 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
     @Override
     protected void initUI() {
         baseImageView = findViewById(R.id.base_image);
+        imageButton = findViewById(R.id.ib_select_dir);
     }
 
     @Override
@@ -58,7 +61,11 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
 
         fileSelectorDialog = new VirgoFileSelectorDialog(this);
         fileSelectorDialog.setFlag(VirgoFileSelectorDialog.FLAG_DIR);
-        fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() / 2);
+        if (MyApp.getInstance().isLandscape()) {
+            fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() / 2);
+        } else {
+            fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() * 2 / 3);
+        }
         fileSelectorDialog.setDialogHeight(MyApp.getInstance().getsHeight() / 2);
     }
 
@@ -69,7 +76,7 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
 
     @Override
     protected void release() {
-        stopPlay();
+        removeMsg();
         if (baseImageView != null) {
             baseImageView.releaseBase();
         }
@@ -94,13 +101,6 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
         scanFiles(list.get(0).getPath());
     }
 
-    public void onSelectDir(View view) {
-        //切换根目录
-        if (fileSelectorDialog != null) {
-            fileSelectorDialog.show();
-        }
-    }
-
     private void scanFiles(String dir) {
         if (TextUtils.isEmpty(dir)) {
             dir = Environment.getExternalStorageDirectory().getPath() + "/Pictures";
@@ -123,6 +123,7 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
             }
 
             if (imgList.size() > 0) {
+                hideButton();
                 playNext();
             } else {
                 showToast("未找到图片！");
@@ -132,9 +133,30 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
         }
     }
 
+    public void onSelectDir(View view) {
+        //切换根目录
+        if (fileSelectorDialog != null) {
+            fileSelectorDialog.show();
+        }
+    }
+
+    private void showButton() {
+        handler.removeMessages(MSG_HIDE);
+        handler.sendEmptyMessageDelayed(MSG_HIDE, 3000L);
+        imageButton.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 播放图片时自动退出
+     */
+    private void hideButton() {
+        imageButton.setVisibility(View.INVISIBLE);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private final int MSG_NEXT = 1;
     private final int MSG_LAST = 2;
+    private final int MSG_HIDE = 3;
     private final long DELAY_CHANGE = 10000L;
 
     private final Handler handler = new Handler(new Handler.Callback() {
@@ -149,10 +171,18 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
                     changeImageRes(false);
                     handler.sendEmptyMessageDelayed(MSG_NEXT, DELAY_CHANGE);
                     break;
+                case MSG_HIDE:
+                    hideButton();
+                    break;
             }
             return false;
         }
     });
+
+    private void removeMsg() {
+        handler.sendEmptyMessage(MSG_NEXT);
+        handler.removeMessages(MSG_HIDE);
+    }
 
     /**
      * 播放下一张：默认
@@ -225,6 +255,7 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
                     playNext();
                 } else {
                     //仅点击
+                    showButton();
                     continuePlay();
                 }
                 break;

@@ -153,6 +153,8 @@ public class VirgoParticles extends View {
 
         //画点
         for (VirgoPoint2 p : listDot) {
+            //随机色，注销仅设置颜色
+            paintDot.setColor(p.getColor());
             canvas.drawCircle(p.getX(), p.getY(), mDotRadius, paintDot);
         }
 

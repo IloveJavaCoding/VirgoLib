@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 3. 时钟：电子，转盘；
  * 4. 渐变；
  * 5. 图片切换；
+ * 6. 滚动歌词；
  */
 public class SelfComponentActivity extends AppCompatActivity {
 
@@ -43,5 +44,10 @@ public class SelfComponentActivity extends AppCompatActivity {
     //图片切换
     public void onImgAnim(View view) {
         SystemUtil.jumActivity(this, ImageAnimActivity.class);
+    }
+
+    //滚动歌词
+    public void onLyricAnim(View view) {
+        SystemUtil.jumActivity(this, LyricAnimActivity.class);
     }
 }

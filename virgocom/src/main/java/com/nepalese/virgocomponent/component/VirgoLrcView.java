@@ -43,7 +43,7 @@ public class VirgoLrcView extends View {
     private static final int MSG_TOUCH_BORDER = 1;//滑到底部或顶部
     private static final String DEFAULT_TEXT = "暂无歌词，快去下载吧！";
 
-    private Context context;
+    private final Context context;
     private LrcCallback callback;//滑动歌词时间线回调
 
     private Paint mainPaint;//当前歌词画笔
@@ -129,10 +129,10 @@ public class VirgoLrcView extends View {
 
     //计算歌词需要高度
     private void calculateHeight() {
-        totalHeight = (textSizeSec+dividerHeight)*lineList.size();
+        totalHeight = (textSizeSec + dividerHeight) * lineList.size();
     }
 
-    private void scaleBackground(){
+    private void scaleBackground() {
         if (background != null) {
             background = Bitmap.createScaledBitmap(background, viewWidth, viewHeight, true);
         }
@@ -143,7 +143,7 @@ public class VirgoLrcView extends View {
         //draw background
         if (background != null) {
             canvas.drawBitmap(background, 0, 0, null);
-        }else{
+        } else {
             canvas.drawColor(Color.TRANSPARENT);
         }
 
@@ -154,19 +154,19 @@ public class VirgoLrcView extends View {
         }
 
         //画选择线
-        if(isPlaying && isDown){
+        if (isPlaying && isDown) {
             float baseLine = centerY + getScrollY();
-            canvas.drawLine(padValue, baseLine, viewWidth-padValue, baseLine, mainPaint);
+            canvas.drawLine(padValue, baseLine, viewWidth - padValue, baseLine, mainPaint);
         }
 
-        for(int i=0; i<lineList.size(); i++){
-            if(curLine==i){
+        for (int i = 0; i < lineList.size(); i++) {
+            if (curLine == i) {
                 //选中行
                 canvas.drawText(lineList.get(i).lrc, getStartX(lineList.get(i).lrc, mainPaint),
-                        centerY + i * (textSizeSec+dividerHeight), mainPaint);
-            }else{
+                        centerY + i * (textSizeSec + dividerHeight), mainPaint);
+            } else {
                 canvas.drawText(lineList.get(i).lrc, getStartX(lineList.get(i).lrc, secPaint),
-                        centerY + i * (textSizeSec+dividerHeight), secPaint);
+                        centerY + i * (textSizeSec + dividerHeight), secPaint);
             }
         }
 
@@ -176,18 +176,19 @@ public class VirgoLrcView extends View {
     @Override
     public void computeScroll() {
         super.computeScroll();
-        if(scroller.computeScrollOffset()){
+        if (scroller.computeScrollOffset()) {
             scrollTo(scroller.getCurrX(), scroller.getCurrY());
             invalidate();
         }
     }
 
     private float oldY, startY;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         float y;
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isDown = true;
                 oldY = event.getY();
@@ -195,13 +196,13 @@ public class VirgoLrcView extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.i(TAG, "scrollY: " + getScrollY());
-                if(getScrollY()>totalHeight || getScrollY()<(-viewHeight/3)){
+                if (getScrollY() > totalHeight || getScrollY() < (-viewHeight / 3)) {
                     handler.sendEmptyMessage(MSG_TOUCH_BORDER);
                     return true;
                 }
                 y = event.getY();
-                if(Math.abs(y-startY) > 5){
-                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0, (int) (startY-y));
+                if (Math.abs(y - startY) > 5) {
+                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0, (int) (startY - y));
                     invalidate();
                 }
 
@@ -209,9 +210,9 @@ public class VirgoLrcView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 isDown = false;
-                if(isPlaying){
+                if (isPlaying) {
                     y = event.getY();
-                    calculateCurLine(oldY-y);
+                    calculateCurLine(oldY - y);
                 }
                 break;
         }
@@ -221,58 +222,58 @@ public class VirgoLrcView extends View {
 
     //计算滑动后当前居中的行
     private void calculateCurLine(float y) {
-        float offLine = ((Math.abs(y)-textSizeSec) / (textSizeSec + dividerHeight)) * 1.0f;
+        float offLine = ((Math.abs(y) - textSizeSec) / (textSizeSec + dividerHeight)) * 1.0f;
         Log.i(TAG, "off line: " + offLine);
-        if(y>0){
+        if (y > 0) {
             //上划
             curLine = (int) (curLine + offLine + 1);
-        }else{
+        } else {
             //下拉
             curLine = (int) (curLine - offLine - 1);
         }
 
-        if(curLine>lineList.size()-1){
-            curLine = lineList.size()-1;
-        }else if(curLine<0){
+        if (curLine > lineList.size() - 1) {
+            curLine = lineList.size() - 1;
+        } else if (curLine < 0) {
             curLine = 0;
         }
 
         //跳到前面时需要
-        if(y<0){
-            nextTime = lineList.get(curLine+1).getTime();
+        if (y < 0) {
+            nextTime = lineList.get(curLine + 1).getTime();
         }
 
         //返回当前行对应的时间线
-        if(curLine<lineList.size()-1){
+        if (curLine < lineList.size() - 1) {
             long time = lineList.get(curLine).getTime();
             callback.onRefresh(time);
         }
     }
 
-    private int fourOutFiveIn(float a, boolean convert){
-        int temp = (int) (a*10);
+    private int fourOutFiveIn(float a, boolean convert) {
+        int temp = (int) (a * 10);
         int m = temp % 10;
-        int out = temp/10;
-        if(convert){
-            if(m<5){
-                return out+1;
-            }else {
+        int out = temp / 10;
+        if (convert) {
+            if (m < 5) {
+                return out + 1;
+            } else {
                 return out;
             }
-        }else{
-            if(m>5){
-                return out+1;
-            }else {
+        } else {
+            if (m > 5) {
+                return out + 1;
+            } else {
                 return out;
             }
         }
     }
 
-    private final Handler handler = new Handler(Looper.myLooper()){
+    private final Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what == MSG_TOUCH_BORDER) {
+            if (msg.what == MSG_TOUCH_BORDER) {
                 //回到当前行
                 int curY = (int) (curLine * (textSizeSec + dividerHeight));
                 scrollTo(0, curY);
@@ -286,24 +287,24 @@ public class VirgoLrcView extends View {
     };
 
     //计算使文字居中
-    private float getStartX(String str, Paint paint){
+    private float getStartX(String str, Paint paint) {
         return (viewWidth - paint.measureText(str)) / 2.0f;
     }
 
-    private void reset(){
+    private void reset() {
         lineList.clear();
         curLine = 0;
         nextTime = 0;
-        if(scroller.isFinished()){
+        if (scroller.isFinished()) {
             scroller.abortAnimation();
         }
     }
 
-    private void parseLrc(InputStreamReader inputStreamReader){
+    private void parseLrc(InputStreamReader inputStreamReader) {
         BufferedReader reader = new BufferedReader(inputStreamReader);
         String line;
         try {
-            while((line=reader.readLine())!=null){
+            while ((line = reader.readLine()) != null) {
                 //deal with line
                 parseLine(line);
             }
@@ -335,10 +336,10 @@ public class VirgoLrcView extends View {
             String str;
             String con = line.replace("\\[", "").replace("\\]", "");
             Log.d(TAG, con);
-            if(con.matches("^\\d.+")){//time
+            if (con.matches("^\\d.+")) {//time
                 time = parseTime(con);
                 str = " ";
-            }else{
+            } else {
                 return;
             }
             lineList.add(new MyLrcLine(time, str));
@@ -356,10 +357,10 @@ public class VirgoLrcView extends View {
         this.background = CommonUtil.blurBitmap(background, 200);
     }
 
-    public void loopMode(){
+    public void loopMode() {
         curLine = 0;
         nextTime = 0;
-        scrollTo(0,0);
+        scrollTo(0, 0);
         scroller.abortAnimation();
         scroller = null;
         scroller = new OverScroller(context);
@@ -371,18 +372,20 @@ public class VirgoLrcView extends View {
 
     public void setLrc(String lrc) {
         reset();
-        if (TextUtils.isEmpty(lrc)) { return;}
+        if (TextUtils.isEmpty(lrc)) {
+            return;
+        }
         parseLrc(new InputStreamReader(new ByteArrayInputStream(lrc.getBytes())));
     }
 
-    public void setLrcFile(String path){
+    public void setLrcFile(String path) {
         File file = new File(path);
-        if(file.exists()){
+        if (file.exists()) {
             reset();
             String format;
-            if(CommonUtil.isUtf8(file)){
+            if (CommonUtil.isUtf8(file)) {
                 format = "UTF-8";
-            }else{
+            } else {
                 format = "GBK";
             }
 
@@ -404,28 +407,28 @@ public class VirgoLrcView extends View {
         }
     }
 
-    public void seekTo(long time){
-        if(time<lineList.get(curLine).getTime()){//往回跳
+    public void seekTo(long time) {
+        if (time < lineList.get(curLine).getTime()) {//往回跳
             //
-        }else if(time<nextTime){
+        } else if (time < nextTime) {
             return;
         }
 
-        for(int i=0; i<lineList.size(); i++){
-            if(i<lineList.size()-1){
-                if(time>=lineList.get(i).getTime() && time<lineList.get(i+1).getTime()){
+        for (int i = 0; i < lineList.size(); i++) {
+            if (i < lineList.size() - 1) {
+                if (time >= lineList.get(i).getTime() && time < lineList.get(i + 1).getTime()) {
                     int temp = i - curLine;
                     curLine = i;
-                    nextTime = lineList.get(i+1).getTime();
-                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight)*temp);
+                    nextTime = lineList.get(i + 1).getTime();
+                    scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0, (int) (textSizeSec + dividerHeight) * temp);
                     invalidate();
                     break;
                 }
-            }else{//last line
+            } else {//last line
                 int temp = i - curLine;
                 curLine = i;
                 nextTime = lineList.get(i).getTime() + 60000;
-                scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0,  (int)(textSizeSec+dividerHeight)*temp);
+                scroller.startScroll(scroller.getFinalX(), scroller.getFinalY(), 0, (int) (textSizeSec + dividerHeight) * temp);
                 invalidate();
             }
         }
@@ -436,9 +439,10 @@ public class VirgoLrcView extends View {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    public interface LrcCallback{
+    public interface LrcCallback {
         void onRefresh(long time);
     }
+
     static class MyLrcLine {
         private long time;
         private String lrc;

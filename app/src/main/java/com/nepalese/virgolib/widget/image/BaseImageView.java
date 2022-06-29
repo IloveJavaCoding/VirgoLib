@@ -350,7 +350,6 @@ public class BaseImageView extends View {
         }
     }
 
-
     @Override
     protected void onDetachedFromWindow() {
         releaseBase();

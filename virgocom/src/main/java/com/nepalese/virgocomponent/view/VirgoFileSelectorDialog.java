@@ -45,6 +45,7 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     public static final String TYPE_VIDEO = "video";
     public static final String TYPE_AUDIO = "audio";
     public static final String TYPE_DOC = "docs";
+    public static final String TYPE_ONLY_ONE = "only";//仅筛选一种文件类型
 
     //选择特定文件类型后将显示的文件拓展名
     public static final String[] IMAGE_EXTENSION = {"jpg", "jpeg", "png", "svg", "bmp", "tiff"};
@@ -68,6 +69,7 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
     private String curPath;//当前路径
     private String rootPath;//根目录
     private String fileType;//文件类型
+    private String uniqueSuffix;//仅筛选一种文件类型时可用
 
     private int flag;//选择类型
     private int dialogWidth;//弹框宽度
@@ -229,9 +231,40 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
                     return getCertainFile(path, VIDEO_EXTENSION);
                 case TYPE_DOC:
                     return getCertainFile(path, DOC_EXTENSION);
+                case TYPE_ONLY_ONE:
+                    if (TextUtils.isEmpty(uniqueSuffix)) {
+                        CommonUtil.showToast(context, "未设置筛选后缀名！");
+                        return null;
+                    }
+                    return getOnlyFile(path, uniqueSuffix);
             }
         }
         return null;
+    }
+
+    private List<File> getOnlyFile(String path, String uniqueSuffix) {
+        File[] files = new File(path).listFiles();
+        if (files == null) {
+            return null;
+        }
+
+        List<File> list = new ArrayList<>();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                list.add(file);
+                continue;
+            }
+            if (file.getName().endsWith(uniqueSuffix)) {
+                list.add(file);
+            }
+        }
+
+        //排序
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            list.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+        }
+
+        return list;
     }
 
     //仅返回某路径下文件夹
@@ -315,7 +348,10 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         release();
     }
 
-    //设置根目录
+    /**
+     * 设置根目录
+     * @param rootPath
+     */
     public void setRootPath(String rootPath) {
         if (rootPath.equals(this.rootPath)) {
             return;
@@ -327,7 +363,10 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         }
     }
 
-    //设置选择文件或文件夹
+    /**
+     * 设置选择文件或文件夹
+     * @param flag FLAG_DIR | FLAG_FILE
+     */
     public void setFlag(int flag) {
         if (flag == this.flag) {
             return;
@@ -336,13 +375,27 @@ public class VirgoFileSelectorDialog extends Dialog implements ListView_FileSele
         needReData = true;
     }
 
-    //设置要筛选文件类型
+    /**
+     * 设置要筛选文件类型
+     * FLAG_FILE 下生效
+     * @param fileType TYPE_
+     */
     public void setFileType(String fileType) {
         if (fileType.equals(this.fileType)) {
             return;
         }
 
         this.fileType = fileType;
+        needReData = true;
+    }
+
+    /**
+     * 设置要唯一筛选文件后缀
+     * FLAG_FILE，TYPE_ONLY_ONE 下生效
+     * @param uniqueSuffix 文件后缀名
+     */
+    public void setUniqueSuffix(String uniqueSuffix) {
+        this.uniqueSuffix = uniqueSuffix;
         needReData = true;
     }
 

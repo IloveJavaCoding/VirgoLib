@@ -29,7 +29,6 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
         VirgoFileSelectorDialog.SelectFileCallback {
     private static final String TAG = "PDFViewActivity";
 
-    private Context context;
     private VirgoFileSelectorDialog fileSelectorDialog;
     private PDFView pdfView;
     private TextView curPage, allPage;
@@ -52,10 +51,15 @@ public class PDFViewActivity extends BaseActivity implements OnDrawListener, OnP
 
     @Override
     protected void initData() {
-        context = getApplicationContext();
         fileSelectorDialog = new VirgoFileSelectorDialog(this);
         fileSelectorDialog.setFlag(VirgoFileSelectorDialog.FLAG_FILE);
-        fileSelectorDialog.setFileType(VirgoFileSelectorDialog.TYPE_DOC);
+        fileSelectorDialog.setFileType(VirgoFileSelectorDialog.TYPE_ONLY_ONE);
+        fileSelectorDialog.setUniqueSuffix("pdf");
+        if (MyApp.getInstance().isLandscape()) {
+            fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() / 2);
+        } else {
+            fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() * 2 / 3);
+        }
         fileSelectorDialog.setDialogHeight(MyApp.getInstance().getsHeight() / 2);
     }
 

@@ -9,16 +9,15 @@
 
     <com.nepalese.virgocomponent.view.VirgoParticles
         app:vpDotNum="128"
-        app:vpMaxSpace="110"
+        app:vpMaxSpace="120"
         app:vpMoveSpace="0.8"
-        app:vpDotColor="@color/color_dot"
         app:vpLineColor="@color/color_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <GridView
         android:id="@+id/gridview_home"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/margin_statue"
         android:padding="@dimen/home_grid_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

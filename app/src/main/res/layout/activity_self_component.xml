@@ -73,4 +73,17 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/page_tv_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/page_button_margin"
+        android:background="@drawable/page_button"
+        android:focusable="true"
+        android:onClick="onLyricAnim"
+        android:padding="@dimen/page_button_padding"
+        android:text="滚动歌词"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/page_tv_size" />
 </LinearLayout>
