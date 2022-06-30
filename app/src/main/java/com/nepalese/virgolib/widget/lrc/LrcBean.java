@@ -1,5 +1,7 @@
 package com.nepalese.virgolib.widget.lrc;
 
+import android.widget.Toast;
+
 import com.nepalese.virgosdk.Beans.BaseBean;
 
 /**
@@ -8,30 +10,34 @@ import com.nepalese.virgosdk.Beans.BaseBean;
  */
 
 public class LrcBean extends BaseBean {
-    private long time;
-    private String lrc;
+    private final long time;
+    private final String lrc;
+    private final String strTime;
 
-    public LrcBean(long time, String lrc) {
+    public LrcBean(long time, String lrc , String strTime) {
         this.time = time;
         this.lrc = lrc;
-    }
-
-    public LrcBean() {
+        this.strTime = strTime;
     }
 
     public long getTime() {
         return time;
     }
 
-    public void setTime(long time) {
-        this.time = time;
-    }
-
     public String getLrc() {
         return lrc;
     }
 
-    public void setLrc(String lrc) {
-        this.lrc = lrc;
+    public String getStrTime() {
+        return strTime;
+    }
+
+    @Override
+    public String toString() {
+        return "LrcBean{" +
+                "time=" + time +
+                ", lrc='" + lrc + '\'' +
+                ", strTime='" + strTime + '\'' +
+                '}';
     }
 }

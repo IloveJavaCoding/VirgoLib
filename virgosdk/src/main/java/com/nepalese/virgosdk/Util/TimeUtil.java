@@ -14,6 +14,7 @@ public class TimeUtil {
     private static final String TAG = "TimeUtil";
 
     public static final String DATE_FORMAT_BASE = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT_FILE = "yyyy-MM-dd_HH-mm-ss";
     public static final String DATE_FORMAT_12 = "yyyy-MM-dd hh:mm:ss EEEE a";
     public static final String DATE_FORMAT_24 = "yyyy-MM-dd HH:mm:ss EEEE";
     public static final String DATE_FORMAT_DATE = "yyyy-MM-dd";

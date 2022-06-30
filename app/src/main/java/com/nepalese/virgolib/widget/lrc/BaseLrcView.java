@@ -6,10 +6,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.hardware.camera2.params.LensShadingMap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -40,31 +39,34 @@ import androidx.annotation.RawRes;
 
 public class BaseLrcView extends View {
     private static final String TAG = "BaseLrcView";
-    private static final long INTERVAL_ANIMATION = 1000L;//动画时长
+    private static final float PADD_VALUE = 25f;//时间线两边缩进值
+    private static final long INTERVAL_ANIMATION = 400L;//动画时长
     private static final String DEFAULT_TEXT = "暂无歌词，快去下载吧！";
 
-    private Context context;
+    private final Context context;
     private Paint paint;//画笔, 仅一个
     private ValueAnimator animator;//动画
+    private List<LrcBean> lineList;//歌词行
+    private LrcCallback callback;//手动滑动进度刷新回调
 
-    private int width, height;//控件宽高
+    //可设置变量
     private int textColorMain;//选中字体颜色
     private int textColorSec;//其他字体颜色
-    private int curLine = 0;//当前行数
-
-    private float centerY;
     private float textSize;//字体大小
     private float dividerHeight;//行间距
+
+    private int width, height;//控件宽高
+    private int curLine;//当前行数
+    private int locateLine;//滑动时居中行数
+    private float itemHeight;//一行字+行间距
+    private float centerY;
     private float startY;//首行y
     private float offsetY;//每次动画偏移量
+    private float offsetY2;//每次手动滑动偏移量
     private float lastValue;//动画上次已偏移量
-
-    private long nextTime = 0;//下一行时间线
-
-    private boolean isPlaying = false;
-    private boolean isDown = false;//按压界面
-
-    private List<LrcBean> lineList;
+    private boolean isDown;//按压界面
+    private boolean isReverse;//往回滚动？
+    private long maxTime;//歌词显示最大时间
 
     public BaseLrcView(Context context) {
         this(context, null);
@@ -88,14 +90,25 @@ public class BaseLrcView extends View {
 
         textColorMain = Color.CYAN;
         textColorSec = Color.GRAY;
-        textSize = 20f;
-        dividerHeight = 18f;
+        textSize = 35f;
+        dividerHeight = 26f;
 
+        curLine = 0;
+        maxTime = 0;
+        locateLine = 0;
+        isDown = false;
+        isReverse = false;
         lineList = new ArrayList<>();
 
         paint = new Paint();
         paint.setTextSize(textSize);
         paint.setAntiAlias(true);
+
+        calculateItem();
+    }
+
+    private void calculateItem() {
+        itemHeight = textSize + dividerHeight;
     }
 
     @Override
@@ -110,7 +123,8 @@ public class BaseLrcView extends View {
         width = getWidth();
         height = getHeight();
         //显示页内中心y轴坐标
-        centerY = (height - textSize) / 2.0f;
+//        centerY = (height - textSize) / 2.0f;
+        centerY = height / 2.0f - textSize;//往上偏移一点
         startY = centerY;
 
         scaleBackground();
@@ -131,16 +145,31 @@ public class BaseLrcView extends View {
             return;
         }
 
-        //画选择线
-//        if (isPlaying && isDown) {
-//            float baseLine = centerY + getScrollY();
-//            canvas.drawLine(padValue, baseLine, width - padValue, baseLine, paint);
-//        }
+        if (isDown) {
+            paint.setColor(textColorSec);
+            //画时间
+            if (locateLine >= 0) {
+                canvas.drawText(lineList.get(locateLine).getStrTime(), PADD_VALUE, centerY, paint);
+            }
+            //画选择线
+            canvas.drawLine(PADD_VALUE, centerY, width - PADD_VALUE, centerY, paint);
 
+            //手动滑动
+            drawTexts(canvas, startY - offsetY2);
+        } else {
+            //自动滚动
+            if (isReverse) {
+                startY += offsetY;
+            } else {
+                startY -= offsetY;
+            }
+            drawTexts(canvas, startY);
+        }
+    }
 
-        startY -= offsetY;
+    private void drawTexts(Canvas canvas, float tempY) {
         for (int i = 0; i < lineList.size(); i++) {
-            float y = startY + i * (textSize + dividerHeight);
+            float y = tempY + i * itemHeight;
 
             if (y < 0 || y > height) {
                 continue;
@@ -153,6 +182,63 @@ public class BaseLrcView extends View {
             }
 
             canvas.drawText(lineList.get(i).getLrc(), getStartX(lineList.get(i).getLrc(), paint), y, paint);
+        }
+    }
+
+    private float oldY;
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isDown = true;
+                locateLine = -1;
+                oldY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                offsetY2 = oldY - event.getY();
+                calculateCurLine(oldY - event.getY());//定位时间啊
+                invalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                isDown = false;
+                postNewLine();
+                break;
+        }
+
+        return true;
+    }
+
+    //计算滑动后当前居中的行
+    private void calculateCurLine(float y) {
+        int offLine = (int) Math.floor(y / itemHeight);
+        if (offLine == 0) {
+            return;
+        } else if (offLine < 0) {
+            //上
+            offLine--;
+        }
+
+        locateLine = curLine + offLine;
+        if (locateLine > lineList.size() - 1) {
+            //最后一行
+            locateLine = lineList.size() - 1;
+        } else if (locateLine < 0) {
+            //第一行
+            locateLine = 0;
+        }
+
+        Log.d(TAG, "当前指定行: " + lineList.get(locateLine).toString());
+    }
+
+    private void postNewLine() {
+        //返回当前行对应的时间线
+        if (callback == null) {
+            return;
+        }
+        if (locateLine >= 0) {
+            callback.onUpdateTime(lineList.get(locateLine).getTime());
         }
     }
 
@@ -194,8 +280,8 @@ public class BaseLrcView extends View {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                offsetY = 0;
                 invalidate();
+                offsetY = 0;
             }
 
             @Override
@@ -240,6 +326,8 @@ public class BaseLrcView extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        maxTime = lineList.get(lineList.size() - 1).getTime() + 1000;//多加一秒
     }
 
     private long parseTime(String time) {
@@ -264,39 +352,37 @@ public class BaseLrcView extends View {
             long time;
             String str;
             String con = line.replace("\\[", "").replace("\\]", "");
-            Log.d(TAG, con);
             if (con.matches("^\\d.+")) {//time
                 time = parseTime(con);
                 str = " ";
             } else {
                 return;
             }
-            lineList.add(new LrcBean(time, str));
+            lineList.add(new LrcBean(time, str, con));
             return;
         }
 
         //[00:23.24]让自己变得快乐
         line = line.replaceAll("\\[", "");
         String[] result = line.split("]");
-        lineList.add(new LrcBean(parseTime(result[0]), result[1]));
+        lineList.add(new LrcBean(parseTime(result[0]), result[1], result[0]));
     }
 
     private void reset() {
         lineList.clear();
         curLine = 0;
-        nextTime = 0;
+        maxTime = 0;
+        isReverse = false;
         cancelAnim();
-//        if (scroller.isFinished()) {
-//            scroller.abortAnimation();
-//        }
     }
 
     private void updateAnim(int lineNum) {
-        if (lineNum <= 0) {
+        if (lineNum == 0) {
             return;
         }
+        isReverse = lineNum < 0;
         cancelAnim();
-        setAnimator(lineNum);
+        setAnimator(Math.abs(lineNum));
         doAnimation();
     }
 
@@ -306,7 +392,41 @@ public class BaseLrcView extends View {
         animator.setInterpolator(new LinearInterpolator());//插值器设为线性
     }
 
+    public interface LrcCallback {
+        void onUpdateTime(long time);
+
+        void onFinish();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 滑动监听
+     *
+     * @param callback LrcCallback
+     */
+    public void setCallback(LrcCallback callback) {
+        this.callback = callback;
+    }
+
+    public void setTextColorMain(int textColorMain) {
+        this.textColorMain = textColorMain;
+    }
+
+    public void setTextColorSec(int textColorSec) {
+        this.textColorSec = textColorSec;
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+        paint.setTextSize(textSize);
+        calculateItem();
+    }
+
+    public void setDividerHeight(float dividerHeight) {
+        this.dividerHeight = dividerHeight;
+        calculateItem();
+    }
 
     /**
      * 设置歌词
@@ -372,15 +492,18 @@ public class BaseLrcView extends View {
      * @param time ms
      */
     public void seekTo(long time) {
+        if (isDown) {
+            return;
+        }
         if (time == 0) {
             //刷新
             invalidate();
             return;
-        }
-
-        if (time < lineList.get(curLine).getTime()) {//往回跳
-            return;
-        } else if (time < nextTime) {
+        } else if (time > maxTime) {
+            //超最大时间
+            if (callback != null) {
+                callback.onFinish();
+            }
             return;
         }
 
@@ -389,7 +512,6 @@ public class BaseLrcView extends View {
                 if (time >= lineList.get(i).getTime() && time < lineList.get(i + 1).getTime()) {
                     int temp = i - curLine;
                     curLine = i;
-                    nextTime = lineList.get(i + 1).getTime();
 
                     updateAnim(temp);
                     break;
@@ -397,12 +519,10 @@ public class BaseLrcView extends View {
             } else {//last line
                 int temp = i - curLine;
                 curLine = i;
-                nextTime = lineList.get(i).getTime() + 60000;
 
                 updateAnim(temp);
                 break;
             }
         }
     }
-
 }

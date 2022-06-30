@@ -20,13 +20,13 @@ import java.util.List;
 import androidx.annotation.NonNull;
 
 //全屏模式, 常亮
-public class LyricAnimActivity extends BaseActivity implements VirgoFileSelectorDialog.SelectFileCallback {
+public class LyricAnimActivity extends BaseActivity implements
+        VirgoFileSelectorDialog.SelectFileCallback, BaseLrcView.LrcCallback {
     private static final String TAG = "LyricAnimActivity";
 
-//    private VirgoLrcView lrcView;
     private BaseLrcView lrcView;
     private VirgoFileSelectorDialog fileSelectorDialog;
-    private int curTime = 0;
+    private long curTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class LyricAnimActivity extends BaseActivity implements VirgoFileSelector
     @Override
     protected void initUI() {
         lrcView = findViewById(R.id.lrcView);
-//        lrcView.setCallback(this);
     }
 
     @Override
@@ -55,6 +54,8 @@ public class LyricAnimActivity extends BaseActivity implements VirgoFileSelector
         fileSelectorDialog.setUniqueSuffix("lrc");
 
         if (MyApp.getInstance().isLandscape()) {
+            lrcView.setTextSize(22f);
+            lrcView.setDividerHeight(18f);
             fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() / 2);
         } else {
             fileSelectorDialog.setDialogWidth(MyApp.getInstance().getsWidth() * 2 / 3);
@@ -65,6 +66,7 @@ public class LyricAnimActivity extends BaseActivity implements VirgoFileSelector
     @Override
     protected void setListener() {
         fileSelectorDialog.setCallback(this);
+        lrcView.setCallback(this);
     }
 
     @Override
@@ -80,11 +82,18 @@ public class LyricAnimActivity extends BaseActivity implements VirgoFileSelector
         finish();
     }
 
-//    @Override
-//    public void onRefresh(long time) {
-//        curTime = (int) (time / 1000);
-//        lrcView.seekTo(time);
-//    }
+    @Override
+    public void onUpdateTime(long time) {
+        handler.removeCallbacks(timeTisk);
+        curTime = time;
+        lrcView.seekTo(time);
+        handler.postDelayed(timeTisk, INTERVAL_FLASH);
+    }
+
+    @Override
+    public void onFinish() {
+        stopTask();
+    }
 
     @Override
     public void onResult(List<File> list) {
@@ -114,23 +123,22 @@ public class LyricAnimActivity extends BaseActivity implements VirgoFileSelector
     private final Runnable timeTisk = new Runnable() {
         @Override
         public void run() {
-            ++curTime;
-            lrcView.seekTo(curTime * 1000);
-            handler.postDelayed(timeTisk, 1000);
+            curTime += INTERVAL_FLASH;
+            lrcView.seekTo(curTime);
+            handler.postDelayed(timeTisk, INTERVAL_FLASH);
         }
     };
 
     private void startTask() {
         stopTask();
         handler.post(timeTisk);
-//        lrcView.setPlaying(true);
     }
 
     private void stopTask() {
         handler.removeCallbacks(timeTisk);
-//        lrcView.setPlaying(false);
     }
 
+    private final long INTERVAL_FLASH = 200L;
     private final Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {

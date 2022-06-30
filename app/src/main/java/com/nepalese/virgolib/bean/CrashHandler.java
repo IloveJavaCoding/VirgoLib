@@ -2,7 +2,6 @@ package com.nepalese.virgolib.bean;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
 import com.nepalese.virgolib.helper.CommonHelper;
 
@@ -51,18 +50,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
         try{
             //处理异常信息
-            dealExceptionInfo(e);
+            CommonHelper.recordErrorLog(getErrorLogDir(), e.toString());
         }catch (Exception exception){
             //
         }
 
         //退出
-//        android.os.Process.killProcess(android.os.Process.myPid());
-//        System.exit(0);
-    }
-
-    private void dealExceptionInfo(Throwable e) {
-        //todo
-        CommonHelper.LogError("dealExceptionInfo", e.toString());
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
     }
 }

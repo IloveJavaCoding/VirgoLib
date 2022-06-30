@@ -2,12 +2,15 @@ package com.nepalese.virgolib.config;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.nepalese.virgolib.bean.CrashHandler;
 import com.nepalese.virgolib.helper.CommonHelper;
 import com.nepalese.virgosdk.Util.WindowUtil;
+
+import java.io.File;
 
 import androidx.multidex.MultiDex;
 
@@ -91,7 +94,7 @@ public class MyApp extends Application {
     }
 
     private void catchCrash() {
-        CrashHandler.getInstance(this).setErrorLogDir("xxx");
+        CrashHandler.getInstance(this).setErrorLogDir(Environment.getExternalStorageDirectory().getPath() + File.separator + "logger");
     }
 
     /**
