@@ -58,15 +58,15 @@ public class BaseLrcView extends View {
     private int width, height;//控件宽高
     private int curLine;//当前行数
     private int locateLine;//滑动时居中行数
+    private int underRows;//中分下需显示行数
     private float itemHeight;//一行字+行间距
-    private float centerY;
+    private float centerY;//居中y
     private float startY;//首行y
-    private float offsetY;//每次动画偏移量
+    private float offsetY;//动画已偏移量
     private float offsetY2;//每次手动滑动偏移量
-    private float lastValue;//动画上次已偏移量
+    private long maxTime;//歌词显示最大时间
     private boolean isDown;//按压界面
     private boolean isReverse;//往回滚动？
-    private long maxTime;//歌词显示最大时间
 
     public BaseLrcView(Context context) {
         this(context, null);
@@ -90,12 +90,11 @@ public class BaseLrcView extends View {
 
         textColorMain = Color.CYAN;
         textColorSec = Color.GRAY;
-        textSize = 35f;
-        dividerHeight = 26f;
+        textSize = 45f;
+        dividerHeight = 28f;
 
         curLine = 0;
         maxTime = 0;
-        locateLine = 0;
         isDown = false;
         isReverse = false;
         lineList = new ArrayList<>();
@@ -105,10 +104,6 @@ public class BaseLrcView extends View {
         paint.setAntiAlias(true);
 
         calculateItem();
-    }
-
-    private void calculateItem() {
-        itemHeight = textSize + dividerHeight;
     }
 
     @Override
@@ -122,18 +117,10 @@ public class BaseLrcView extends View {
     private void initLayout() {
         width = getWidth();
         height = getHeight();
-        //显示页内中心y轴坐标
-//        centerY = (height - textSize) / 2.0f;
-        centerY = height / 2.0f - textSize;//往上偏移一点
+        centerY = (height - itemHeight) / 2.0f;
         startY = centerY;
-
-        scaleBackground();
-    }
-
-    private void scaleBackground() {
-//        if (background != null) {
-//            background = Bitmap.createScaledBitmap(background, viewWidth, viewHeight, true);
-//        }
+        underRows = (int) Math.ceil(height / itemHeight / 3);
+        Log.d(TAG, "itemHeight: " + itemHeight + ", underRows: " + underRows);
     }
 
     @Override
@@ -159,11 +146,10 @@ public class BaseLrcView extends View {
         } else {
             //自动滚动
             if (isReverse) {
-                startY += offsetY;
+                drawTexts(canvas, startY + offsetY);
             } else {
-                startY -= offsetY;
+                drawTexts(canvas, startY - offsetY);
             }
-            drawTexts(canvas, startY);
         }
     }
 
@@ -193,6 +179,12 @@ public class BaseLrcView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 isDown = true;
+                if (animator != null) {
+                    if (animator.isRunning()) {
+                        //停止动画
+                        animator.end();
+                    }
+                }
                 locateLine = -1;
                 oldY = event.getY();
                 break;
@@ -215,9 +207,6 @@ public class BaseLrcView extends View {
         int offLine = (int) Math.floor(y / itemHeight);
         if (offLine == 0) {
             return;
-        } else if (offLine < 0) {
-            //上
-            offLine--;
         }
 
         locateLine = curLine + offLine;
@@ -228,8 +217,6 @@ public class BaseLrcView extends View {
             //第一行
             locateLine = 0;
         }
-
-        Log.d(TAG, "当前指定行: " + lineList.get(locateLine).toString());
     }
 
     private void postNewLine() {
@@ -248,9 +235,22 @@ public class BaseLrcView extends View {
         super.onDetachedFromWindow();
     }
 
+    /**
+     * 移除控件，注销资源
+     */
     private void releaseBase() {
+        cancelAnim();
+
         lineList.clear();
         lineList = null;
+
+        if (callback != null) {
+            callback = null;
+        }
+    }
+
+    private void calculateItem() {
+        itemHeight = getTextHeight() + dividerHeight;
     }
 
     //计算使文字水平居中
@@ -258,50 +258,10 @@ public class BaseLrcView extends View {
         return (width - paint.measureText(str)) / 2.0f;
     }
 
-    protected void cancelAnim() {
-        if (animator != null) {
-            animator.removeAllListeners();
-            animator.end();
-            animator = null;
-        }
-    }
-
-    private void doAnimation() {
-        if (animator != null) {
-            animator.removeAllListeners();
-        }
-
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                offsetY = 0;
-                lastValue = 0;
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                invalidate();
-                offsetY = 0;
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-
-        animator.addUpdateListener(animation -> {
-            float av = (float) animation.getAnimatedValue();
-            offsetY = av - lastValue;
-            lastValue = av;
-            invalidate();
-        });
-        animator.start();
+    //获取文字高度
+    private float getTextHeight() {
+        Paint.FontMetrics fm = paint.getFontMetrics();
+        return fm.descent - fm.ascent;
     }
 
     //解析歌词
@@ -376,9 +336,24 @@ public class BaseLrcView extends View {
         cancelAnim();
     }
 
+    ///////////////////////////////////////动画/////////////////////////////////////////////////////
+
+    /**
+     * 更新动画
+     *
+     * @param lineNum 需跳转行数
+     */
     private void updateAnim(int lineNum) {
         if (lineNum == 0) {
             return;
+        } else if (lineNum == 1) {
+            //自然变化
+            if (curLine >= lineList.size() - underRows) {
+                //停止动画 仅变更颜色
+                cancelAnim();
+                invalidate();
+                return;
+            }
         }
         isReverse = lineNum < 0;
         cancelAnim();
@@ -386,10 +361,75 @@ public class BaseLrcView extends View {
         doAnimation();
     }
 
+    /**
+     * 注销已有动画
+     */
+    protected void cancelAnim() {
+        if (animator != null) {
+            animator.removeAllListeners();
+            animator.end();
+            animator = null;
+        }
+    }
+
+
+    /**
+     * 动态创建动画
+     *
+     * @param lineNum 需跳转行数
+     */
     private void setAnimator(int lineNum) {
-        animator = ValueAnimator.ofFloat(0, (dividerHeight + textSize) * lineNum);//一行
+        animator = ValueAnimator.ofFloat(0, itemHeight * lineNum);//一行
         animator.setDuration(INTERVAL_ANIMATION);
         animator.setInterpolator(new LinearInterpolator());//插值器设为线性
+    }
+
+    /**
+     * 监听动画
+     */
+    private void doAnimation() {
+        if (animator == null) {
+            return;
+        }
+
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                offsetY = 0;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (isReverse) {
+                    startY += offsetY;
+                } else {
+                    startY -= offsetY;
+                }
+                offsetY = 0;
+                invalidate();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        animator.addUpdateListener(animation -> {
+            float av = (float) animation.getAnimatedValue();
+            if (av == 0) {
+                return;
+            }
+            offsetY = av;
+            invalidate();
+        });
+
+        animator.start();
     }
 
     public interface LrcCallback {
@@ -495,6 +535,7 @@ public class BaseLrcView extends View {
         if (isDown) {
             return;
         }
+
         if (time == 0) {
             //刷新
             invalidate();

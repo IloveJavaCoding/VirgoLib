@@ -138,7 +138,7 @@ public class LyricAnimActivity extends BaseActivity implements
         handler.removeCallbacks(timeTisk);
     }
 
-    private final long INTERVAL_FLASH = 200L;
+    private final long INTERVAL_FLASH = 400L;
     private final Handler handler = new Handler(Looper.myLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {

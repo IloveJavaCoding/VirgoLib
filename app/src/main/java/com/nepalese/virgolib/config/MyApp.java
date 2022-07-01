@@ -67,7 +67,6 @@ public class MyApp extends Application {
     public void onCreate() {
         myApp = this;
         super.onCreate();
-        Log.i(TAG, "onCreate: ");
 
         init();
     }
