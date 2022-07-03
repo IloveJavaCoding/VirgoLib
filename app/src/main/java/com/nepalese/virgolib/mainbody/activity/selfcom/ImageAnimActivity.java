@@ -214,6 +214,9 @@ public class ImageAnimActivity extends BaseActivity implements VirgoFileSelector
      * @param next 下一张？
      */
     private void changeImageRes(boolean next) {
+        if (imgList.isEmpty()){
+            return;
+        }
         if (baseImageView != null) {
             if (next) {
                 //下一张
